@@ -565,39 +565,42 @@ async function sendChunked(msg) {
   stats.chunks = 0;
   stats.maxRetryPerChunk = 0;
 
-  let seq = 0;
-  let i = 0;
+  try {
+    let seq = 0;
+    let i = 0;
 
-  while (i < msg.length) {
-    const dataLen = maxDataLenForSeq(seq);
-    const payload = `${seq}|${msg.slice(i, i + dataLen)}`;
+    while (i < msg.length) {
+      const dataLen = maxDataLenForSeq(seq);
+      const payload = `${seq}|${msg.slice(i, i + dataLen)}`;
 
-    let success = false;
-    let chunkRetries = 0;
-    for (let retry = 0; retry < CONFIG.maxRetries && !success; retry++) {
-      if (retry > 0) {
-        chunkRetries++;
-        stats.retries++;
-        log(`Retry ${retry} for chunk ${seq}`, 'error');
-        rxBuffer = '';
-        await delay(CONFIG.retryDelay);
+      let success = false;
+      let chunkRetries = 0;
+      for (let retry = 0; retry < CONFIG.maxRetries && !success; retry++) {
+        if (retry > 0) {
+          chunkRetries++;
+          stats.retries++;
+          log(`Retry ${retry} for chunk ${seq}`, 'error');
+          rxBuffer = '';
+          await delay(CONFIG.retryDelay);
+        }
+        await sendRaw(payload);
+        try {
+          await waitForAck(payload);
+          success = true;
+          stats.maxRetryPerChunk = Math.max(stats.maxRetryPerChunk, chunkRetries);
+        } catch (e) {
+          if (retry === CONFIG.maxRetries - 1) throw e;
+        }
       }
-      await sendRaw(payload);
-      try {
-        await waitForAck(payload);
-        success = true;
-        stats.maxRetryPerChunk = Math.max(stats.maxRetryPerChunk, chunkRetries);
-      } catch (e) {
-        if (retry === CONFIG.maxRetries - 1) throw e;
-      }
+
+      i += dataLen;
+      seq = (seq + 1) % (CONFIG.maxSeq + 1);
+      stats.chunks++;
     }
-
-    i += dataLen;
-    seq = (seq + 1) % (CONFIG.maxSeq + 1);
-    stats.chunks++;
+  } finally {
+    // Always reset sendInProgress, even if there was an error
+    sendInProgress = false;
   }
-
-  sendInProgress = false;
 }
 
 // ═══════════════════════════════════════════════════════════════════
