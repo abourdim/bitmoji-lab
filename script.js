@@ -33,6 +33,8 @@ const dom = {
   emojiMatrix: document.getElementById('emojiMatrix'),
   selectedEmojiText: document.getElementById('selectedEmojiText'),
   sendEmojiBtn: document.getElementById('sendEmojiBtn'),
+  brightnessSlider: document.getElementById('brightnessSlider'),
+  brightnessValue: document.getElementById('brightnessValue'),
   logContainer: document.getElementById('logContainer'),
   clearLogBtn: document.getElementById('clearLogBtn'),
   copyLogBtn: document.getElementById('copyLogBtn'),
@@ -695,3 +697,39 @@ dom.exportLogBtn.onclick = exportLog;
 // Emoji UI wiring
 buildEmojiPicker();
 if (dom.sendEmojiBtn) dom.sendEmojiBtn.onclick = sendEmoji;
+
+// Brightness control
+if (dom.brightnessSlider && dom.brightnessValue) {
+  console.log('Brightness control initialized');
+  
+  dom.brightnessSlider.oninput = function() {
+    console.log('Brightness slider moved:', this.value);
+    dom.brightnessValue.textContent = this.value;
+  };
+  
+  dom.brightnessSlider.onchange = async function() {
+    console.log('Brightness slider released:', this.value, 'Connected:', isConnected);
+    if (isConnected) {
+      const brightness = parseInt(this.value);
+      await sendBrightness(brightness);
+    } else {
+      log('Connect to micro:bit first', 'warning');
+    }
+  };
+} else {
+  console.error('Brightness slider not found!', {
+    slider: dom.brightnessSlider,
+    value: dom.brightnessValue
+  });
+}
+
+async function sendBrightness(brightness) {
+  if (!isConnected) {
+    log('Not connected', 'error');
+    return;
+  }
+  
+  const payload = `BRIGHTNESS:${brightness}`;
+  log(`Setting brightness to ${brightness}`, 'info');
+  await sendRaw(payload);
+}

@@ -59,6 +59,16 @@
               <div class="emoji-selected">
                 <div class="emoji-selected-label">Selected</div>
                 <div class="emoji-selected-value" id="selectedEmojiText">—</div>
+                
+                <!-- Brightness Control -->
+                <div style="margin: 12px 0;">
+                  <label for="brightnessSlider" style="display: block; font-size: 0.75rem; color: #9ca3af; margin-bottom: 6px;">
+                    💡 Brightness: <span id="brightnessValue">80</span>%
+                  </label>
+                  <input type="range" id="brightnessSlider" min="10" max="255" value="80" 
+                         style="width: 100%; height: 6px; accent-color: #22c55e;">
+                </div>
+                
                 <button id="sendEmojiBtn" class="primary" disabled>
                   <span class="btn-icon">📤</span>Send emoji to micro:bit
                 </button>

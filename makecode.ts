@@ -177,4 +177,16 @@ serial.onDataReceived(serial.delimiters(Delimiters.NewLine), function () {
         tryConsumeEmojiBuffer()
         return
     }
+    
+    // Brightness command: "BRIGHTNESS:value"
+    if (line.indexOf("BRIGHTNESS:") == 0) {
+        let brightnessStr = line.substr(11)
+        let brightness = parseInt(brightnessStr)
+        if (brightness >= 10 && brightness <= 255) {
+            strip.setBrightness(brightness)
+            strip.show()  // Update display with new brightness
+            basic.showIcon(IconNames.Yes)
+        }
+        return
+    }
 })
