@@ -31,85 +31,7 @@
         </div>
       </div>
 
-      <!-- ================= CONNECTION CARD ================= -->
-      <div class="card" id="connectionCard">
-        <div class="card-header">
-          <div>
-            <div class="card-title">
-              <span class="icon">🔌</span> Connection
-            </div>
-            <div class="card-subtitle">
-              Connect to your micro:bit over USB Serial
-            </div>
-          </div>
-        </div>
-
-        <div class="button-row">
-          <button id="connectBtn" class="primary">
-            <span class="btn-icon">🔗</span>Connect
-          </button>
-
-          <button id="disconnectBtn" class="secondary" disabled>
-            <span class="btn-icon">⛔</span>Disconnect
-          </button>
-        </div>
-
-        <div class="hint">
-          <div class="hint-title">Tip</div>
-          <ol>
-            <li>Use Chrome / Edge (desktop)</li>
-            <li>Select the micro:bit serial port</li>
-          </ol>
-        </div>
-      </div>
-
-      <!-- ================= SEND MESSAGE CARD ================= -->
-      <div class="card" id="messageCard">
-        <div class="card-header">
-          <div>
-            <div class="card-title">
-              <span class="icon">✉️</span> Send Message
-            </div>
-            <div class="card-subtitle">
-              Type a short message or run the throughput test
-            </div>
-          </div>
-        </div>
-
-        <div class="control-section">
-          <div class="section-header">
-            <div class="section-title">
-              <span class="section-icon">⌨️</span> Message
-            </div>
-            <div class="section-subtitle">
-              Press Enter or click Send
-            </div>
-          </div>
-
-          <div class="form-row">
-            <input
-              type="text"
-              id="messageInput"
-              placeholder="Type your message here..."
-            />
-            <button id="sendBtn" class="primary" disabled>
-              <span class="btn-icon">📨</span>Send
-            </button>
-          </div>
-
-          <!-- TEST BUTTON MOVED HERE -->
-          <div class="button-row" style="margin-top: 12px;">
-            <button id="testBtn" class="secondary" disabled>
-              <span class="btn-icon">🧪</span>Test 0..1000
-            </button>
-            <button id="clearStatsBtn" class="secondary">
-              <span class="btn-icon">🗑️</span>Clear Stats
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ================= EMOJI CARD ================= -->
+      <!-- ================= EMOJI CARD (TOP, REORGANIZED) ================= -->
       <div class="card" id="emojiCard">
         <div class="card-header">
           <div>
@@ -123,73 +45,152 @@
         </div>
 
         <div class="control-section">
-          <div class="section-header">
-            <div class="section-title">
-              <span class="section-icon">🧩</span> Emoji library
-            </div>
-            <div class="section-subtitle">Click one to preview</div>
-          </div>
-
-          <div id="emojiList" class="emoji-grid" aria-label="Emoji list"></div>
-
-          <div class="emoji-preview-row">
-            <div class="emoji-selected">
-              <div class="emoji-selected-label">Selected</div>
-              <div class="emoji-selected-value" id="selectedEmojiText">—</div>
-              <button id="sendEmojiBtn" class="primary" disabled>
-                <span class="btn-icon">📤</span>Send emoji to micro:bit
-              </button>
-              <div class="hint" style="margin-top:10px;">
-                <div class="hint-title">Serial payload</div>
-                <div class="hint-text">
-                  We send <code>EMOJI:&lt;64-hex&gt;</code> (256 bits = 16×16). It uses the existing ACK/retry sender.
+          <div class="emoji-reorganized">
+            <!-- LEFT: Emoji picker and Selected -->
+            <div class="emoji-left">
+              <div class="section-header">
+                <div class="section-title">
+                  <span class="section-icon">🧩</span> Emoji library
+                </div>
+                <div class="section-subtitle">Click one to preview</div>
+              </div>
+              <div id="emojiList" class="emoji-grid" aria-label="Emoji list"></div>
+              
+              <div class="emoji-selected">
+                <div class="emoji-selected-label">Selected</div>
+                <div class="emoji-selected-value" id="selectedEmojiText">—</div>
+                <button id="sendEmojiBtn" class="primary" disabled>
+                  <span class="btn-icon">📤</span>Send emoji to micro:bit
+                </button>
+                <div class="hint" style="margin-top:10px;">
+                  <div class="hint-title">Serial payload</div>
+                  <div class="hint-text">
+                    We send <code>EMOJI:&lt;64-hex&gt;</code> (256 bits = 16×16). It uses the existing ACK/retry sender.
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="emoji-matrix-wrap">
-              <div class="emoji-matrix-title">16×16 preview</div>
-              <div id="emojiMatrix" class="pixel-matrix" aria-label="16 by 16 dot preview"></div>
+            <!-- RIGHT: Preview -->
+            <div class="emoji-right">
+              <div class="emoji-matrix-wrap">
+                <div class="emoji-matrix-title">16×16 preview</div>
+                <div id="emojiMatrix" class="pixel-matrix" aria-label="16 by 16 dot preview"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ================= LOG CARD ================= -->
-      <div class="card log-card" id="logCard">
-        <div class="card-header">
-          <div>
-            <div class="card-title">
-              <span class="icon">📜</span> Communication Log
+      <!-- ================= COLLAPSIBLE: CONNECTION ================= -->
+      <details class="collapsible" open>
+        <summary>
+          <span class="icon">🔌</span> Connection
+        </summary>
+        <div class="card" id="connectionCard">
+          <div class="card-subtitle" style="margin-bottom: 8px;">
+            Connect to your micro:bit over USB Serial
+          </div>
+
+          <div class="button-row">
+            <button id="connectBtn" class="primary">
+              <span class="btn-icon">🔗</span>Connect
+            </button>
+
+            <button id="disconnectBtn" class="secondary" disabled>
+              <span class="btn-icon">⛔</span>Disconnect
+            </button>
+          </div>
+
+          <div class="hint">
+            <div class="hint-title">Tip</div>
+            <ol>
+              <li>Use Chrome / Edge (desktop)</li>
+              <li>Select the micro:bit serial port</li>
+            </ol>
+          </div>
+        </div>
+      </details>
+
+      <!-- ================= COLLAPSIBLE: SEND MESSAGE ================= -->
+      <details class="collapsible">
+        <summary>
+          <span class="icon">✉️</span> Send Message
+        </summary>
+        <div class="card" id="messageCard">
+          <div class="card-subtitle" style="margin-bottom: 8px;">
+            Type a short message or run the throughput test
+          </div>
+
+          <div class="control-section">
+            <div class="section-header">
+              <div class="section-title">
+                <span class="section-icon">⌨️</span> Message
+              </div>
+              <div class="section-subtitle">
+                Press Enter or click Send
+              </div>
             </div>
+
+            <div class="form-row">
+              <input
+                type="text"
+                id="messageInput"
+                placeholder="Type your message here..."
+              />
+              <button id="sendBtn" class="primary" disabled>
+                <span class="btn-icon">📨</span>Send
+              </button>
+            </div>
+
+            <!-- TEST BUTTON -->
+            <div class="button-row" style="margin-top: 12px;">
+              <button id="testBtn" class="secondary" disabled>
+                <span class="btn-icon">🧪</span>Test 0..1000
+              </button>
+              <button id="clearStatsBtn" class="secondary">
+                <span class="btn-icon">🗑️</span>Clear Stats
+              </button>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- ================= COLLAPSIBLE: LOG ================= -->
+      <details class="collapsible" open>
+        <summary>
+          <span class="icon">📜</span> Communication Log
+        </summary>
+        <div class="card log-card" id="logCard">
+          <div class="card-header">
             <div class="card-subtitle">
               TX = sent • RX = received
             </div>
+
+            <!-- LOG CONTROLS -->
+            <div class="log-controls">
+              <button id="clearLogBtn" class="secondary small">
+                <span class="btn-icon">🧹</span>Clear
+              </button>
+
+              <button id="copyLogBtn" class="secondary small">
+                <span class="btn-icon">📋</span>Copy
+              </button>
+
+              <button id="exportLogBtn" class="secondary small">
+                <span class="btn-icon">⬇️</span>Export
+              </button>
+            </div>
           </div>
 
-          <!-- LOG CONTROLS -->
-          <div class="log-controls">
-            <button id="clearLogBtn" class="secondary small">
-              <span class="btn-icon">🧹</span>Clear
-            </button>
+          <div class="log" id="logContainer" aria-live="polite"></div>
 
-            <button id="copyLogBtn" class="secondary small">
-              <span class="btn-icon">📋</span>Copy
-            </button>
-
-            <button id="exportLogBtn" class="secondary small">
-              <span class="btn-icon">⬇️</span>Export
-            </button>
+          <div class="log-footer">
+            <span>micro:bit Serial Logger</span>
+            <span class="badge"><strong>USB</strong> serial</span>
           </div>
         </div>
-
-        <div class="log" id="logContainer" aria-live="polite"></div>
-
-        <div class="log-footer">
-          <span>micro:bit Serial Logger</span>
-          <span class="badge"><strong>USB</strong> serial</span>
-        </div>
-      </div>
+      </details>
 
     </div>
   </div>
