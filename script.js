@@ -33,6 +33,7 @@ const dom = {
   emojiMatrix: document.getElementById('emojiMatrix'),
   selectedEmojiText: document.getElementById('selectedEmojiText'),
   sendEmojiBtn: document.getElementById('sendEmojiBtn'),
+  matrixSize: document.getElementById('matrixSize'),
   brightnessSlider: document.getElementById('brightnessSlider'),
   brightnessValue: document.getElementById('brightnessValue'),
   logContainer: document.getElementById('logContainer'),
@@ -125,10 +126,20 @@ const EMOJI_LIBRARY = {
 
 function ensureEmojiMatrixGrid() {
   if (!dom.emojiMatrix) return;
-  if (dom.emojiMatrix.childElementCount === 256) return;
+  
+  // Get the selected matrix size
+  const matrixSize = parseInt(dom.matrixSize?.value || '16');
+  const numCells = matrixSize * matrixSize;
+  
+  // Only rebuild if size changed
+  if (dom.emojiMatrix.childElementCount === numCells) return;
 
   dom.emojiMatrix.innerHTML = '';
-  for (let i = 0; i < 256; i++) {
+  
+  // Set CSS grid columns based on size
+  dom.emojiMatrix.style.gridTemplateColumns = `repeat(${matrixSize}, 1fr)`;
+  
+  for (let i = 0; i < numCells; i++) {
     const cell = document.createElement('div');
     cell.className = 'pixel-cell';
     dom.emojiMatrix.appendChild(cell);
@@ -195,7 +206,7 @@ function renderEmojiToBits16(emoji) {
 }
 
 // NEW: Extract RGB color for each 16x16 pixel
-function renderEmojiToRGB16(emoji) {
+function renderEmojiToRGB(emoji, targetSize = 16) {
   const W = 64, H = 64;
   const canvas = document.createElement('canvas');
   canvas.width = W;
@@ -209,15 +220,15 @@ function renderEmojiToRGB16(emoji) {
   ctx.fillText(emoji, W / 2, H / 2 + 2);
 
   const img = ctx.getImageData(0, 0, W, H).data;
-  const colors = []; // Array of {r, g, b} for 256 pixels
+  const colors = []; // Array of {r, g, b}
 
-  const cell = 4;
-  for (let y = 0; y < 16; y++) {
-    for (let x = 0; x < 16; x++) {
+  const cell = Math.floor(64 / targetSize); // 4 for 16×16, 8 for 8×8
+  for (let y = 0; y < targetSize; y++) {
+    for (let x = 0; x < targetSize; x++) {
       let totalR = 0, totalG = 0, totalB = 0, totalA = 0;
       let count = 0;
 
-      // Average the 4x4 block
+      // Average the cell block
       for (let yy = 0; yy < cell; yy++) {
         for (let xx = 0; xx < cell; xx++) {
           const px = x * cell + xx;
@@ -251,6 +262,15 @@ function renderEmojiToRGB16(emoji) {
   }
 
   return colors;
+}
+
+// Legacy function names for compatibility
+function renderEmojiToRGB16(emoji) {
+  return renderEmojiToRGB(emoji, 16);
+}
+
+function renderEmojiToRGB8(emoji) {
+  return renderEmojiToRGB(emoji, 8);
 }
 
 // Convert RGB array to hex string for transmission
@@ -345,8 +365,9 @@ function selectEmoji(emoji, btnEl) {
   }
   if (btnEl) btnEl.classList.add('active');
 
-  // Extract RGB color data
-  const colors = renderEmojiToRGB16(emoji);
+  // Extract RGB color data based on selected matrix size
+  const matrixSize = parseInt(dom.matrixSize?.value || '16');
+  const colors = renderEmojiToRGB(emoji, matrixSize);
   paintEmojiMatrix(colors);
   selectedEmojiHex = rgbToHex(colors);
 
@@ -446,6 +467,11 @@ async function connect() {
   rxBuffer = '';
   setConnected(true);
   log('Connected', 'success');
+  
+  // Send initial MODE command based on selected matrix size
+  const matrixSize = parseInt(dom.matrixSize?.value || '16');
+  await delay(100); // Small delay to let connection stabilize
+  await sendMode(matrixSize);
 }
 
 async function disconnect() {
@@ -700,6 +726,40 @@ dom.exportLogBtn.onclick = exportLog;
 // Emoji UI wiring
 buildEmojiPicker();
 if (dom.sendEmojiBtn) dom.sendEmojiBtn.onclick = sendEmoji;
+
+// Matrix size selector
+if (dom.matrixSize) {
+  dom.matrixSize.onchange = async function() {
+    const matrixSize = parseInt(this.value);
+    
+    // Send MODE command to micro:bit
+    if (isConnected) {
+      await sendMode(matrixSize);
+    }
+    
+    // Rebuild the preview grid with new size
+    ensureEmojiMatrixGrid();
+    
+    // Re-render the currently selected emoji with new size
+    if (selectedEmoji) {
+      const colors = renderEmojiToRGB(selectedEmoji, matrixSize);
+      paintEmojiMatrix(colors);
+      selectedEmojiHex = rgbToHex(colors);
+      log(`Matrix size changed to ${matrixSize}×${matrixSize}`, 'info');
+    }
+  };
+}
+
+async function sendMode(size) {
+  if (!isConnected) {
+    log('Not connected', 'error');
+    return;
+  }
+  
+  const payload = `MODE:${size}`;
+  log(`Setting matrix mode to ${size}×${size}`, 'info');
+  await sendRaw(payload);
+}
 
 // Brightness control
 if (dom.brightnessSlider && dom.brightnessValue) {

@@ -1,19 +1,16 @@
 /**
- * micro:bit RGB Emoji Receiver - UNIVERSAL VERSION
- * - Automatically supports both 8×8 and 16×16 NeoPixel matrices
- * - Detects matrix size from incoming data
- * - Connect your matrix to P0
+ * micro:bit RGB Emoji Receiver - 8×8 VERSION
+ * - For 8×8 NeoPixel matrix (64 LEDs)
  */
 
 const LED_PIN = DigitalPin.P0
 
-// Current matrix configuration (will be auto-detected from data)
-let W = 16
-let H = 16
-let N = 256
+// ⚙️ CONFIGURATION: 8×8 Matrix
+const W = 8
+const H = 8
+const N = W * H  // 64 LEDs
 
-// Create strip for maximum size (256 LEDs)
-let strip = neopixel.create(LED_PIN, 256, NeoPixelMode.RGB)
+let strip = neopixel.create(LED_PIN, N, NeoPixelMode.RGB)
 strip.setBrightness(80)
 strip.clear()
 strip.show()
@@ -24,8 +21,7 @@ serial.setTxBufferSize(200)
 
 // Reassembly buffer
 let emojiBuf = ""
-let lastChunkSeq = -1
-let lastChunkTime = 0  // Track when last chunk arrived
+let lastChunkSeq = -1  // Track last processed chunk sequence
 
 // Serpentine mapping (common 16x16 panels)
 function xyToIndex(x: number, y: number): number {
@@ -49,7 +45,7 @@ function hexToByte(hex: string, offset: number): number {
     return (hexToNibble(hex.charAt(offset)) << 4) | hexToNibble(hex.charAt(offset + 1))
 }
 
-// Draw RGB emoji (using configured W, H, N from MODE command)
+// Draw RGB emoji
 function drawRGBEmoji(hexData: string) {
     strip.clear()
     
@@ -102,7 +98,7 @@ function tryConsumeEmojiBuffer() {
     if (rgbIdx != -1) {
         if (rgbIdx > 0) emojiBuf = emojiBuf.substr(rgbIdx)
         
-        // Use the configured size (set by MODE command)
+        // Calculate required length based on configured size
         const needLen = 8 + (N * 6)  // "RGBMOJI:" + (pixels × 6 hex chars)
         
         if (emojiBuf.length >= needLen) {
@@ -156,9 +152,6 @@ serial.onDataReceived(serial.delimiters(Delimiters.NewLine), function () {
         let isContinuation = emojiBuf.length > 0
         
         if (isRGBStart || isMonoStart || isContinuation) {
-            // Update timestamp when receiving chunks
-            lastChunkTime = control.millis()
-            
             // For new emoji, reset everything
             if (isRGBStart || isMonoStart) {
                 emojiBuf = payload
@@ -192,42 +185,6 @@ serial.onDataReceived(serial.delimiters(Delimiters.NewLine), function () {
             strip.setBrightness(brightness)
             strip.show()  // Update display with new brightness
             basic.showIcon(IconNames.Yes)
-        }
-        return
-    }
-    
-    // Matrix mode command: "MODE:8" or "MODE:16"
-    if (line.indexOf("MODE:") == 0) {
-        let modeStr = line.substr(5)
-        let mode = parseInt(modeStr)
-        if (mode == 8) {
-            W = 8
-            H = 8
-            N = 64
-            serial.writeString("Mode set to 8x8\n")
-            basic.showLeds(`
-                . . # . .
-                . # . # .
-                # . . . #
-                . # . # .
-                . . # . .
-            `)
-            basic.pause(500)
-            basic.clearScreen()
-        } else if (mode == 16) {
-            W = 16
-            H = 16
-            N = 256
-            serial.writeString("Mode set to 16x16\n")
-            basic.showLeds(`
-                # # # # #
-                # . . . #
-                # . . . #
-                # . . . #
-                # # # # #
-            `)
-            basic.pause(500)
-            basic.clearScreen()
         }
         return
     }

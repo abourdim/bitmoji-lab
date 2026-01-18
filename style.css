@@ -528,7 +528,12 @@ button:disabled {
   border-radius: 10px;
   border: 1px solid rgba(31,41,55,0.85);
   background: rgba(15,23,42,0.65);
-  padding: 10px;
+  padding: 15px;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 450px;
 }
 
 .emoji-matrix-title{
@@ -542,9 +547,10 @@ button:disabled {
 .pixel-matrix{
   display:grid;
   grid-template-columns: repeat(16, 1fr);
-  gap: 3px;
+  gap: 2px;
   width: 100%;
-  max-width: 360px;
+  max-width: 400px;
+  box-sizing: border-box;
 }
 
 .pixel-cell{
@@ -553,6 +559,7 @@ button:disabled {
   border-radius: 999px;
   border: 1px solid rgba(31,41,55,1);
   background: radial-gradient(circle at 30% 30%, #020617, #020617);
+  box-sizing: border-box;
 }
 
 .pixel-cell.on{
