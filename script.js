@@ -36,6 +36,7 @@ const dom = {
   matrixSize: document.getElementById('matrixSize'),
   brightnessSlider: document.getElementById('brightnessSlider'),
   brightnessValue: document.getElementById('brightnessValue'),
+  brushColor: document.getElementById('brushColor'),
   // Preview controls
   clearPreviewBtn: document.getElementById('clearPreviewBtn'),
   testRedBtn: document.getElementById('testRedBtn'),
@@ -63,13 +64,7 @@ let sendInProgress = false;
 
 // Emoji state
 let selectedEmoji = null;
-let selectedEmojiHex = null;// 64 hex chars for 16x16
-
-// Editable preview state
-let previewColors = [];
-let currentBrushColor = { r: 255, g: 255, b: 0 }; // Default yellow brush
-let isPainting = false;
-let paintMode = "paint"; // paint | erase
+let selectedEmojiHex = null; // hex for RGBMOJI (size-dependent)
 
 // ACK state
 let awaitingPayload = null;
@@ -154,98 +149,9 @@ function ensureEmojiMatrixGrid() {
   for (let i = 0; i < numCells; i++) {
     const cell = document.createElement('div');
     cell.className = 'pixel-cell';
-    cell.dataset.idx = String(i);
+    cell.dataset.index = String(i);
     dom.emojiMatrix.appendChild(cell);
   }
-}
-
-
-
-
-// Ensure previewColors matches the current matrix size
-function ensurePreviewColors() {
-  if (!dom.emojiMatrix) return;
-  const matrixSize = parseInt(dom.matrixSize?.value || "16");
-  const numPixels = matrixSize * matrixSize;
-  if (!Array.isArray(previewColors) || previewColors.length !== numPixels) {
-    previewColors = Array.from({ length: numPixels }, () => ({ r: 0, g: 0, b: 0 }));
-  }
-}
-
-function isOffColor(c){ return !c || (c.r===0 && c.g===0 && c.b===0); }
-
-
-function setPreviewPixel(index, color) {
-  ensurePreviewColors();
-  if (index < 0 || index >= previewColors.length) return;
-  previewColors[index] = { r: color.r, g: color.g, b: color.b };
-}
-
-function updatePreviewAfterEdit(label = "Custom") {
-  ensurePreviewColors();
-  paintEmojiMatrix(previewColors);
-  selectedEmojiHex = rgbToHex(previewColors);
-  selectedEmoji = null;
-  if (dom.selectedEmojiText) dom.selectedEmojiText.textContent = label;
-  if (dom.sendEmojiBtn) dom.sendEmojiBtn.disabled = !isConnected || !selectedEmojiHex;
-}
-
-function handlePreviewPointer(targetEl, mode, isDrag = false) {
-  if (!targetEl || !targetEl.classList || !targetEl.classList.contains('pixel-cell')) return;
-  const idx = Number(targetEl.dataset.idx ?? -1);
-  if (!Number.isFinite(idx) || idx < 0) return;
-
-  ensurePreviewColors();
-  const current = previewColors[idx];
-
-  if (mode === 'erase') {
-    setPreviewPixel(idx, { r: 0, g: 0, b: 0 });
-  } else {
-    // Click = toggle, Drag = paint (no toggle)
-    if (!isDrag && !isOffColor(current)) {
-      setPreviewPixel(idx, { r: 0, g: 0, b: 0 });
-    } else {
-      setPreviewPixel(idx, currentBrushColor);
-    }
-  }
-
-  updatePreviewAfterEdit('Custom');
-}
-
-
-function attachPreviewEditor() {
-  if (!dom.emojiMatrix) return;
-  if (dom.emojiMatrix.dataset.editorAttached === "1") return;
-  dom.emojiMatrix.dataset.editorAttached = "1";
-
-  const getModeFromEvent = (e) => (e.shiftKey || e.altKey || e.button === 2) ? "erase" : "paint";
-
-  // Disable right-click menu so right-click can erase
-  dom.emojiMatrix.addEventListener('contextmenu', (e) => e.preventDefault());
-
-  dom.emojiMatrix.addEventListener('pointerdown', (e) => {
-    const target = e.target;
-    isPainting = true;
-    paintMode = getModeFromEvent(e);
-    dom.emojiMatrix.setPointerCapture?.(e.pointerId);
-    handlePreviewPointer(target, paintMode, false);
-  });
-
-  dom.emojiMatrix.addEventListener('pointermove', (e) => {
-    if (!isPainting) return;
-    // When we capture the pointer, `e.target` may remain the container.
-    // Use hit-testing to find the pixel cell under the pointer.
-    const el = document.elementFromPoint(e.clientX, e.clientY);
-    const target = el && el.classList && el.classList.contains('pixel-cell')
-      ? el
-      : null;
-    if (target) handlePreviewPointer(target, paintMode, true);
-  });
-
-  const stop = () => { isPainting = false; };
-  dom.emojiMatrix.addEventListener('pointerup', stop);
-  dom.emojiMatrix.addEventListener('pointercancel', stop);
-  dom.emojiMatrix.addEventListener('pointerleave', stop);
 }
 
 function bitsToHex(bits256) {
@@ -395,7 +301,8 @@ function paintEmojiMatrix(data) {
   // Check if data is RGB colors or bits
   if (data[0] && typeof data[0] === 'object' && 'r' in data[0]) {
     // RGB color array
-    for (let i = 0; i < 256 && i < data.length; i++) {
+    const max = Math.min(cells.length, data.length);
+    for (let i = 0; i < max; i++) {
       const color = data[i];
       const isOn = color.r > 10 || color.g > 10 || color.b > 10;
       cells[i].classList.toggle('on', isOn);
@@ -409,7 +316,8 @@ function paintEmojiMatrix(data) {
     }
   } else {
     // Monochrome bits (legacy)
-    for (let i = 0; i < 256; i++) {
+    const max = Math.min(cells.length, data.length);
+    for (let i = 0; i < max; i++) {
       cells[i].classList.toggle('on', !!data[i]);
       cells[i].style.background = '';
       cells[i].style.boxShadow = '';
@@ -454,6 +362,7 @@ function buildEmojiPicker() {
   }
 
   ensureEmojiMatrixGrid();
+  initEditablePreview();
 }
 
 function selectEmoji(emoji, btnEl) {
@@ -470,10 +379,7 @@ function selectEmoji(emoji, btnEl) {
   // Extract RGB color data based on selected matrix size
   const matrixSize = parseInt(dom.matrixSize?.value || '16');
   const colors = renderEmojiToRGB(emoji, matrixSize);
-  paintEmojiMatrix(colors);
-  selectedEmojiHex = rgbToHex(colors);
-  // Keep an editable copy for the pixel editor
-  previewColors = colors.map(c => ({ ...c }));
+  setPreviewFromColors(colors, emoji);
 
   if (dom.sendEmojiBtn) dom.sendEmojiBtn.disabled = !isConnected;
 }
@@ -815,56 +721,199 @@ async function runTest() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// EVENT LISTENERS
+// EVENT LISTENERS (init after DOM is ready)
 // ═══════════════════════════════════════════════════════════════════
-dom.connectBtn.onclick = connect;
-dom.disconnectBtn.onclick = disconnect;
-dom.sendBtn.onclick = sendMessage;
-dom.messageInput.onkeypress = e => { if (e.key === 'Enter') sendMessage(); };
-if (dom.testBtn) dom.testBtn.onclick = runTest;
-if (dom.clearStatsBtn) dom.clearStatsBtn.onclick = clearStats;
-dom.clearLogBtn.onclick = clearLog;
-dom.copyLogBtn.onclick = copyLog;
-dom.exportLogBtn.onclick = exportLog;
 
-// Emoji UI wiring
-buildEmojiPicker();
-attachPreviewEditor();
-ensurePreviewColors();
-paintEmojiMatrix(previewColors);
-if (dom.sendEmojiBtn) dom.sendEmojiBtn.onclick = sendEmoji;
+function initUI() {
+  // Core buttons
+  if (dom.connectBtn) dom.connectBtn.onclick = connect;
+  if (dom.disconnectBtn) dom.disconnectBtn.onclick = disconnect;
+  if (dom.sendBtn) dom.sendBtn.onclick = sendMessage;
+  if (dom.messageInput) dom.messageInput.onkeypress = e => { if (e.key === 'Enter') sendMessage(); };
+  if (dom.testBtn) dom.testBtn.onclick = runTest;
+  if (dom.clearStatsBtn) dom.clearStatsBtn.onclick = clearStats;
+  if (dom.clearLogBtn) dom.clearLogBtn.onclick = clearLog;
+  if (dom.copyLogBtn) dom.copyLogBtn.onclick = copyLog;
+  if (dom.exportLogBtn) dom.exportLogBtn.onclick = exportLog;
 
-// Preview controls
-if (dom.clearPreviewBtn) {
-  dom.clearPreviewBtn.onclick = clearPreview;
-}
-if (dom.testRedBtn) {
-  dom.testRedBtn.onclick = () => fillPreview(255, 0, 0);
-}
-if (dom.testGreenBtn) {
-  dom.testGreenBtn.onclick = () => fillPreview(0, 255, 0);
-}
-if (dom.testBlueBtn) {
-  dom.testBlueBtn.onclick = () => fillPreview(0, 0, 255);
-}
-if (dom.testWhiteBtn) {
-  dom.testWhiteBtn.onclick = () => fillPreview(255, 255, 255);
+  // Build emoji picker + preview grid
+  buildEmojiPicker();
+  ensureEmojiMatrixGrid();
+  initEditablePreview();
+
+  // Emoji send
+  if (dom.sendEmojiBtn) dom.sendEmojiBtn.onclick = sendEmoji;
+
+  // Preview controls
+  if (dom.clearPreviewBtn) dom.clearPreviewBtn.onclick = clearPreview;
+  if (dom.testRedBtn) dom.testRedBtn.onclick = () => fillPreview(255, 0, 0);
+  if (dom.testGreenBtn) dom.testGreenBtn.onclick = () => fillPreview(0, 255, 0);
+  if (dom.testBlueBtn) dom.testBlueBtn.onclick = () => fillPreview(0, 0, 255);
+  if (dom.testWhiteBtn) dom.testWhiteBtn.onclick = () => fillPreview(255, 255, 255);
 }
 
-// Make preview editable - click to toggle pixels
+// Make preview editable (click/drag paint + toggle)
+let currentBrushColor = { r: 255, g: 0, b: 0 }; // Default red
+let previewColors = []; // per-pixel RGB
+let previewIsPainting = false;
+let previewDragMode = 'paint'; // 'paint' | 'erase'
+let previewLastIndex = -1;
+
+function getMatrixSize() {
+  return parseInt(dom.matrixSize?.value || '16');
+}
+
+function ensurePreviewColorsSize() {
+  const size = getMatrixSize();
+  const n = size * size;
+  if (!Array.isArray(previewColors) || previewColors.length !== n) {
+    previewColors = Array.from({ length: n }, () => ({ r: 0, g: 0, b: 0 }));
+  }
+}
+
+function setPreviewFromColors(colors, label = null) {
+  previewColors = colors.map(c => ({ r: c.r|0, g: c.g|0, b: c.b|0 }));
+  paintEmojiMatrix(previewColors);
+  selectedEmojiHex = rgbToHex(previewColors);
+  if (label && dom.selectedEmojiText) dom.selectedEmojiText.textContent = label;
+}
+
+function updateHexFromPreview() {
+  selectedEmojiHex = rgbToHex(previewColors);
+}
+
+function isPixelOn(color) {
+  return (color.r|0) > 10 || (color.g|0) > 10 || (color.b|0) > 10;
+}
+
+function setPixel(index, color) {
+  if (index < 0 || index >= previewColors.length) return;
+  previewColors[index] = { r: color.r|0, g: color.g|0, b: color.b|0 };
+
+  // Update just that cell for snappy painting
+  const cell = dom.emojiMatrix?.children?.[index];
+  if (!cell) return;
+  const on = isPixelOn(previewColors[index]);
+  cell.classList.toggle('on', on);
+  if (on) {
+    cell.style.background = `rgb(${previewColors[index].r}, ${previewColors[index].g}, ${previewColors[index].b})`;
+    cell.style.boxShadow = `0 0 8px rgba(${previewColors[index].r}, ${previewColors[index].g}, ${previewColors[index].b}, 0.8)`;
+  } else {
+    cell.style.background = '';
+    cell.style.boxShadow = '';
+  }
+}
+
+function getCellIndexAtPoint(clientX, clientY) {
+  const el = document.elementFromPoint(clientX, clientY);
+  if (!el) return -1;
+  const cell = el.closest?.('.pixel-cell');
+  if (!cell || !dom.emojiMatrix?.contains(cell)) return -1;
+  const idx = parseInt(cell.dataset.index || '-1', 10);
+  return Number.isFinite(idx) ? idx : -1;
+}
+
+function applyToggle(index) {
+  const current = previewColors[index] || { r: 0, g: 0, b: 0 };
+  if (isPixelOn(current)) {
+    setPixel(index, { r: 0, g: 0, b: 0 });
+  } else {
+    setPixel(index, currentBrushColor);
+  }
+  updateHexFromPreview();
+  selectedEmoji = null;
+  if (dom.selectedEmojiText) dom.selectedEmojiText.textContent = 'Custom';
+}
+
+function initEditablePreview() {
+  if (!dom.emojiMatrix) return;
+  if (dom.emojiMatrix.dataset.editableInit === "1") return;
+  dom.emojiMatrix.dataset.editableInit = "1";
+
+
+  // Brush color picker
+  if (dom.brushColor) {
+    const setFromHex = (hex) => {
+      const h = (hex || '').replace('#','');
+      if (h.length === 6) {
+        currentBrushColor = {
+          r: parseInt(h.slice(0,2),16) || 0,
+          g: parseInt(h.slice(2,4),16) || 0,
+          b: parseInt(h.slice(4,6),16) || 0,
+        };
+      }
+    };
+    setFromHex(dom.brushColor.value);
+    dom.brushColor.addEventListener('input', (e) => setFromHex(e.target.value));
+  }
+
+  dom.emojiMatrix.addEventListener('contextmenu', (e) => e.preventDefault());
+
+  dom.emojiMatrix.addEventListener('pointerdown', (e) => {
+    ensureEmojiMatrixGrid();
+    ensurePreviewColorsSize();
+
+    const idx = getCellIndexAtPoint(e.clientX, e.clientY);
+    if (idx < 0) return;
+
+    const erase = e.shiftKey || e.altKey || e.button === 2;
+    previewDragMode = erase ? 'erase' : 'paint';
+    previewIsPainting = true;
+    previewLastIndex = -1;
+
+    // Click toggles (only for paint mode). Erase always erases.
+    if (previewDragMode === 'erase') {
+      setPixel(idx, { r: 0, g: 0, b: 0 });
+      updateHexFromPreview();
+    } else {
+      applyToggle(idx);
+    }
+
+    dom.emojiMatrix.setPointerCapture?.(e.pointerId);
+  });
+
+  dom.emojiMatrix.addEventListener('pointermove', (e) => {
+    if (!previewIsPainting) return;
+    const idx = getCellIndexAtPoint(e.clientX, e.clientY);
+    if (idx < 0 || idx === previewLastIndex) return;
+    previewLastIndex = idx;
+
+    if (previewDragMode === 'erase') {
+      setPixel(idx, { r: 0, g: 0, b: 0 });
+    } else {
+      // Drag paints (no toggle during drag)
+      setPixel(idx, currentBrushColor);
+    }
+
+    updateHexFromPreview();
+    selectedEmoji = null;
+    if (dom.selectedEmojiText) dom.selectedEmojiText.textContent = 'Custom';
+  });
+
+  const stop = () => {
+    previewIsPainting = false;
+    previewLastIndex = -1;
+  };
+  dom.emojiMatrix.addEventListener('pointerup', stop);
+  dom.emojiMatrix.addEventListener('pointercancel', stop);
+  dom.emojiMatrix.addEventListener('pointerleave', stop);
+}
 
 function clearPreview() {
-  ensurePreviewColors();
-  previewColors = previewColors.map(() => ({ r: 0, g: 0, b: 0 }));
-  updatePreviewAfterEdit("Custom");
+  const size = getMatrixSize();
+  const n = size * size;
+  const colors = Array.from({ length: n }, () => ({ r: 0, g: 0, b: 0 }));
+  setPreviewFromColors(colors, 'Custom');
+  selectedEmoji = null;
   log('Preview cleared', 'info');
 }
 
 function fillPreview(r, g, b) {
-  currentBrushColor = { r, g, b };
-  ensurePreviewColors();
-  previewColors = previewColors.map(() => ({ r, g, b }));
-  updatePreviewAfterEdit("Test Pattern");
+  const size = getMatrixSize();
+  const n = size * size;
+  const colors = Array.from({ length: n }, () => ({ r: r|0, g: g|0, b: b|0 }));
+  setPreviewFromColors(colors, 'Test Pattern');
+  selectedEmoji = null;
   log(`Test pattern: RGB(${r},${g},${b})`, 'info');
 }
 
@@ -872,29 +921,20 @@ function fillPreview(r, g, b) {
 if (dom.matrixSize) {
   dom.matrixSize.onchange = async function() {
     const matrixSize = parseInt(this.value);
-
+    
     // Send MODE command to micro:bit
     if (isConnected) {
       await sendMode(matrixSize);
     }
-
+    
     // Rebuild the preview grid with new size
     ensureEmojiMatrixGrid();
-    ensurePreviewColors();
-    ensurePreviewColors();
-
-    // Re-render the currently selected emoji with new size,
-    // or keep the editable preview if we are in custom mode
+    
+    // Re-render the currently selected emoji with new size
     if (selectedEmoji) {
       const colors = renderEmojiToRGB(selectedEmoji, matrixSize);
-      paintEmojiMatrix(colors);
-      selectedEmojiHex = rgbToHex(colors);
-      previewColors = colors.map(c => ({ ...c }));
-      if (dom.sendEmojiBtn) dom.sendEmojiBtn.disabled = !isConnected || !selectedEmojiHex;
+      setPreviewFromColors(colors);
       log(`Matrix size changed to ${matrixSize}×${matrixSize}`, 'info');
-    } else {
-      updatePreviewAfterEdit("Custom");
-      log(`Matrix size changed to ${matrixSize}×${matrixSize} (custom)`, 'info');
     }
   };
 }
@@ -944,4 +984,11 @@ async function sendBrightness(brightness) {
   const payload = `BRIGHTNESS:${brightness}`;
   log(`Setting brightness to ${brightness}`, 'info');
   await sendRaw(payload);
+}
+
+// Boot (after all functions + state are defined)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initUI);
+} else {
+  initUI();
 }
