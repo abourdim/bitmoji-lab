@@ -8,9 +8,9 @@
 // ═══════════════════════════════════════════════════════════════════
 const CONFIG = {
   baudRate: 115200,
-  chunkSize: 64,
-  ackTimeout: 20,
-  retryDelay: 5,
+  chunkSize: 50,  // Reduced from 64 for RGB reliability
+  ackTimeout: 50, // Increased from 30 for RGB processing
+  retryDelay: 15, // Increased from 10 for stability
   maxRetries: 10,
   maxSeq: 1000
 };
@@ -192,12 +192,104 @@ function renderEmojiToBits16(emoji) {
   return bits;
 }
 
-function paintEmojiMatrix(bits256) {
+// NEW: Extract RGB color for each 16x16 pixel
+function renderEmojiToRGB16(emoji) {
+  const W = 64, H = 64;
+  const canvas = document.createElement('canvas');
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.font = '56px system-ui, Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji';
+  ctx.fillText(emoji, W / 2, H / 2 + 2);
+
+  const img = ctx.getImageData(0, 0, W, H).data;
+  const colors = []; // Array of {r, g, b} for 256 pixels
+
+  const cell = 4;
+  for (let y = 0; y < 16; y++) {
+    for (let x = 0; x < 16; x++) {
+      let totalR = 0, totalG = 0, totalB = 0, totalA = 0;
+      let count = 0;
+
+      // Average the 4x4 block
+      for (let yy = 0; yy < cell; yy++) {
+        for (let xx = 0; xx < cell; xx++) {
+          const px = x * cell + xx;
+          const py = y * cell + yy;
+          const idx = (py * W + px) * 4;
+          const r = img[idx + 0];
+          const g = img[idx + 1];
+          const b = img[idx + 2];
+          const a = img[idx + 3];
+          
+          if (a > 40) { // Only count visible pixels
+            totalR += r;
+            totalG += g;
+            totalB += b;
+            totalA += a;
+            count++;
+          }
+        }
+      }
+
+      if (count > 2) { // At least 3 pixels in block
+        colors.push({
+          r: Math.round(totalR / count),
+          g: Math.round(totalG / count),
+          b: Math.round(totalB / count)
+        });
+      } else {
+        colors.push({ r: 0, g: 0, b: 0 }); // Black/off
+      }
+    }
+  }
+
+  return colors;
+}
+
+// Convert RGB array to hex string for transmission
+function rgbToHex(colors) {
+  // 256 pixels × 3 bytes = 768 bytes = 1536 hex chars
+  const hex = [];
+  for (const color of colors) {
+    hex.push(color.r.toString(16).padStart(2, '0'));
+    hex.push(color.g.toString(16).padStart(2, '0'));
+    hex.push(color.b.toString(16).padStart(2, '0'));
+  }
+  return hex.join('');
+}
+
+function paintEmojiMatrix(data) {
   if (!dom.emojiMatrix) return;
   ensureEmojiMatrixGrid();
   const cells = dom.emojiMatrix.children;
-  for (let i = 0; i < 256; i++) {
-    cells[i].classList.toggle('on', !!bits256[i]);
+  
+  // Check if data is RGB colors or bits
+  if (data[0] && typeof data[0] === 'object' && 'r' in data[0]) {
+    // RGB color array
+    for (let i = 0; i < 256 && i < data.length; i++) {
+      const color = data[i];
+      const isOn = color.r > 10 || color.g > 10 || color.b > 10;
+      cells[i].classList.toggle('on', isOn);
+      if (isOn) {
+        cells[i].style.background = `rgb(${color.r}, ${color.g}, ${color.b})`;
+        cells[i].style.boxShadow = `0 0 8px rgba(${color.r}, ${color.g}, ${color.b}, 0.8)`;
+      } else {
+        cells[i].style.background = '';
+        cells[i].style.boxShadow = '';
+      }
+    }
+  } else {
+    // Monochrome bits (legacy)
+    for (let i = 0; i < 256; i++) {
+      cells[i].classList.toggle('on', !!data[i]);
+      cells[i].style.background = '';
+      cells[i].style.boxShadow = '';
+    }
   }
 }
 
@@ -251,9 +343,10 @@ function selectEmoji(emoji, btnEl) {
   }
   if (btnEl) btnEl.classList.add('active');
 
-  const bits = renderEmojiToBits16(emoji);
-  paintEmojiMatrix(bits);
-  selectedEmojiHex = bitsToHex(bits);
+  // Extract RGB color data
+  const colors = renderEmojiToRGB16(emoji);
+  paintEmojiMatrix(colors);
+  selectedEmojiHex = rgbToHex(colors);
 
   if (dom.sendEmojiBtn) dom.sendEmojiBtn.disabled = !isConnected;
 }
@@ -269,15 +362,14 @@ async function sendEmoji() {
   }
   if (sendInProgress) return;
 
-  const payload = `EMOJI:${selectedEmojiHex}`;
+  // RGB format: RGBMOJI:<1536 hex chars> (256 pixels × 3 bytes RGB)
+  const payload = `RGBMOJI:${selectedEmojiHex}`;
   const byteLen = encoder.encode(payload).length;
 
-  // Use the same ACK+retry mechanism.
-  if (byteLen < CONFIG.chunkSize) {
-    await sendRaw(payload);
-  } else {
-    await sendChunked(payload);
-  }
+  log(`Sending colorized emoji (${byteLen} bytes)`, 'info');
+
+  // Always use chunked transfer for RGB (too large for single packet)
+  await sendChunked(payload);
 }
 
 function log(msg, type = 'info') {
@@ -429,11 +521,31 @@ function waitForAck(payload) {
 }
 
 function tryResolveAck(echoed) {
-  if (awaitingResolve && echoed === awaitingPayload) {
+  if (!awaitingResolve || !awaitingPayload) return;
+  
+  // Exact match (best case)
+  if (echoed === awaitingPayload) {
     clearTimeout(awaitingTimer);
     const resolve = awaitingResolve;
     awaitingPayload = awaitingResolve = awaitingReject = null;
     resolve(true);
+    return;
+  }
+  
+  // Lenient match for RGB data - check sequence number and start of payload
+  // Format: "seq|RGBMOJI:..." or "seq|data..."
+  const barIdx = awaitingPayload.indexOf('|');
+  if (barIdx > 0) {
+    const expectedSeq = awaitingPayload.substring(0, barIdx);
+    const expectedStart = awaitingPayload.substring(0, Math.min(barIdx + 20, awaitingPayload.length));
+    
+    // Check if echo starts with same sequence and partial payload
+    if (echoed.startsWith(expectedSeq + '|') && echoed.substring(0, expectedStart.length) === expectedStart) {
+      clearTimeout(awaitingTimer);
+      const resolve = awaitingResolve;
+      awaitingPayload = awaitingResolve = awaitingReject = null;
+      resolve(true);
+    }
   }
 }
 
