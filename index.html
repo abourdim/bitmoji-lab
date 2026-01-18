@@ -96,7 +96,26 @@
             <div class="emoji-right">
               <div class="emoji-matrix-wrap">
                 <div class="emoji-matrix-title">16×16 preview</div>
-                <div id="emojiMatrix" class="pixel-matrix" aria-label="16 by 16 dot preview"></div>
+                <div id="emojiMatrix" class="pixel-matrix editable" aria-label="16 by 16 dot preview"></div>
+                
+                <!-- Preview Controls -->
+                <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; justify-content: center;">
+                  <button id="clearPreviewBtn" class="secondary" style="font-size: 0.75rem; padding: 6px 12px;">
+                    🗑️ Clear
+                  </button>
+                  <button id="testRedBtn" class="secondary" style="font-size: 0.75rem; padding: 6px 12px; background: rgba(239, 68, 68, 0.2);">
+                    🔴 Red
+                  </button>
+                  <button id="testGreenBtn" class="secondary" style="font-size: 0.75rem; padding: 6px 12px; background: rgba(34, 197, 94, 0.2);">
+                    🟢 Green
+                  </button>
+                  <button id="testBlueBtn" class="secondary" style="font-size: 0.75rem; padding: 6px 12px; background: rgba(59, 130, 246, 0.2);">
+                    🔵 Blue
+                  </button>
+                  <button id="testWhiteBtn" class="secondary" style="font-size: 0.75rem; padding: 6px 12px; background: rgba(255, 255, 255, 0.2);">
+                    ⚪ White
+                  </button>
+                </div>
               </div>
             </div>
           </div>

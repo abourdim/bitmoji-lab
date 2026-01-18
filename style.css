@@ -553,6 +553,15 @@ button:disabled {
   box-sizing: border-box;
 }
 
+.pixel-matrix.editable .pixel-cell {
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.pixel-matrix.editable .pixel-cell:hover {
+  transform: scale(1.1);
+}
+
 .pixel-cell{
   width: 100%;
   aspect-ratio: 1 / 1;

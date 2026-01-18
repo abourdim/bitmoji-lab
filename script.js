@@ -36,6 +36,12 @@ const dom = {
   matrixSize: document.getElementById('matrixSize'),
   brightnessSlider: document.getElementById('brightnessSlider'),
   brightnessValue: document.getElementById('brightnessValue'),
+  // Preview controls
+  clearPreviewBtn: document.getElementById('clearPreviewBtn'),
+  testRedBtn: document.getElementById('testRedBtn'),
+  testGreenBtn: document.getElementById('testGreenBtn'),
+  testBlueBtn: document.getElementById('testBlueBtn'),
+  testWhiteBtn: document.getElementById('testWhiteBtn'),
   logContainer: document.getElementById('logContainer'),
   clearLogBtn: document.getElementById('clearLogBtn'),
   copyLogBtn: document.getElementById('copyLogBtn'),
@@ -726,6 +732,48 @@ dom.exportLogBtn.onclick = exportLog;
 // Emoji UI wiring
 buildEmojiPicker();
 if (dom.sendEmojiBtn) dom.sendEmojiBtn.onclick = sendEmoji;
+
+// Preview controls
+if (dom.clearPreviewBtn) {
+  dom.clearPreviewBtn.onclick = clearPreview;
+}
+if (dom.testRedBtn) {
+  dom.testRedBtn.onclick = () => fillPreview(255, 0, 0);
+}
+if (dom.testGreenBtn) {
+  dom.testGreenBtn.onclick = () => fillPreview(0, 255, 0);
+}
+if (dom.testBlueBtn) {
+  dom.testBlueBtn.onclick = () => fillPreview(0, 0, 255);
+}
+if (dom.testWhiteBtn) {
+  dom.testWhiteBtn.onclick = () => fillPreview(255, 255, 255);
+}
+
+// Make preview editable - click to toggle pixels
+let currentBrushColor = { r: 255, g: 255, b: 0 }; // Default yellow
+
+function clearPreview() {
+  const matrixSize = parseInt(dom.matrixSize?.value || '16');
+  const numPixels = matrixSize * matrixSize;
+  const colors = Array(numPixels).fill({ r: 0, g: 0, b: 0 });
+  paintEmojiMatrix(colors);
+  selectedEmojiHex = rgbToHex(colors);
+  selectedEmoji = null;
+  if (dom.selectedEmojiText) dom.selectedEmojiText.textContent = 'Custom';
+  log('Preview cleared', 'info');
+}
+
+function fillPreview(r, g, b) {
+  const matrixSize = parseInt(dom.matrixSize?.value || '16');
+  const numPixels = matrixSize * matrixSize;
+  const colors = Array(numPixels).fill({ r, g, b });
+  paintEmojiMatrix(colors);
+  selectedEmojiHex = rgbToHex(colors);
+  selectedEmoji = null;
+  if (dom.selectedEmojiText) dom.selectedEmojiText.textContent = 'Test Pattern';
+  log(`Test pattern: RGB(${r},${g},${b})`, 'info');
+}
 
 // Matrix size selector
 if (dom.matrixSize) {
