@@ -2554,6 +2554,106 @@ details.collapsible > .card {
   gap: 6px;
 }
 
+/* Emoji categories container */
+.emoji-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Custom scrollbar for categories */
+.emoji-categories::-webkit-scrollbar {
+  width: 6px;
+}
+
+.emoji-categories::-webkit-scrollbar-track {
+  background: rgba(15,23,42,0.5);
+  border-radius: 3px;
+}
+
+.emoji-categories::-webkit-scrollbar-thumb {
+  background: rgba(148,163,184,0.5);
+  border-radius: 3px;
+}
+
+.emoji-categories::-webkit-scrollbar-thumb:hover {
+  background: rgba(148,163,184,0.7);
+}
+
+/* Category section */
+.emoji-category {
+  border: 1px solid rgba(148,163,184,0.25);
+  border-radius: 8px;
+  background: rgba(15,23,42,0.4);
+  overflow: hidden;
+}
+
+/* Category title (summary) */
+.emoji-category-title {
+  cursor: pointer;
+  list-style: none;
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #e5e7eb;
+  background: rgba(15,23,42,0.6);
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s ease;
+}
+
+.emoji-category-title:hover {
+  background: rgba(15,23,42,0.8);
+}
+
+.emoji-category-title::-webkit-details-marker {
+  display: none;
+}
+
+.emoji-category-title::before {
+  content: "▸";
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+.emoji-category[open] > .emoji-category-title::before {
+  transform: rotate(90deg);
+}
+
+/* Grid inside category */
+.emoji-category .emoji-grid {
+  padding: 8px;
+  max-height: 180px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Scrollbar for category grids */
+.emoji-category .emoji-grid::-webkit-scrollbar {
+  width: 5px;
+}
+
+.emoji-category .emoji-grid::-webkit-scrollbar-track {
+  background: rgba(15,23,42,0.3);
+  border-radius: 3px;
+}
+
+.emoji-category .emoji-grid::-webkit-scrollbar-thumb {
+  background: rgba(148,163,184,0.4);
+  border-radius: 3px;
+}
+
+.emoji-category .emoji-grid::-webkit-scrollbar-thumb:hover {
+  background: rgba(148,163,184,0.6);
+}
+
 /* Make preview fill its space better */
 .emoji-matrix-wrap {
   display: flex;

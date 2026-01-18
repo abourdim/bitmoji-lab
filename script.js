@@ -96,11 +96,30 @@ const timestamp = () => `[${new Date().toLocaleTimeString()}]`;
 // - Payload over serial: EMOJI:<64hex>
 // ═══════════════════════════════════════════════════════════════════
 
-const EMOJI_LIBRARY = [
-  '😀','😃','😄','😁','😎','🥳','😍','🤖','👻','💀','👽','🎃',
-  '❤️','💛','💚','💙','💜','⭐','⚡','🔥','❄️','🌈','🍀','🍕',
-  '🍎','🍌','🍓','🍉','🎈','🎉','🎮','🎵','🚀','🧠','✅','❌'
-];
+const EMOJI_LIBRARY = {
+  '😀 Basic': [
+    '😀','😃','😄','😁','😎','🥳','😍','🤖','👻','💀','👽','🎃',
+    '❤️','💛','💚','💙','💜','⭐','⚡','🔥','❄️','🌈','🍀','🍕',
+    '🍎','🍌','🍓','🍉','🎈','🎉','🎮','🎵','🚀','🧠','✅','❌'
+  ],
+  '🤖 Robots': [
+    '🤖','👾','🛸','🦾','🦿','💡','🔋','⚙️','🔧','🔨','🪛','⚒️',
+    '🛠️','🔩','⛓️','🧲','📡','📻','💻','⌨️','🖥️','📱','🖱️','💾'
+  ],
+  '🚗 Vehicles': [
+    '🚗','🚙','🚕','🏎️','🚓','🚑','🚒','🚜','🦼','🦽','🛴','🛹',
+    '🚲','🏍️','🛵','✈️','🚁','🛩️','🚂','🚃','🚄','🚅','🚆','🚇'
+  ],
+  '🔧 Tools': [
+    '🔧','🔨','🪛','⚒️','🛠️','🪚','🪓','✂️','📏','📐','🧰','🗜️',
+    '⛏️','🔪','🪒','🧪','🔬','🔭','⚗️','🧬','💉','🌡️','🧯','🪝'
+  ],
+  '🔴 Symbols': [
+    '🔴','🟠','🟡','🟢','🔵','🟣','⚫','⚪','🟤','🔶','🔷','🔸',
+    '🔺','🔻','💠','🔘','⏺️','⏸️','⏹️','⏩','⏪','⏫','⏬','▶️',
+    '◀️','🔼','🔽','⏏️','⚠️','☢️','☣️','⛔','🚫','❗','❓','💯'
+  ]
+};
 
 function ensureEmojiMatrixGrid() {
   if (!dom.emojiMatrix) return;
@@ -186,14 +205,36 @@ function buildEmojiPicker() {
   if (!dom.emojiList) return;
 
   dom.emojiList.innerHTML = '';
+  dom.emojiList.classList.remove('emoji-grid');
+  dom.emojiList.classList.add('emoji-categories');
 
-  for (const emoji of EMOJI_LIBRARY) {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'emoji-btn';
-    btn.textContent = emoji;
-    btn.addEventListener('click', () => selectEmoji(emoji, btn));
-    dom.emojiList.appendChild(btn);
+  for (const [categoryName, emojis] of Object.entries(EMOJI_LIBRARY)) {
+    // Create category section
+    const categorySection = document.createElement('details');
+    categorySection.className = 'emoji-category';
+    categorySection.open = categoryName === '😀 Basic'; // First category open by default
+
+    // Category header
+    const summary = document.createElement('summary');
+    summary.className = 'emoji-category-title';
+    summary.textContent = categoryName;
+    categorySection.appendChild(summary);
+
+    // Emoji grid for this category
+    const grid = document.createElement('div');
+    grid.className = 'emoji-grid';
+    
+    for (const emoji of emojis) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'emoji-btn';
+      btn.textContent = emoji;
+      btn.addEventListener('click', () => selectEmoji(emoji, btn));
+      grid.appendChild(btn);
+    }
+
+    categorySection.appendChild(grid);
+    dom.emojiList.appendChild(categorySection);
   }
 
   ensureEmojiMatrixGrid();
@@ -203,9 +244,10 @@ function selectEmoji(emoji, btnEl) {
   selectedEmoji = emoji;
   if (dom.selectedEmojiText) dom.selectedEmojiText.textContent = emoji;
 
-  // Toggle active state
+  // Toggle active state - find all emoji buttons in all categories
   if (dom.emojiList) {
-    for (const child of dom.emojiList.children) child.classList.remove('active');
+    const allButtons = dom.emojiList.querySelectorAll('.emoji-btn');
+    allButtons.forEach(btn => btn.classList.remove('active'));
   }
   if (btnEl) btnEl.classList.add('active');
 
