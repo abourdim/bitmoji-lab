@@ -582,6 +582,30 @@ async function sendEmoji() {
   await sendChunked(payload);
 }
 
+// Send current preview colors to micro:bit (for demos)
+let lastDemoSendTime = 0;
+const MIN_DEMO_SEND_INTERVAL = 200; // Min 200ms between sends for demos
+
+async function sendCurrentFrame() {
+  if (!isConnected) return;
+  
+  // Throttle based on time instead of sendInProgress to allow animations
+  const now = Date.now();
+  if (now - lastDemoSendTime < MIN_DEMO_SEND_INTERVAL) return;
+  
+  lastDemoSendTime = now;
+  
+  // Convert current preview colors to hex
+  const hexData = rgbToHex(previewColors);
+  const payload = `RGBMOJI:${hexData}`;
+  
+  // Send without logging (too spammy during animations)
+  // Use a fire-and-forget approach for demos
+  sendChunked(payload).catch(err => {
+    console.error('Demo frame send error:', err);
+  });
+}
+
 function log(msg, type = 'info') {
   const div = document.createElement('div');
   div.className = `log-line ${type}`;
@@ -1420,6 +1444,13 @@ function startDemo(demoFunction) {
   ensureEmojiMatrixGrid();
   ensurePreviewColorsSize();
   demoFunction();
+  
+  // Log connection status
+  if (isConnected) {
+    log('🎬 Demo streaming to micro:bit! 📡', 'success');
+  } else {
+    log('🎬 Demo started (connect micro:bit to stream live!)', 'info');
+  }
 }
 
 // 🏴 Waving Flag Animation
@@ -1431,7 +1462,7 @@ function demoWavingFlagAnim() {
     { r: 239, g: 65, b: 53 }    // Red
   ];
   
-  demoInterval = setInterval(() => {
+  demoInterval = setInterval(async () => {
     for (let y = 0; y < 16; y++) {
       for (let x = 0; x < 16; x++) {
         const idx = y * 16 + x;
@@ -1442,10 +1473,11 @@ function demoWavingFlagAnim() {
       }
     }
     paintEmojiMatrix(previewColors);
+    await sendCurrentFrame(); // Throttled internally
     frame++;
   }, 100);
   
-  log('🏴 Waving flag demo started!', 'success');
+  // Demo started via startDemo()
 }
 
 // 🚦 Traffic Light Animation
@@ -1457,7 +1489,7 @@ function demoTrafficLightAnim() {
   ];
   let stateIdx = 0;
   
-  demoInterval = setInterval(() => {
+  demoInterval = setInterval(async () => {
     const state = states[stateIdx];
     
     // Fill entire grid with current light color
@@ -1466,12 +1498,13 @@ function demoTrafficLightAnim() {
     }
     
     paintEmojiMatrix(previewColors);
+    await sendCurrentFrame();
     log(`🚦 ${state.name}`, 'info');
     
     stateIdx = (stateIdx + 1) % 3;
   }, 1500);
   
-  log('🚦 Traffic light demo started!', 'success');
+  // Demo started via startDemo()
 }
 
 // 💓 Heart Beat Animation
@@ -1499,7 +1532,7 @@ function demoHeartBeatAnim() {
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
   ];
   
-  demoInterval = setInterval(() => {
+  demoInterval = setInterval(async () => {
     const scale = 0.8 + Math.sin(beat) * 0.2; // Pulsating scale
     const brightness = Math.floor(255 * scale);
     
@@ -1516,10 +1549,11 @@ function demoHeartBeatAnim() {
     }
     
     paintEmojiMatrix(previewColors);
+    await sendCurrentFrame();
     beat += 0.3;
   }, 100);
   
-  log('💓 Heart beat demo started!', 'success');
+  // Demo started via startDemo()
 }
 
 // ⭐ Spinning Star Animation
@@ -1527,7 +1561,7 @@ function demoSpinningStarAnim() {
   let angle = 0;
   const starColor = { r: 255, g: 215, b: 0 };
   
-  demoInterval = setInterval(() => {
+  demoInterval = setInterval(async () => {
     // Clear
     for (let i = 0; i < 256; i++) {
       previewColors[i] = { r: 0, g: 0, b: 0 };
@@ -1552,17 +1586,18 @@ function demoSpinningStarAnim() {
     }
     
     paintEmojiMatrix(previewColors);
+    await sendCurrentFrame();
     angle += 0.15;
   }, 50);
   
-  log('⭐ Spinning star demo started!', 'success');
+  // Demo started via startDemo()
 }
 
 // 🌈 Rainbow Wave Animation
 function demoRainbowWaveAnim() {
   let offset = 0;
   
-  demoInterval = setInterval(() => {
+  demoInterval = setInterval(async () => {
     for (let y = 0; y < 16; y++) {
       for (let x = 0; x < 16; x++) {
         const idx = y * 16 + x;
@@ -1573,10 +1608,11 @@ function demoRainbowWaveAnim() {
     }
     
     paintEmojiMatrix(previewColors);
+    await sendCurrentFrame();
     offset++;
   }, 100);
   
-  log('🌈 Rainbow wave demo started!', 'success');
+  // Demo started via startDemo()
 }
 
 // 😄 Happy Face Animation
@@ -1605,7 +1641,7 @@ function demoSmileyAnim() {
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
   ];
   
-  demoInterval = setInterval(() => {
+  demoInterval = setInterval(async () => {
     const showEyes = Math.floor(blink) % 20 > 1; // Blink occasionally
     
     for (let i = 0; i < 256; i++) {
@@ -1619,10 +1655,11 @@ function demoSmileyAnim() {
     }
     
     paintEmojiMatrix(previewColors);
+    await sendCurrentFrame();
     blink += 0.5;
   }, 100);
   
-  log('😄 Happy face demo started!', 'success');
+  // Demo started via startDemo()
 }
 
 // ⏳ Loading Bar Animation
@@ -1631,7 +1668,7 @@ function demoLoadingBarAnim() {
   const green = { r: 0, g: 255, b: 0 };
   const gray = { r: 50, g: 50, b: 50 };
   
-  demoInterval = setInterval(() => {
+  demoInterval = setInterval(async () => {
     // Clear
     for (let i = 0; i < 256; i++) {
       previewColors[i] = { r: 0, g: 0, b: 0 };
@@ -1647,12 +1684,13 @@ function demoLoadingBarAnim() {
     }
     
     paintEmojiMatrix(previewColors);
+    await sendCurrentFrame();
     
     progress++;
     if (progress > 14) progress = 0;
   }, 150);
   
-  log('⏳ Loading bar demo started!', 'success');
+  // Demo started via startDemo()
 }
 
 // 🎆 Fireworks Animation
@@ -1666,7 +1704,7 @@ function demoFireworksAnim() {
     { r: 255, g: 0, b: 255 }
   ];
   
-  demoInterval = setInterval(() => {
+  demoInterval = setInterval(async () => {
     // Clear
     for (let i = 0; i < 256; i++) {
       previewColors[i] = { r: 0, g: 0, b: 0 };
@@ -1693,10 +1731,11 @@ function demoFireworksAnim() {
     }
     
     paintEmojiMatrix(previewColors);
+    await sendCurrentFrame();
     frame++;
   }, 100);
   
-  log('🎆 Fireworks demo started!', 'success');
+  // Demo started via startDemo()
 }
 
 // 🏎️ Racing Car Animation
@@ -1705,7 +1744,7 @@ function demoRacingCarAnim() {
   const carColor = { r: 255, g: 0, b: 0 };
   const roadColor = { r: 100, g: 100, b: 100 };
   
-  demoInterval = setInterval(() => {
+  demoInterval = setInterval(async () => {
     // Clear
     for (let i = 0; i < 256; i++) {
       previewColors[i] = { r: 0, g: 50, b: 0 }; // Grass
@@ -1729,12 +1768,13 @@ function demoRacingCarAnim() {
     }
     
     paintEmojiMatrix(previewColors);
+    await sendCurrentFrame();
     
     carX++;
     if (carX > 16) carX = -2;
   }, 100);
   
-  log('🏎️ Racing car demo started!', 'success');
+  // Demo started via startDemo()
 }
 
 // 🛑 Stop Sign Animation (pulsating)
@@ -1761,7 +1801,7 @@ function demoStopSignAnim() {
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
   ];
   
-  demoInterval = setInterval(() => {
+  demoInterval = setInterval(async () => {
     const brightness = 0.7 + Math.sin(pulse) * 0.3;
     const red = Math.floor(255 * brightness);
     const white = Math.floor(255 * brightness);
@@ -1777,10 +1817,11 @@ function demoStopSignAnim() {
     }
     
     paintEmojiMatrix(previewColors);
+    await sendCurrentFrame();
     pulse += 0.2;
   }, 100);
   
-  log('🛑 Stop sign demo started!', 'success');
+  // Demo started via startDemo()
 }
 
 // HSL to RGB helper for rainbow
