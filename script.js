@@ -864,20 +864,36 @@ function tryResolveAck(echoed) {
     return;
   }
   
-  // Lenient match for RGB data - check sequence number and start of payload
-  // Format: "seq|RGBMOJI:..." or "seq|data..."
+  // Match for chunked data: "seq|payload"
   const barIdx = awaitingPayload.indexOf('|');
   if (barIdx > 0) {
     const expectedSeq = awaitingPayload.substring(0, barIdx);
-    const expectedStart = awaitingPayload.substring(0, Math.min(barIdx + 20, awaitingPayload.length));
     
-    // Check if echo starts with same sequence and partial payload
+    // Accept sequence-only ACK (optimized protocol)
+    if (echoed === expectedSeq) {
+      clearTimeout(awaitingTimer);
+      const resolve = awaitingResolve;
+      awaitingPayload = awaitingResolve = awaitingReject = null;
+      resolve(true);
+      return;
+    }
+    
+    // Legacy: partial payload match
+    const expectedStart = awaitingPayload.substring(0, Math.min(barIdx + 20, awaitingPayload.length));
     if (echoed.startsWith(expectedSeq + '|') && echoed.substring(0, expectedStart.length) === expectedStart) {
       clearTimeout(awaitingTimer);
       const resolve = awaitingResolve;
       awaitingPayload = awaitingResolve = awaitingReject = null;
       resolve(true);
     }
+  }
+  
+  // Match for non-chunked commands (MODE, BRIGHTNESS, etc)
+  if (echoed === 'OK') {
+    clearTimeout(awaitingTimer);
+    const resolve = awaitingResolve;
+    awaitingPayload = awaitingResolve = awaitingReject = null;
+    resolve(true);
   }
 }
 
