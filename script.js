@@ -572,38 +572,56 @@ async function sendEmoji() {
   }
   if (sendInProgress) return;
 
-  // RGB format: RGBMOJI:<1536 hex chars> (256 pixels × 3 bytes RGB)
-  const payload = `RGBMOJI:${selectedEmojiHex}`;
-  const byteLen = encoder.encode(payload).length;
+  showFunnyLoading();
+  
+  try {
+    // RGB format: RGBMOJI:<1536 hex chars> (256 pixels × 3 bytes RGB)
+    const payload = `RGBMOJI:${selectedEmojiHex}`;
+    const byteLen = encoder.encode(payload).length;
 
-  log(`Sending colorized emoji (${byteLen} bytes)`, 'info');
+    log(`Sending colorized emoji (${byteLen} bytes)`, 'info');
 
-  // Always use chunked transfer for RGB (too large for single packet)
-  await sendChunked(payload);
+    // Always use chunked transfer for RGB (too large for single packet)
+    await sendChunked(payload);
+  } finally {
+    hideFunnyLoading();
+  }
 }
 
 // Send current preview colors to micro:bit (for demos)
-let lastDemoSendTime = 0;
-const MIN_DEMO_SEND_INTERVAL = 200; // Min 200ms between sends for demos
+let demoSendInProgress = false;
+let demoFrameCount = 0;
 
 async function sendCurrentFrame() {
-  if (!isConnected) return;
+  if (!isConnected || demoSendInProgress) return;
   
-  // Throttle based on time instead of sendInProgress to allow animations
-  const now = Date.now();
-  if (now - lastDemoSendTime < MIN_DEMO_SEND_INTERVAL) return;
+  demoSendInProgress = true;
   
-  lastDemoSendTime = now;
+  // Show loading overlay only for first frame
+  if (demoFrameCount === 0) {
+    showFunnyLoading();
+  }
   
-  // Convert current preview colors to hex
-  const hexData = rgbToHex(previewColors);
-  const payload = `RGBMOJI:${hexData}`;
-  
-  // Send without logging (too spammy during animations)
-  // Use a fire-and-forget approach for demos
-  sendChunked(payload).catch(err => {
+  try {
+    // Convert current preview colors to hex
+    const hexData = rgbToHex(previewColors);
+    const payload = `RGBMOJI:${hexData}`;
+    
+    // Wait for send to complete before allowing next frame
+    await sendChunked(payload);
+    
+    demoFrameCount++;
+    
+    // Hide loading after first successful frame
+    if (demoFrameCount === 1) {
+      hideFunnyLoading();
+    }
+  } catch (err) {
     console.error('Demo frame send error:', err);
-  });
+    hideFunnyLoading();
+  } finally {
+    demoSendInProgress = false;
+  }
 }
 
 function log(msg, type = 'info') {
@@ -612,6 +630,55 @@ function log(msg, type = 'info') {
   div.textContent = `${timestamp()} ${msg}`;
   dom.logContainer.appendChild(div);
   dom.logContainer.scrollTop = dom.logContainer.scrollHeight;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+//  🎪 FUNNY LOADING OVERLAY
+// ═══════════════════════════════════════════════════════════════════
+
+const funnyMessages = [
+  { emoji: '🚀', text: 'Beaming emoji to space!', sub: 'micro:bit is thinking...' },
+  { emoji: '🎨', text: 'Painting pixels...', sub: 'One LED at a time!' },
+  { emoji: '✨', text: 'Sprinkling magic dust!', sub: 'Making it sparkle!' },
+  { emoji: '🎪', text: 'Performing emoji magic!', sub: 'Ta-daaa!' },
+  { emoji: '🚂', text: 'Chugging along...', sub: 'Choo choo!' },
+  { emoji: '🎯', text: 'Aiming for perfection!', sub: 'Bullseye!' },
+  { emoji: '🎭', text: 'Showtime!', sub: 'micro:bit is ready!' },
+  { emoji: '🎬', text: 'Lights, camera, action!', sub: 'Streaming to micro:bit!' },
+  { emoji: '🎡', text: 'Going round and round!', sub: 'Wheee!' },
+  { emoji: '🎢', text: 'Buckle up!', sub: 'Sending data at lightspeed!' },
+  { emoji: '🔮', text: 'Consulting the crystal ball...', sub: 'Predicting awesome!' },
+  { emoji: '🎲', text: 'Rolling the dice!', sub: 'Lucky number: awesome!' },
+  { emoji: '🎯', text: 'Targeting LEDs...', sub: 'Direct hit!' },
+  { emoji: '🚁', text: 'Helicopter delivery!', sub: 'Package incoming!' },
+  { emoji: '🎪', text: 'Join the circus!', sub: 'Step right up!' }
+];
+
+let currentMessageIndex = 0;
+
+function showFunnyLoading() {
+  const overlay = document.getElementById('loadingOverlay');
+  const emojiEl = document.getElementById('loadingEmoji');
+  const textEl = document.getElementById('loadingText');
+  const subEl = textEl.nextElementSibling;
+  
+  if (overlay && emojiEl && textEl) {
+    // Pick a random message
+    const msg = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+    
+    emojiEl.textContent = msg.emoji;
+    textEl.textContent = msg.text;
+    if (subEl) subEl.textContent = msg.sub;
+    
+    overlay.style.display = 'flex';
+  }
+}
+
+function hideFunnyLoading() {
+  const overlay = document.getElementById('loadingOverlay');
+  if (overlay) {
+    overlay.style.display = 'none';
+  }
 }
 
 function clearLog() {
@@ -1437,10 +1504,13 @@ function stopDemoAnimation() {
     clearInterval(demoInterval);
     demoInterval = null;
   }
+  demoFrameCount = 0;
+  hideFunnyLoading();
 }
 
 function startDemo(demoFunction) {
   stopDemoAnimation();
+  demoFrameCount = 0; // Reset frame counter
   ensureEmojiMatrixGrid();
   ensurePreviewColorsSize();
   demoFunction();

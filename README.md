@@ -1,6 +1,6 @@
 # 🎨✨ BITMOJI LAB - THE ULTIMATE MICRO:BIT EMOJI MAKER! ✨🎨
 
-> **Transform your micro:bit into a GIANT RGB LED matrix with emojis, animations, and rainbow colors!** 🌈🚀
+> **Transform your micro:bit into a GIANT RGB LED matrix with emojis, animations, and millions of colors!** 🎨🚀
 
 ![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red)
 ![Kid Friendly](https://img.shields.io/badge/Kid%20Friendly-👶-blue)
@@ -36,7 +36,7 @@ Imagine this:
 - 🚦 Show a traffic light that changes colors
 - 💓 Display a beating heart
 - ⭐ Watch a spinning star
-- 🌈 Create rainbow waves
+- 🎨 Create colorful animations
 - 🎆 Launch fireworks!
 
 ---
@@ -449,7 +449,7 @@ Status: 🟢 Connected
 
 #### 🎨 Cool Tricks:
 
-**Want to make a rainbow?**
+**Want to make a color gradient?**
 ```
 1. Pick 🍓 Red → Paint top row
 2. Pick 🦊 Orange → Paint next row
@@ -479,7 +479,7 @@ Status: 🟢 Connected
 #### 💾 Saving:
 
 1. Create an awesome design
-2. Type a cool name: "My Robot" or "Rainbow Heart"
+2. Type a cool name: "My Robot" or "Colorful Heart"
 3. Click **"💾 Save"**
 4. Watch the button spin! 🎪
 
@@ -523,9 +523,9 @@ Open the **"🎬 Demos & Animations"** section and click any demo:
 - Super smooth spinning
 - Looks like it's floating!
 
-#### 🌈 Rainbow Wave
-- ALL the colors of the rainbow
-- Flows across the screen
+#### 🎨 Color Wave
+- ALL the colors flowing across screen
+- Smooth color transitions
 - Hypnotic and beautiful!
 
 #### 😄 Happy Face
@@ -670,7 +670,7 @@ All with **LIVE STREAMING** to micro:bit! 📡
 2. 🚦 **Traffic Light** - Red/Yellow/Green
 3. 💓 **Heart Beat** - Pulsing heart
 4. ⭐ **Spinning Star** - Rotating star
-5. 🌈 **Rainbow Wave** - Color flow
+5. 🎨 **Color Wave** - Flowing colors
 6. 😄 **Happy Face** - Blinking smiley
 7. ⏳ **Loading Bar** - Progress bar
 8. 🎆 **Fireworks** - Explosions!
@@ -747,7 +747,7 @@ All with **LIVE STREAMING** to micro:bit! 📡
 
 **Steps:**
 1. Create 5 different designs
-2. Name them clearly: "Rainbow 1", "Heart Red", etc.
+2. Name them clearly: "Gradient 1", "Heart Red", etc.
 3. Save all of them
 4. Load each one to show friends!
 
@@ -919,8 +919,8 @@ Make a working traffic light:
 - Add your own timing
 - Make it interactive!
 
-#### 3. **Color Rainbow**
-Fill the screen with rainbow stripes:
+#### 3. **Color Gradient**
+Fill the screen with color stripes:
 - Red row
 - Orange row
 - Yellow row
@@ -1169,7 +1169,7 @@ Track your progress:
 - [ ] 🎯 **First Connection** - Connect micro:bit successfully
 - [ ] 🎨 **Emoji Master** - Send 10 different emojis
 - [ ] 💾 **Collector** - Save 5 designs
-- [ ] 🌈 **Rainbow Maker** - Create a rainbow gradient
+- [ ] 🌈 **Gradient Maker** - Create a color gradient
 - [ ] 🏴 **World Traveler** - Display 5 country flags
 - [ ] 🚦 **Safety Star** - Learn 5 traffic signs
 - [ ] 🎬 **Demo Expert** - Watch all 10 demos
