@@ -2560,7 +2560,7 @@ details.collapsible > .card {
 /* === Emoji reorganized layout (list+selected left, preview right) === */
 .emoji-reorganized {
   display: grid;
-  grid-template-columns: minmax(200px, 260px) minmax(440px, 1fr);
+  grid-template-columns: minmax(200px, 260px) minmax(460px, 1fr);
   gap: 16px;
   margin-top: 12px;
 }
