@@ -165,11 +165,46 @@
                     ⚪ White
                   </button>
                 </div>
+                
+                <!-- 💾 SAVE CURRENT DESIGN -->
+                <div style="margin-top: 16px; padding: 12px; background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(59,130,246,0.1)); border-radius: 12px; border: 2px dashed rgba(148,163,184,0.4);">
+                  <div style="font-size: 0.8rem; color: #fbbf24; margin-bottom: 8px; font-weight: 700; text-align: center; text-shadow: 0 0 10px rgba(251,191,36,0.5);">
+                    💾✨ SAVE YOUR ART ✨💾
+                  </div>
+                  <div style="display: flex; gap: 6px;">
+                    <input type="text" id="saveNameInput" placeholder="Give it a cool name! 🎨" 
+                           style="flex: 1; padding: 8px; background: rgba(15,23,42,0.8); color: #e5e7eb; border: 1px solid rgba(148,163,184,0.4); border-radius: 8px; font-size: 0.75rem;">
+                    <button id="saveDesignBtn" class="primary" style="font-size: 0.75rem; padding: 8px 16px; white-space: nowrap;">
+                      💾 Save
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- ================= COLLAPSIBLE: SAVED DESIGNS ================= -->
+      <details class="collapsible" open>
+        <summary>
+          <span class="icon">📚</span> My Saved Designs
+        </summary>
+        <div class="card" id="savedDesignsCard">
+          <div class="card-subtitle" style="margin-bottom: 12px; text-align: center;">
+            Your awesome emoji creations! 🎨✨
+          </div>
+
+          <div id="savedDesignsList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px;">
+            <!-- Saved designs will appear here -->
+          </div>
+          
+          <div id="noSavedDesigns" class="hint" style="text-align: center; padding: 20px; display: none;">
+            No saved designs yet! 🎨<br>
+            Create something awesome and save it above! ✨
+          </div>
+        </div>
+      </details>
 
       <!-- ================= COLLAPSIBLE: CONNECTION ================= -->
       <details class="collapsible" open>

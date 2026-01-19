@@ -43,6 +43,11 @@ const dom = {
   testGreenBtn: document.getElementById('testGreenBtn'),
   testBlueBtn: document.getElementById('testBlueBtn'),
   testWhiteBtn: document.getElementById('testWhiteBtn'),
+  // Save/Load
+  saveNameInput: document.getElementById('saveNameInput'),
+  saveDesignBtn: document.getElementById('saveDesignBtn'),
+  savedDesignsList: document.getElementById('savedDesignsList'),
+  noSavedDesigns: document.getElementById('noSavedDesigns'),
   logContainer: document.getElementById('logContainer'),
   clearLogBtn: document.getElementById('clearLogBtn'),
   copyLogBtn: document.getElementById('copyLogBtn'),
@@ -128,6 +133,10 @@ const EMOJI_LIBRARY = {
     '🔴','🟠','🟡','🟢','🔵','🟣','⚫','⚪','🟤','🔶','🔷','🔸',
     '🔺','🔻','💠','🔘','⏺️','⏸️','⏹️','⏩','⏪','⏫','⏬','▶️',
     '◀️','🔼','🔽','⏏️','⚠️','☢️','☣️','⛔','🚫','❗','❓','💯'
+  ],
+  '🏴 Flags': [
+    '🇫🇷','🇺🇸','🇬🇧','🇩🇿','🇵🇸','🇹🇳','🇲🇦','🇪🇬','🇶🇦','🇿🇦',
+    '🇮🇪','🇪🇸','🇮🇹','🏴','🏳️','🏁','🚩','🏴‍☠️'
   ]
 };
 
@@ -1012,6 +1021,216 @@ async function sendBrightness(brightness) {
   log(`Setting brightness to ${brightness}`, 'info');
   await sendRaw(payload);
 }
+
+// ═══════════════════════════════════════════════════════════════════
+//  💾 SAVE / LOAD DESIGNS
+// ═══════════════════════════════════════════════════════════════════
+
+const STORAGE_KEY = 'bitmoji-saved-designs';
+
+function getSavedDesigns() {
+  try {
+    const data = localStorage.getItem(STORAGE_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch (e) {
+    console.error('Error loading saved designs:', e);
+    return [];
+  }
+}
+
+function saveDesign(name, colors) {
+  try {
+    const designs = getSavedDesigns();
+    const newDesign = {
+      id: Date.now(),
+      name: name || `Design ${designs.length + 1}`,
+      colors: colors,
+      timestamp: new Date().toISOString()
+    };
+    designs.push(newDesign);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(designs));
+    return true;
+  } catch (e) {
+    console.error('Error saving design:', e);
+    return false;
+  }
+}
+
+function deleteDesign(id) {
+  try {
+    const designs = getSavedDesigns();
+    const filtered = designs.filter(d => d.id !== id);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+    return true;
+  } catch (e) {
+    console.error('Error deleting design:', e);
+    return false;
+  }
+}
+
+function loadDesignIntoPreview(colors) {
+  ensureEmojiMatrixGrid(); // Make sure the grid exists
+  ensurePreviewColorsSize();
+  // Use setPreviewFromColors to properly update the visual display
+  setPreviewFromColors(colors);
+  updateHexFromPreview();
+}
+
+function renderSavedDesigns() {
+  const designs = getSavedDesigns();
+  
+  if (designs.length === 0) {
+    dom.savedDesignsList.style.display = 'none';
+    dom.noSavedDesigns.style.display = 'block';
+    return;
+  }
+  
+  dom.savedDesignsList.style.display = 'grid';
+  dom.noSavedDesigns.style.display = 'none';
+  dom.savedDesignsList.innerHTML = '';
+  
+  designs.reverse().forEach(design => {
+    const card = document.createElement('div');
+    card.style.cssText = `
+      background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(30,41,59,0.9));
+      border: 1px solid rgba(148,163,184,0.3);
+      border-radius: 12px;
+      padding: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    `;
+    
+    // Mini preview canvas
+    const canvas = document.createElement('canvas');
+    canvas.width = 16;
+    canvas.height = 16;
+    canvas.style.cssText = `
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      image-rendering: pixelated;
+      border: 1px solid rgba(148,163,184,0.2);
+    `;
+    const ctx = canvas.getContext('2d');
+    
+    // Draw mini preview
+    for (let i = 0; i < 256; i++) {
+      const x = i % 16;
+      const y = Math.floor(i / 16);
+      const color = design.colors[i] || { r: 0, g: 0, b: 0 };
+      ctx.fillStyle = `rgb(${color.r}, ${color.g}, ${color.b})`;
+      ctx.fillRect(x, y, 1, 1);
+    }
+    
+    // Name
+    const nameDiv = document.createElement('div');
+    nameDiv.textContent = design.name;
+    nameDiv.style.cssText = `
+      font-size: 0.7rem;
+      color: #e5e7eb;
+      text-align: center;
+      margin-bottom: 6px;
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    `;
+    
+    // Buttons
+    const buttonsDiv = document.createElement('div');
+    buttonsDiv.style.cssText = 'display: flex; gap: 4px;';
+    
+    const loadBtn = document.createElement('button');
+    loadBtn.textContent = '📥 Load';
+    loadBtn.className = 'secondary small';
+    loadBtn.style.cssText = 'flex: 1; font-size: 0.65rem; padding: 4px 6px;';
+    loadBtn.onclick = (e) => {
+      e.stopPropagation();
+      loadDesignIntoPreview(design.colors);
+      log(`✨ Loaded: ${design.name}`, 'success');
+      
+      // Visual feedback animation
+      card.style.transform = 'scale(1.1)';
+      card.style.boxShadow = '0 0 30px rgba(34,197,94,0.8)';
+      setTimeout(() => {
+        card.style.transform = '';
+        card.style.boxShadow = '';
+      }, 300);
+    };
+    
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = '🗑️';
+    deleteBtn.className = 'secondary small';
+    deleteBtn.style.cssText = 'font-size: 0.65rem; padding: 4px 8px; background: rgba(239,68,68,0.2);';
+    deleteBtn.onclick = (e) => {
+      e.stopPropagation();
+      if (confirm(`Delete "${design.name}"?`)) {
+        deleteDesign(design.id);
+        renderSavedDesigns();
+        log(`Deleted: ${design.name}`, 'info');
+      }
+    };
+    
+    buttonsDiv.appendChild(loadBtn);
+    buttonsDiv.appendChild(deleteBtn);
+    
+    card.appendChild(canvas);
+    card.appendChild(nameDiv);
+    card.appendChild(buttonsDiv);
+    
+    // Hover effects
+    card.onmouseenter = () => {
+      card.style.transform = 'translateY(-2px) scale(1.02)';
+      card.style.boxShadow = '0 0 20px rgba(34,197,94,0.4)';
+    };
+    card.onmouseleave = () => {
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    };
+    
+    // Click to load
+    card.onclick = () => {
+      loadDesignIntoPreview(design.colors);
+      log(`✨ Loaded: ${design.name}`, 'success');
+      
+      // Visual feedback animation
+      card.style.transform = 'scale(1.1)';
+      card.style.boxShadow = '0 0 30px rgba(34,197,94,0.8)';
+      setTimeout(() => {
+        card.style.transform = '';
+        card.style.boxShadow = '';
+      }, 300);
+    };
+    
+    dom.savedDesignsList.appendChild(card);
+  });
+}
+
+// Save button handler
+if (dom.saveDesignBtn) {
+  dom.saveDesignBtn.addEventListener('click', () => {
+    const name = dom.saveNameInput.value.trim() || `Design ${Date.now()}`;
+    ensurePreviewColorsSize();
+    
+    if (saveDesign(name, previewColors)) {
+      log(`✨ Saved: ${name}`, 'success');
+      dom.saveNameInput.value = '';
+      renderSavedDesigns();
+      
+      // Fun animation
+      dom.saveDesignBtn.style.transform = 'scale(1.2) rotate(360deg)';
+      setTimeout(() => {
+        dom.saveDesignBtn.style.transform = '';
+      }, 300);
+    } else {
+      log('Failed to save design', 'error');
+    }
+  });
+}
+
+// Load saved designs on startup
+renderSavedDesigns();
 
 // Boot (after all functions + state are defined)
 if (document.readyState === 'loading') {
