@@ -32,6 +32,7 @@ const dom = {
   emojiList: document.getElementById('emojiList'),
   emojiMatrix: document.getElementById('emojiMatrix'),
   selectedEmojiText: document.getElementById('selectedEmojiText'),
+  selectedEmojiDescription: document.getElementById('selectedEmojiDescription'),
   sendEmojiBtn: document.getElementById('sendEmojiBtn'),
   matrixSize: document.getElementById('matrixSize'),
   brightnessSlider: document.getElementById('brightnessSlider'),
@@ -137,7 +138,156 @@ const EMOJI_LIBRARY = {
   '🏴 Flags': [
     '🇫🇷','🇺🇸','🇬🇧','🇩🇿','🇵🇸','🇹🇳','🇲🇦','🇪🇬','🇶🇦','🇿🇦',
     '🇮🇪','🇪🇸','🇮🇹','🏴','🏳️','🏁','🚩','🏴‍☠️'
+  ],
+  '🛑 Road Signs': [
+    '🛑','⚠️','🚸','⛔','🚫','🚷','🚳','🚭','🚯','🚱',
+    '🚰','♿','🅿️','🚏','🛤️','🚦','🚥','⛽','🏧','ℹ️',
+    '🆘','🆗','🆙','🆕','🆓','🔞','📵','🔇','🔕','⏸️',
+    '⏹️','⏺️','⏏️','⏮️','⏭️','⏯️','🔁','🔂','◀️','▶️'
   ]
+};
+
+// Emoji descriptions for better understanding
+const EMOJI_DESCRIPTIONS = {
+  // Basic
+  '😀': 'Grinning Face - Happy smile',
+  '😃': 'Grinning Face with Big Eyes',
+  '😄': 'Grinning Face with Smiling Eyes',
+  '😁': 'Beaming Face - Big grin',
+  '😎': 'Smiling Face with Sunglasses - Cool',
+  '🥳': 'Partying Face - Celebration',
+  '😍': 'Smiling Face with Heart-Eyes - Love',
+  '🤖': 'Robot Face - Technology',
+  '👻': 'Ghost - Spooky',
+  '💀': 'Skull - Danger or Halloween',
+  '👽': 'Alien - Extraterrestrial',
+  '🎃': 'Jack-O-Lantern - Halloween pumpkin',
+  '❤️': 'Red Heart - Love',
+  '💛': 'Yellow Heart - Friendship',
+  '💚': 'Green Heart - Nature',
+  '💙': 'Blue Heart - Trust',
+  '💜': 'Purple Heart - Magic',
+  '⭐': 'Star - Excellence',
+  '⚡': 'Lightning Bolt - Power/Energy',
+  '🔥': 'Fire - Hot or trending',
+  '❄️': 'Snowflake - Cold or winter',
+  '🌈': 'Rainbow - Colorful',
+  '🍀': 'Four Leaf Clover - Good luck',
+  '🍕': 'Pizza - Food',
+  '🍎': 'Red Apple - Fruit or health',
+  '🍌': 'Banana - Fruit',
+  '🍓': 'Strawberry - Berry fruit',
+  '🍉': 'Watermelon - Summer fruit',
+  '🎈': 'Balloon - Party',
+  '🎉': 'Party Popper - Celebration',
+  '🎮': 'Video Game Controller - Gaming',
+  '🎵': 'Musical Note - Music',
+  '🚀': 'Rocket - Space or fast',
+  '🧠': 'Brain - Intelligence',
+  '✅': 'Check Mark - Correct/Done',
+  '❌': 'Cross Mark - Wrong/Error',
+  
+  // Road Signs
+  '🛑': 'STOP Sign - Arrêt obligatoire',
+  '⚠️': 'Warning Sign - Attention danger',
+  '🚸': 'Children Crossing - Passage piétons',
+  '⛔': 'No Entry - Interdiction d\'entrer',
+  '🚫': 'Prohibited - Interdit',
+  '🚷': 'No Pedestrians - Piétons interdits',
+  '🚳': 'No Bicycles - Vélos interdits',
+  '🚭': 'No Smoking - Défense de fumer',
+  '🚯': 'No Littering - Ne pas jeter',
+  '🚱': 'Non-Potable Water - Eau non potable',
+  '🚰': 'Potable Water - Eau potable',
+  '♿': 'Wheelchair Symbol - Accès handicapés',
+  '🅿️': 'Parking Sign - Stationnement',
+  '🚏': 'Bus Stop - Arrêt de bus',
+  '🛤️': 'Railway Track - Voie ferrée',
+  '🚦': 'Traffic Light Vertical - Feu tricolore',
+  '🚥': 'Traffic Light Horizontal - Feu',
+  '⛽': 'Fuel Pump - Station essence',
+  '🏧': 'ATM Sign - Distributeur',
+  'ℹ️': 'Information - Point info',
+  '🆘': 'SOS Button - Urgence',
+  '🆗': 'OK Button - Validation',
+  '🆙': 'UP Button - Direction haut',
+  '🆕': 'NEW Button - Nouveau',
+  '🆓': 'FREE Button - Gratuit',
+  '🔞': 'No One Under 18 - Interdit -18 ans',
+  '📵': 'No Mobile Phones - Téléphone interdit',
+  '🔇': 'Muted Speaker - Son coupé',
+  '🔕': 'No Bell - Silencieux',
+  
+  // Flags
+  '🇫🇷': 'France Flag - Drapeau français',
+  '🇺🇸': 'USA Flag - Drapeau américain',
+  '🇬🇧': 'UK Flag - Drapeau britannique',
+  '🇩🇿': 'Algeria Flag - Drapeau algérien',
+  '🇵🇸': 'Palestine Flag - Drapeau palestinien',
+  '🇹🇳': 'Tunisia Flag - Drapeau tunisien',
+  '🇲🇦': 'Morocco Flag - Drapeau marocain',
+  '🇪🇬': 'Egypt Flag - Drapeau égyptien',
+  '🇶🇦': 'Qatar Flag - Drapeau qatarien',
+  '🇿🇦': 'South Africa Flag - Drapeau sud-africain',
+  '🇮🇪': 'Ireland Flag - Drapeau irlandais',
+  '🇪🇸': 'Spain Flag - Drapeau espagnol',
+  '🇮🇹': 'Italy Flag - Drapeau italien',
+  '🏴': 'Black Flag - Drapeau noir',
+  '🏳️': 'White Flag - Drapeau blanc',
+  '🏁': 'Chequered Flag - Drapeau à damier',
+  '🚩': 'Red Flag - Drapeau rouge',
+  '🏴‍☠️': 'Pirate Flag - Drapeau pirate',
+  
+  // Robots
+  '🤖': 'Robot - Robot face',
+  '👾': 'Alien Monster - Space invader',
+  '🛸': 'Flying Saucer - UFO',
+  '🦾': 'Mechanical Arm - Robot arm',
+  '🦿': 'Mechanical Leg - Robot leg',
+  '💡': 'Light Bulb - Idea or light',
+  '🔋': 'Battery - Power source',
+  '⚙️': 'Gear - Mechanism',
+  '🔧': 'Wrench - Tool',
+  '🔨': 'Hammer - Building tool',
+  '🪛': 'Screwdriver - Precision tool',
+  
+  // Vehicles
+  '🚗': 'Car - Automobile',
+  '🚙': 'SUV - Sport utility vehicle',
+  '🚕': 'Taxi - Cab',
+  '🏎️': 'Racing Car - Fast car',
+  '🚓': 'Police Car - Law enforcement',
+  '🚑': 'Ambulance - Emergency vehicle',
+  '🚒': 'Fire Engine - Fire truck',
+  '🚜': 'Tractor - Farm vehicle',
+  '🚲': 'Bicycle - Bike',
+  '🏍️': 'Motorcycle - Motorbike',
+  '✈️': 'Airplane - Aircraft',
+  '🚁': 'Helicopter - Chopper',
+  '🚂': 'Locomotive - Train engine',
+  '🚃': 'Railway Car - Train car',
+  
+  // Symbols
+  '🔴': 'Red Circle - Red',
+  '🟠': 'Orange Circle - Orange',
+  '🟡': 'Yellow Circle - Yellow',
+  '🟢': 'Green Circle - Green',
+  '🔵': 'Blue Circle - Blue',
+  '🟣': 'Purple Circle - Purple',
+  '⚫': 'Black Circle - Black',
+  '⚪': 'White Circle - White',
+  '🔶': 'Large Orange Diamond',
+  '🔷': 'Large Blue Diamond',
+  '🔺': 'Red Triangle Pointed Up',
+  '🔻': 'Red Triangle Pointed Down',
+  '▶️': 'Play Button - Start',
+  '◀️': 'Reverse Button - Back',
+  '⏸️': 'Pause Button - Pause',
+  '⏹️': 'Stop Button - Stop',
+  '⏺️': 'Record Button - Record',
+  '❗': 'Exclamation Mark - Important',
+  '❓': 'Question Mark - Unknown',
+  '💯': '100 Points - Perfect score'
 };
 
 function ensureEmojiMatrixGrid() {
@@ -377,6 +527,12 @@ function buildEmojiPicker() {
 function selectEmoji(emoji, btnEl) {
   selectedEmoji = emoji;
   if (dom.selectedEmojiText) dom.selectedEmojiText.textContent = emoji;
+  
+  // Show emoji description
+  if (dom.selectedEmojiDescription) {
+    const description = EMOJI_DESCRIPTIONS[emoji] || 'Custom emoji';
+    dom.selectedEmojiDescription.textContent = description;
+  }
 
   // Toggle active state - find all emoji buttons in all categories
   if (dom.emojiList) {
@@ -844,6 +1000,7 @@ function applyToggle(index) {
   updateHexFromPreview();
   selectedEmoji = null;
   if (dom.selectedEmojiText) dom.selectedEmojiText.textContent = 'Custom';
+  if (dom.selectedEmojiDescription) dom.selectedEmojiDescription.textContent = 'Your custom creation';
 }
 
 function initEditablePreview() {
@@ -924,6 +1081,7 @@ function initEditablePreview() {
     updateHexFromPreview();
     selectedEmoji = null;
     if (dom.selectedEmojiText) dom.selectedEmojiText.textContent = 'Custom';
+    if (dom.selectedEmojiDescription) dom.selectedEmojiDescription.textContent = 'Your custom creation';
   });
 
   const stop = () => {
