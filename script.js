@@ -49,6 +49,18 @@ const dom = {
   saveDesignBtn: document.getElementById('saveDesignBtn'),
   savedDesignsList: document.getElementById('savedDesignsList'),
   noSavedDesigns: document.getElementById('noSavedDesigns'),
+  // Demos
+  demoWavingFlag: document.getElementById('demoWavingFlag'),
+  demoTrafficLight: document.getElementById('demoTrafficLight'),
+  demoHeartBeat: document.getElementById('demoHeartBeat'),
+  demoSpinningStar: document.getElementById('demoSpinningStar'),
+  demoRainbowWave: document.getElementById('demoRainbowWave'),
+  demoSmiley: document.getElementById('demoSmiley'),
+  demoLoadingBar: document.getElementById('demoLoadingBar'),
+  demoFireworks: document.getElementById('demoFireworks'),
+  demoRacingCar: document.getElementById('demoRacingCar'),
+  demoStopSign: document.getElementById('demoStopSign'),
+  stopDemo: document.getElementById('stopDemo'),
   logContainer: document.getElementById('logContainer'),
   clearLogBtn: document.getElementById('clearLogBtn'),
   copyLogBtn: document.getElementById('copyLogBtn'),
@@ -1389,6 +1401,455 @@ if (dom.saveDesignBtn) {
 
 // Load saved designs on startup
 renderSavedDesigns();
+
+// ═══════════════════════════════════════════════════════════════════
+//  🎬 DEMO ANIMATIONS
+// ═══════════════════════════════════════════════════════════════════
+
+let demoInterval = null;
+
+function stopDemoAnimation() {
+  if (demoInterval) {
+    clearInterval(demoInterval);
+    demoInterval = null;
+  }
+}
+
+function startDemo(demoFunction) {
+  stopDemoAnimation();
+  ensureEmojiMatrixGrid();
+  ensurePreviewColorsSize();
+  demoFunction();
+}
+
+// 🏴 Waving Flag Animation
+function demoWavingFlagAnim() {
+  let frame = 0;
+  const colors = [
+    { r: 0, g: 85, b: 164 },    // Blue
+    { r: 255, g: 255, b: 255 }, // White
+    { r: 239, g: 65, b: 53 }    // Red
+  ];
+  
+  demoInterval = setInterval(() => {
+    for (let y = 0; y < 16; y++) {
+      for (let x = 0; x < 16; x++) {
+        const idx = y * 16 + x;
+        // Wave effect
+        const wave = Math.sin((x + frame) * 0.5) * 2;
+        const colorIdx = Math.floor((y + wave) / 5.33) % 3;
+        previewColors[idx] = { ...colors[colorIdx] };
+      }
+    }
+    paintEmojiMatrix(previewColors);
+    frame++;
+  }, 100);
+  
+  log('🏴 Waving flag demo started!', 'success');
+}
+
+// 🚦 Traffic Light Animation
+function demoTrafficLightAnim() {
+  const states = [
+    { color: { r: 255, g: 0, b: 0 }, name: 'RED - STOP' },
+    { color: { r: 255, g: 200, b: 0 }, name: 'YELLOW - CAUTION' },
+    { color: { r: 0, g: 255, b: 0 }, name: 'GREEN - GO' }
+  ];
+  let stateIdx = 0;
+  
+  demoInterval = setInterval(() => {
+    const state = states[stateIdx];
+    
+    // Fill entire grid with current light color
+    for (let i = 0; i < 256; i++) {
+      previewColors[i] = { ...state.color };
+    }
+    
+    paintEmojiMatrix(previewColors);
+    log(`🚦 ${state.name}`, 'info');
+    
+    stateIdx = (stateIdx + 1) % 3;
+  }, 1500);
+  
+  log('🚦 Traffic light demo started!', 'success');
+}
+
+// 💓 Heart Beat Animation
+function demoHeartBeatAnim() {
+  let beat = 0;
+  const heartColor = { r: 255, g: 0, b: 100 };
+  
+  // Heart shape pattern (simplified 16x16)
+  const heartPattern = [
+    0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,0,
+    0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,
+    0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+    0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+    0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,
+    0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,
+    0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+  ];
+  
+  demoInterval = setInterval(() => {
+    const scale = 0.8 + Math.sin(beat) * 0.2; // Pulsating scale
+    const brightness = Math.floor(255 * scale);
+    
+    for (let i = 0; i < 256; i++) {
+      if (heartPattern[i]) {
+        previewColors[i] = { 
+          r: brightness, 
+          g: Math.floor(brightness * 0.2), 
+          b: Math.floor(brightness * 0.4) 
+        };
+      } else {
+        previewColors[i] = { r: 0, g: 0, b: 0 };
+      }
+    }
+    
+    paintEmojiMatrix(previewColors);
+    beat += 0.3;
+  }, 100);
+  
+  log('💓 Heart beat demo started!', 'success');
+}
+
+// ⭐ Spinning Star Animation
+function demoSpinningStarAnim() {
+  let angle = 0;
+  const starColor = { r: 255, g: 215, b: 0 };
+  
+  demoInterval = setInterval(() => {
+    // Clear
+    for (let i = 0; i < 256; i++) {
+      previewColors[i] = { r: 0, g: 0, b: 0 };
+    }
+    
+    // Draw rotating star
+    const cx = 8, cy = 8;
+    const points = 5;
+    for (let i = 0; i < points * 2; i++) {
+      const radius = i % 2 === 0 ? 6 : 3;
+      const a = angle + (i * Math.PI / points);
+      const x = Math.round(cx + Math.cos(a) * radius);
+      const y = Math.round(cy + Math.sin(a) * radius);
+      
+      if (x >= 0 && x < 16 && y >= 0 && y < 16) {
+        const idx = y * 16 + x;
+        previewColors[idx] = { ...starColor };
+        // Fill neighbors for thicker lines
+        if (x + 1 < 16) previewColors[idx + 1] = { ...starColor };
+        if (y + 1 < 16) previewColors[idx + 16] = { ...starColor };
+      }
+    }
+    
+    paintEmojiMatrix(previewColors);
+    angle += 0.15;
+  }, 50);
+  
+  log('⭐ Spinning star demo started!', 'success');
+}
+
+// 🌈 Rainbow Wave Animation
+function demoRainbowWaveAnim() {
+  let offset = 0;
+  
+  demoInterval = setInterval(() => {
+    for (let y = 0; y < 16; y++) {
+      for (let x = 0; x < 16; x++) {
+        const idx = y * 16 + x;
+        const hue = ((x + offset) * 20) % 360;
+        const rgb = hslToRgb(hue / 360, 1, 0.5);
+        previewColors[idx] = rgb;
+      }
+    }
+    
+    paintEmojiMatrix(previewColors);
+    offset++;
+  }, 100);
+  
+  log('🌈 Rainbow wave demo started!', 'success');
+}
+
+// 😄 Happy Face Animation
+function demoSmileyAnim() {
+  let blink = 0;
+  const yellow = { r: 255, g: 220, b: 0 };
+  const black = { r: 0, g: 0, b: 0 };
+  
+  // Simple smiley pattern
+  const facePattern = [
+    0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+    0,1,1,2,2,1,1,1,1,1,1,2,2,1,1,0,
+    1,1,1,2,2,1,1,1,1,1,1,2,2,1,1,1,
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,1,2,1,1,1,1,1,1,1,1,1,1,2,1,1,
+    1,1,1,2,1,1,1,1,1,1,1,1,2,1,1,1,
+    1,1,1,1,2,2,1,1,1,1,2,2,1,1,1,1,
+    0,1,1,1,1,1,2,2,2,2,1,1,1,1,1,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+    0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+    0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+  ];
+  
+  demoInterval = setInterval(() => {
+    const showEyes = Math.floor(blink) % 20 > 1; // Blink occasionally
+    
+    for (let i = 0; i < 256; i++) {
+      if (facePattern[i] === 1) {
+        previewColors[i] = { ...yellow };
+      } else if (facePattern[i] === 2) {
+        previewColors[i] = showEyes ? { ...black } : { ...yellow };
+      } else {
+        previewColors[i] = { r: 0, g: 0, b: 0 };
+      }
+    }
+    
+    paintEmojiMatrix(previewColors);
+    blink += 0.5;
+  }, 100);
+  
+  log('😄 Happy face demo started!', 'success');
+}
+
+// ⏳ Loading Bar Animation
+function demoLoadingBarAnim() {
+  let progress = 0;
+  const green = { r: 0, g: 255, b: 0 };
+  const gray = { r: 50, g: 50, b: 50 };
+  
+  demoInterval = setInterval(() => {
+    // Clear
+    for (let i = 0; i < 256; i++) {
+      previewColors[i] = { r: 0, g: 0, b: 0 };
+    }
+    
+    // Draw loading bar (rows 7-8, centered)
+    for (let x = 1; x < 15; x++) {
+      const filled = x <= progress;
+      const color = filled ? green : gray;
+      
+      previewColors[7 * 16 + x] = { ...color };
+      previewColors[8 * 16 + x] = { ...color };
+    }
+    
+    paintEmojiMatrix(previewColors);
+    
+    progress++;
+    if (progress > 14) progress = 0;
+  }, 150);
+  
+  log('⏳ Loading bar demo started!', 'success');
+}
+
+// 🎆 Fireworks Animation
+function demoFireworksAnim() {
+  let frame = 0;
+  const colors = [
+    { r: 255, g: 0, b: 0 },
+    { r: 0, g: 255, b: 0 },
+    { r: 0, g: 0, b: 255 },
+    { r: 255, g: 255, b: 0 },
+    { r: 255, g: 0, b: 255 }
+  ];
+  
+  demoInterval = setInterval(() => {
+    // Clear
+    for (let i = 0; i < 256; i++) {
+      previewColors[i] = { r: 0, g: 0, b: 0 };
+    }
+    
+    // Exploding circle
+    const cx = 8, cy = 8;
+    const radius = (frame % 15);
+    const color = colors[Math.floor(frame / 15) % colors.length];
+    
+    for (let angle = 0; angle < Math.PI * 2; angle += 0.3) {
+      const x = Math.round(cx + Math.cos(angle) * radius);
+      const y = Math.round(cy + Math.sin(angle) * radius);
+      
+      if (x >= 0 && x < 16 && y >= 0 && y < 16) {
+        const idx = y * 16 + x;
+        const brightness = 1 - (radius / 15);
+        previewColors[idx] = {
+          r: Math.floor(color.r * brightness),
+          g: Math.floor(color.g * brightness),
+          b: Math.floor(color.b * brightness)
+        };
+      }
+    }
+    
+    paintEmojiMatrix(previewColors);
+    frame++;
+  }, 100);
+  
+  log('🎆 Fireworks demo started!', 'success');
+}
+
+// 🏎️ Racing Car Animation
+function demoRacingCarAnim() {
+  let carX = 0;
+  const carColor = { r: 255, g: 0, b: 0 };
+  const roadColor = { r: 100, g: 100, b: 100 };
+  
+  demoInterval = setInterval(() => {
+    // Clear
+    for (let i = 0; i < 256; i++) {
+      previewColors[i] = { r: 0, g: 50, b: 0 }; // Grass
+    }
+    
+    // Draw road (rows 7-9)
+    for (let x = 0; x < 16; x++) {
+      previewColors[7 * 16 + x] = { ...roadColor };
+      previewColors[8 * 16 + x] = { ...roadColor };
+      previewColors[9 * 16 + x] = { ...roadColor };
+    }
+    
+    // Draw car (2x3 pixels)
+    if (carX >= 0 && carX < 15) {
+      previewColors[7 * 16 + carX] = { ...carColor };
+      previewColors[7 * 16 + carX + 1] = { ...carColor };
+      previewColors[8 * 16 + carX] = { ...carColor };
+      previewColors[8 * 16 + carX + 1] = { ...carColor };
+      previewColors[9 * 16 + carX] = { r: 0, g: 0, b: 0 }; // wheels
+      previewColors[9 * 16 + carX + 1] = { r: 0, g: 0, b: 0 };
+    }
+    
+    paintEmojiMatrix(previewColors);
+    
+    carX++;
+    if (carX > 16) carX = -2;
+  }, 100);
+  
+  log('🏎️ Racing car demo started!', 'success');
+}
+
+// 🛑 Stop Sign Animation (pulsating)
+function demoStopSignAnim() {
+  let pulse = 0;
+  
+  // STOP sign octagon pattern (simplified)
+  const stopPattern = [
+    0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+    1,1,1,1,2,2,1,2,2,1,2,2,1,1,1,1,
+    1,1,1,1,2,1,1,2,2,1,2,1,1,1,1,1,
+    1,1,1,1,2,2,1,2,2,1,2,2,1,1,1,1,
+    1,1,1,1,2,1,1,2,2,1,2,1,1,1,1,1,
+    1,1,1,1,2,1,1,2,2,1,2,1,1,1,1,1,
+    1,1,1,1,2,2,1,2,2,1,2,2,1,1,1,1,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+    0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+    0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+  ];
+  
+  demoInterval = setInterval(() => {
+    const brightness = 0.7 + Math.sin(pulse) * 0.3;
+    const red = Math.floor(255 * brightness);
+    const white = Math.floor(255 * brightness);
+    
+    for (let i = 0; i < 256; i++) {
+      if (stopPattern[i] === 1) {
+        previewColors[i] = { r: red, g: 0, b: 0 };
+      } else if (stopPattern[i] === 2) {
+        previewColors[i] = { r: white, g: white, b: white };
+      } else {
+        previewColors[i] = { r: 0, g: 0, b: 0 };
+      }
+    }
+    
+    paintEmojiMatrix(previewColors);
+    pulse += 0.2;
+  }, 100);
+  
+  log('🛑 Stop sign demo started!', 'success');
+}
+
+// HSL to RGB helper for rainbow
+function hslToRgb(h, s, l) {
+  let r, g, b;
+  
+  if (s === 0) {
+    r = g = b = l;
+  } else {
+    const hue2rgb = (p, q, t) => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1/6) return p + (q - p) * 6 * t;
+      if (t < 1/2) return q;
+      if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+      return p;
+    };
+    
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1/3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1/3);
+  }
+  
+  return {
+    r: Math.round(r * 255),
+    g: Math.round(g * 255),
+    b: Math.round(b * 255)
+  };
+}
+
+// Event listeners for demos
+if (dom.demoWavingFlag) {
+  dom.demoWavingFlag.addEventListener('click', () => startDemo(demoWavingFlagAnim));
+}
+if (dom.demoTrafficLight) {
+  dom.demoTrafficLight.addEventListener('click', () => startDemo(demoTrafficLightAnim));
+}
+if (dom.demoHeartBeat) {
+  dom.demoHeartBeat.addEventListener('click', () => startDemo(demoHeartBeatAnim));
+}
+if (dom.demoSpinningStar) {
+  dom.demoSpinningStar.addEventListener('click', () => startDemo(demoSpinningStarAnim));
+}
+if (dom.demoRainbowWave) {
+  dom.demoRainbowWave.addEventListener('click', () => startDemo(demoRainbowWaveAnim));
+}
+if (dom.demoSmiley) {
+  dom.demoSmiley.addEventListener('click', () => startDemo(demoSmileyAnim));
+}
+if (dom.demoLoadingBar) {
+  dom.demoLoadingBar.addEventListener('click', () => startDemo(demoLoadingBarAnim));
+}
+if (dom.demoFireworks) {
+  dom.demoFireworks.addEventListener('click', () => startDemo(demoFireworksAnim));
+}
+if (dom.demoRacingCar) {
+  dom.demoRacingCar.addEventListener('click', () => startDemo(demoRacingCarAnim));
+}
+if (dom.demoStopSign) {
+  dom.demoStopSign.addEventListener('click', () => startDemo(demoStopSignAnim));
+}
+if (dom.stopDemo) {
+  dom.stopDemo.addEventListener('click', () => {
+    stopDemoAnimation();
+    log('Demo stopped', 'info');
+  });
+}
 
 // Boot (after all functions + state are defined)
 if (document.readyState === 'loading') {
