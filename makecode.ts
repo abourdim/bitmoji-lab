@@ -14,7 +14,7 @@ let N = 256
 
 // Create strip for maximum size (256 LEDs)
 let strip = neopixel.create(LED_PIN, 256, NeoPixelMode.RGB)
-strip.setBrightness(25)  // 10% brightness (25/255)
+strip.setBrightness(13)  // 5% brightness (13/255)
 strip.clear()
 strip.show()
 
@@ -107,14 +107,14 @@ function tryConsumeEmojiBuffer() {
 
         if (emojiBuf.length >= needLen) {
             let hexData = emojiBuf.substr(8, N * 6)
-
+            
             // Verify checksum (simple: sum all hex nibbles mod 256)
             let checksum = 0
             for (let i = 0; i < hexData.length; i++) {
                 checksum = (checksum + hexToNibble(hexData.charAt(i))) % 256
             }
             let expectedChecksum = hexToByte(emojiBuf, 8 + N * 6 + 1)
-
+            
             if (checksum == expectedChecksum) {
                 emojiBuf = ""
                 basic.showIcon(IconNames.Heart)
@@ -168,15 +168,15 @@ serial.onDataReceived(serial.delimiters(Delimiters.NewLine), function () {
     let line = serial.readUntil(serial.delimiters(Delimiters.NewLine)).trim()
     if (line.length == 0) return
 
+    // ✅ ACK FIRST (critical) - must be immediate, no delays
+    serial.writeString(">" + line + "\n")
+
     // Chunk format: "seq|payload"
     let bar = line.indexOf("|")
     if (bar != -1) {
         let seqStr = line.substr(0, bar)
         let seq = parseInt(seqStr)
         let payload = line.substr(bar + 1)
-
-        // ✅ ACK with just sequence number (faster, less bandwidth)
-        serial.writeString(">" + seqStr + "\n")
 
         // Check if this is emoji-related
         let isRGBStart = payload.indexOf("RGBMOJI:") == 0
@@ -203,9 +203,6 @@ serial.onDataReceived(serial.delimiters(Delimiters.NewLine), function () {
         }
         return
     }
-
-    // Non-chunk commands - ACK with OK
-    serial.writeString(">OK\n")
 
     // Non-chunk emoji
     if (line.indexOf("RGBMOJI:") == 0 || line.indexOf("EMOJI:") == 0) {

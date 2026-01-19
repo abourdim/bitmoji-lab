@@ -712,7 +712,7 @@ function setConnected(connected) {
   dom.connectBtn.disabled = connected;
   dom.disconnectBtn.disabled = !connected;
   dom.sendBtn.disabled = !connected;
-  if (dom.sendEmojiBtn) dom.sendEmojiBtn.disabled = !connected || !selectedEmojiHex;
+  if (dom.sendEmojiBtn) dom.sendEmojiBtn.disabled = !connected;
   if (dom.testBtn) dom.testBtn.disabled = !connected;
 }
 
@@ -732,6 +732,10 @@ async function connect() {
   const matrixSize = parseInt(dom.matrixSize?.value || '16');
   await delay(100); // Small delay to let connection stabilize
   await sendMode(matrixSize);
+  
+  // Sync brightness with micro:bit (5% default)
+  const brightness = parseInt(dom.brightnessSlider?.value || '13');
+  await sendBrightness(brightness);
 }
 
 async function disconnect() {
@@ -1081,6 +1085,11 @@ function ensurePreviewColorsSize() {
   }
 }
 
+// Check if preview has any non-black pixels
+function hasPreviewContent() {
+  return previewColors.some(c => c.r > 0 || c.g > 0 || c.b > 0);
+}
+
 function setPreviewFromColors(colors, label = null) {
   previewColors = colors.map(c => ({ r: c.r|0, g: c.g|0, b: c.b|0 }));
   paintEmojiMatrix(previewColors);
@@ -1287,6 +1296,7 @@ async function sendMode(size) {
   const payload = `MODE:${size}`;
   log(`Setting matrix mode to ${size}×${size}`, 'info');
   await sendRaw(payload);
+  await waitForAck(payload);
 }
 
 // Brightness control
@@ -1295,7 +1305,8 @@ if (dom.brightnessSlider && dom.brightnessValue) {
   
   dom.brightnessSlider.oninput = function() {
     console.log('Brightness slider moved:', this.value);
-    dom.brightnessValue.textContent = this.value;
+    const percent = Math.round((this.value / 255) * 100);
+    dom.brightnessValue.textContent = percent;
   };
   
   dom.brightnessSlider.onchange = async function() {
@@ -1323,6 +1334,7 @@ async function sendBrightness(brightness) {
   const payload = `BRIGHTNESS:${brightness}`;
   log(`Setting brightness to ${brightness}`, 'info');
   await sendRaw(payload);
+  await waitForAck(payload);
 }
 
 // ═══════════════════════════════════════════════════════════════════

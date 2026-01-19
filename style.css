@@ -1507,11 +1507,20 @@ button {
     width: 50px;   /* big logo */
     height: 50px;
 	color: #ffffff; /* logo will take this color */
+	background: none !important;
+	border: none !important;
+	padding: 0 !important;
+	box-shadow: none !important;
+	outline: none !important;
 }
 
 .animated-logo {
   width: 50px;
   transition: transform 0.5s ease, filter 0.5s ease;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .animated-logo:hover {
@@ -2919,5 +2928,16 @@ input[type="range"]::-moz-range-thumb:hover {
   100% {
     transform: translateX(150px);
     opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 4px 14px rgba(16,185,129,0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(16,185,129,0.7);
+    transform: scale(1.02);
   }
 }
