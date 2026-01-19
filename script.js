@@ -845,6 +845,21 @@ function initEditablePreview() {
     };
     setFromHex(dom.brushColor.value);
     dom.brushColor.addEventListener('input', (e) => setFromHex(e.target.value));
+    
+    // Add fun color button functionality
+    document.querySelectorAll('.color-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const color = btn.getAttribute('data-color');
+        dom.brushColor.value = color;
+        setFromHex(color);
+        // Fun animation feedback
+        btn.style.transform = 'scale(1.3) rotate(15deg)';
+        setTimeout(() => {
+          btn.style.transform = '';
+        }, 200);
+      });
+    });
   }
 
   dom.emojiMatrix.addEventListener('contextmenu', (e) => e.preventDefault());

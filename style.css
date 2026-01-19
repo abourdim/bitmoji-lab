@@ -326,6 +326,16 @@ button:hover:not(:disabled) {
         0 0 0 1px rgba(59,130,246,0.5);
 }
 
+/* Fun color button styles */
+.color-btn:hover {
+    transform: scale(1.15) rotate(5deg) !important;
+    box-shadow: 0 0 20px currentColor !important;
+}
+
+.color-btn:active {
+    transform: scale(0.95) !important;
+}
+
 button:disabled {
     opacity: 0.4;
     cursor: default;

@@ -82,14 +82,52 @@
                 
                 
 
-                <!-- Brush Color -->
-                <div style="margin: 12px 0;">
-                  <label for="brushColor" style="display: block; font-size: 0.75rem; color: #9ca3af; margin-bottom: 6px;">
-                    🎨 Brush
+                <!-- Brush Color - FUN FOR KIDS! -->
+                <div style="margin: 12px 0; padding: 12px; background: linear-gradient(135deg, rgba(255,0,255,0.1), rgba(0,255,255,0.1)); border-radius: 12px; border: 2px dashed rgba(148,163,184,0.4);">
+                  <label for="brushColor" style="display: block; font-size: 0.85rem; color: #fbbf24; margin-bottom: 8px; font-weight: 700; text-align: center; text-shadow: 0 0 10px rgba(251,191,36,0.5);">
+                    🖌️✨ MAGIC PAINTBRUSH ✨🎨
                   </label>
-                  <input type="color" id="brushColor" value="#ff0000"
-                         style="width: 100%; height: 40px; padding: 0; border: 1px solid rgba(148,163,184,0.3); border-radius: 8px; background: rgba(15,23,42,0.6); cursor: pointer;" />
-                  <div class="hint" style="margin-top:6px;">Click + drag to paint. Shift/Alt or right-click to erase.</div>
+                  
+                  <!-- Rainbow Color Buttons -->
+                  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 10px;">
+                    <button class="color-btn" data-color="#ff0000" style="background: linear-gradient(135deg, #ff0000, #ff6b6b); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Red">
+                      🍓
+                    </button>
+                    <button class="color-btn" data-color="#ffa500" style="background: linear-gradient(135deg, #ffa500, #ffdd57); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Orange">
+                      🦊
+                    </button>
+                    <button class="color-btn" data-color="#ffff00" style="background: linear-gradient(135deg, #ffff00, #fff89a); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Yellow">
+                      ⭐
+                    </button>
+                    <button class="color-btn" data-color="#00ff00" style="background: linear-gradient(135deg, #00ff00, #7aff7a); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Green">
+                      🦖
+                    </button>
+                    <button class="color-btn" data-color="#0080ff" style="background: linear-gradient(135deg, #0080ff, #66b3ff); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Blue">
+                      🚀
+                    </button>
+                    <button class="color-btn" data-color="#a020f0" style="background: linear-gradient(135deg, #a020f0, #d17aff); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Purple">
+                      🦄
+                    </button>
+                    <button class="color-btn" data-color="#ff1493" style="background: linear-gradient(135deg, #ff1493, #ff69b4); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Pink">
+                      🦩
+                    </button>
+                    <button class="color-btn" data-color="#ffffff" style="background: linear-gradient(135deg, #ffffff, #f0f0f0); height: 36px; border-radius: 8px; border: 2px solid rgba(148,163,184,0.5); cursor: pointer; transition: transform 0.2s;" title="White">
+                      ☁️
+                    </button>
+                  </div>
+                  
+                  <!-- Custom Color Picker -->
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <label for="brushColor" style="font-size: 0.7rem; color: #e5e7eb;">
+                      🌈 Or pick your own:
+                    </label>
+                    <input type="color" id="brushColor" value="#ff0000"
+                           style="flex: 1; height: 32px; padding: 0; border: 2px solid rgba(148,163,184,0.4); border-radius: 8px; background: rgba(15,23,42,0.6); cursor: pointer;" />
+                  </div>
+                  
+                  <div class="hint" style="margin-top:8px; text-align: center; font-size: 0.7rem; color: #a5f3fc;">
+                    🖱️ Click + drag to paint • Hold Shift to erase ✨
+                  </div>
                 </div>
                 <button id="sendEmojiBtn" class="primary" disabled>
                   <span class="btn-icon">📤</span>Send emoji to micro:bit
