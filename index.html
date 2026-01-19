@@ -8,17 +8,12 @@
 </head>
 
 <body>
-  <!-- Funny Loading Overlay -->
-  <div id="loadingOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; flex-direction: column;">
-    <div style="text-align: center; animation: bounce 1s infinite;">
-      <div id="loadingEmoji" style="font-size: 8rem; margin-bottom: 20px;">
-        🚀
-      </div>
-      <div id="loadingText" style="font-size: 1.5rem; color: #fbbf24; font-weight: bold; text-shadow: 0 0 20px rgba(251,191,36,0.8);">
-        Beaming emoji to space! 🌟
-      </div>
-      <div style="margin-top: 10px; font-size: 0.9rem; color: #a5f3fc;">
-        micro:bit is thinking... 🤔
+  <!-- Discrete Loading Indicator -->
+  <div id="loadingIndicator" style="display: none; position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #10b981, #059669); padding: 12px 20px; border-radius: 50px; box-shadow: 0 4px 20px rgba(16,185,129,0.4); z-index: 9999; animation: slideIn 0.3s ease-out;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div id="loadingSpinner" style="width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+      <div id="loadingMessage" style="color: white; font-weight: 600; font-size: 0.9rem;">
+        Sending to micro:bit...
       </div>
     </div>
   </div>

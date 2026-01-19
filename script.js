@@ -464,6 +464,16 @@ function rgbToHex(colors) {
   return hex.join('');
 }
 
+// Calculate simple checksum: sum of all hex nibbles mod 256
+function calculateChecksum(hexData) {
+  let sum = 0;
+  for (let i = 0; i < hexData.length; i++) {
+    const nibble = parseInt(hexData.charAt(i), 16);
+    sum = (sum + nibble) % 256;
+  }
+  return sum.toString(16).padStart(2, '0').toUpperCase();
+}
+
 function paintEmojiMatrix(data) {
   if (!dom.emojiMatrix) return;
   ensureEmojiMatrixGrid();
@@ -572,11 +582,12 @@ async function sendEmoji() {
   }
   if (sendInProgress) return;
 
-  showFunnyLoading();
+  showLoadingIndicator('Sending emoji...');
   
   try {
-    // RGB format: RGBMOJI:<1536 hex chars> (256 pixels × 3 bytes RGB)
-    const payload = `RGBMOJI:${selectedEmojiHex}`;
+    // Add checksum: RGBMOJI:hexdata|CS
+    const checksum = calculateChecksum(selectedEmojiHex);
+    const payload = `RGBMOJI:${selectedEmojiHex}|${checksum}`;
     const byteLen = encoder.encode(payload).length;
 
     log(`Sending colorized emoji (${byteLen} bytes)`, 'info');
@@ -584,41 +595,28 @@ async function sendEmoji() {
     // Always use chunked transfer for RGB (too large for single packet)
     await sendChunked(payload);
   } finally {
-    hideFunnyLoading();
+    hideLoadingIndicator();
   }
 }
 
 // Send current preview colors to micro:bit (for demos)
 let demoSendInProgress = false;
-let demoFrameCount = 0;
 
 async function sendCurrentFrame() {
   if (!isConnected || demoSendInProgress) return;
   
   demoSendInProgress = true;
   
-  // Show loading overlay only for first frame
-  if (demoFrameCount === 0) {
-    showFunnyLoading();
-  }
-  
   try {
     // Convert current preview colors to hex
     const hexData = rgbToHex(previewColors);
-    const payload = `RGBMOJI:${hexData}`;
+    const checksum = calculateChecksum(hexData);
+    const payload = `RGBMOJI:${hexData}|${checksum}`;
     
-    // Wait for send to complete before allowing next frame
+    // Wait for micro:bit to finish displaying before sending next frame
     await sendChunked(payload);
-    
-    demoFrameCount++;
-    
-    // Hide loading after first successful frame
-    if (demoFrameCount === 1) {
-      hideFunnyLoading();
-    }
   } catch (err) {
     console.error('Demo frame send error:', err);
-    hideFunnyLoading();
   } finally {
     demoSendInProgress = false;
   }
@@ -633,51 +631,35 @@ function log(msg, type = 'info') {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-//  🎪 FUNNY LOADING OVERLAY
+//  📡 DISCRETE LOADING INDICATOR
 // ═══════════════════════════════════════════════════════════════════
 
-const funnyMessages = [
-  { emoji: '🚀', text: 'Beaming emoji to space!', sub: 'micro:bit is thinking...' },
-  { emoji: '🎨', text: 'Painting pixels...', sub: 'One LED at a time!' },
-  { emoji: '✨', text: 'Sprinkling magic dust!', sub: 'Making it sparkle!' },
-  { emoji: '🎪', text: 'Performing emoji magic!', sub: 'Ta-daaa!' },
-  { emoji: '🚂', text: 'Chugging along...', sub: 'Choo choo!' },
-  { emoji: '🎯', text: 'Aiming for perfection!', sub: 'Bullseye!' },
-  { emoji: '🎭', text: 'Showtime!', sub: 'micro:bit is ready!' },
-  { emoji: '🎬', text: 'Lights, camera, action!', sub: 'Streaming to micro:bit!' },
-  { emoji: '🎡', text: 'Going round and round!', sub: 'Wheee!' },
-  { emoji: '🎢', text: 'Buckle up!', sub: 'Sending data at lightspeed!' },
-  { emoji: '🔮', text: 'Consulting the crystal ball...', sub: 'Predicting awesome!' },
-  { emoji: '🎲', text: 'Rolling the dice!', sub: 'Lucky number: awesome!' },
-  { emoji: '🎯', text: 'Targeting LEDs...', sub: 'Direct hit!' },
-  { emoji: '🚁', text: 'Helicopter delivery!', sub: 'Package incoming!' },
-  { emoji: '🎪', text: 'Join the circus!', sub: 'Step right up!' }
+const loadingMessages = [
+  'Sending to micro:bit...',
+  'Transferring data...',
+  'Streaming pixels...',
+  'Uploading emoji...',
+  'Beaming to device...',
 ];
 
-let currentMessageIndex = 0;
-
-function showFunnyLoading() {
-  const overlay = document.getElementById('loadingOverlay');
-  const emojiEl = document.getElementById('loadingEmoji');
-  const textEl = document.getElementById('loadingText');
-  const subEl = textEl.nextElementSibling;
+function showLoadingIndicator(message) {
+  const indicator = document.getElementById('loadingIndicator');
+  const messageEl = document.getElementById('loadingMessage');
   
-  if (overlay && emojiEl && textEl) {
-    // Pick a random message
-    const msg = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
-    
-    emojiEl.textContent = msg.emoji;
-    textEl.textContent = msg.text;
-    if (subEl) subEl.textContent = msg.sub;
-    
-    overlay.style.display = 'flex';
+  if (indicator && messageEl) {
+    messageEl.textContent = message || loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
+    indicator.style.display = 'block';
+    indicator.style.animation = 'slideIn 0.3s ease-out';
   }
 }
 
-function hideFunnyLoading() {
-  const overlay = document.getElementById('loadingOverlay');
-  if (overlay) {
-    overlay.style.display = 'none';
+function hideLoadingIndicator() {
+  const indicator = document.getElementById('loadingIndicator');
+  if (indicator) {
+    indicator.style.animation = 'slideOut 0.3s ease-out';
+    setTimeout(() => {
+      indicator.style.display = 'none';
+    }, 300);
   }
 }
 
@@ -796,8 +778,52 @@ function processRxData(data) {
 
     if (line.startsWith('>')) {
       tryResolveAck(line.slice(1));
+    } else if (line.startsWith('STATUS:')) {
+      handleStatusMessage(line.slice(7));
     }
   }
+}
+
+// Handle checksum status from micro:bit
+function handleStatusMessage(status) {
+  const parts = status.split('|');
+  const result = parts[0];
+  const mbChecksum = parts[1];
+  const sentChecksum = parts[2];
+  
+  if (result === 'OK') {
+    showStatusBadge(`✓ 0x${mbChecksum}`, '#10b981', 2000);
+    log(`✓ Checksum OK: 0x${mbChecksum}`, 'success');
+  } else if (result === 'BAD') {
+    showStatusBadge(`✗ 0x${mbChecksum}≠0x${sentChecksum}`, '#ef4444', 4000);
+    log(`✗ Checksum FAILED! Calculated: 0x${mbChecksum}, Expected: 0x${sentChecksum}`, 'error');
+  }
+}
+
+// Show temporary status badge
+function showStatusBadge(icon, color, duration) {
+  const badge = document.createElement('div');
+  badge.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: ${color};
+    color: white;
+    padding: 10px 16px;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 10000;
+    animation: slideIn 0.3s ease-out;
+  `;
+  badge.textContent = icon;
+  document.body.appendChild(badge);
+  
+  setTimeout(() => {
+    badge.style.animation = 'slideOut 0.3s ease-out';
+    setTimeout(() => badge.remove(), 300);
+  }, duration);
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -1504,15 +1530,20 @@ function stopDemoAnimation() {
     clearInterval(demoInterval);
     demoInterval = null;
   }
-  demoFrameCount = 0;
-  hideFunnyLoading();
+  hideLoadingIndicator();
 }
 
 function startDemo(demoFunction) {
   stopDemoAnimation();
-  demoFrameCount = 0; // Reset frame counter
   ensureEmojiMatrixGrid();
   ensurePreviewColorsSize();
+  
+  // Show brief indicator when starting demo
+  if (isConnected) {
+    showLoadingIndicator('Starting demo...');
+    setTimeout(() => hideLoadingIndicator(), 1500);
+  }
+  
   demoFunction();
   
   // Log connection status

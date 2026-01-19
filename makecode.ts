@@ -14,7 +14,7 @@ let N = 256
 
 // Create strip for maximum size (256 LEDs)
 let strip = neopixel.create(LED_PIN, 256, NeoPixelMode.RGB)
-strip.setBrightness(80)
+strip.setBrightness(25)  // 10% brightness (25/255)
 strip.clear()
 strip.show()
 
@@ -103,13 +103,41 @@ function tryConsumeEmojiBuffer() {
         if (rgbIdx > 0) emojiBuf = emojiBuf.substr(rgbIdx)
 
         // Use the configured size (set by MODE command)
-        const needLen = 8 + (N * 6)  // "RGBMOJI:" + (pixels × 6 hex chars)
+        const needLen = 8 + (N * 6) + 3  // "RGBMOJI:" + (pixels × 6 hex chars) + "|XX" checksum
 
         if (emojiBuf.length >= needLen) {
             let hexData = emojiBuf.substr(8, N * 6)
-            emojiBuf = ""
-            basic.showIcon(IconNames.Heart)
-            drawRGBEmoji(hexData)
+            
+            // Verify checksum (simple: sum all hex nibbles mod 256)
+            let checksum = 0
+            for (let i = 0; i < hexData.length; i++) {
+                checksum = (checksum + hexToNibble(hexData.charAt(i))) % 256
+            }
+            let expectedChecksum = hexToByte(emojiBuf, 8 + N * 6 + 1)
+            
+            if (checksum == expectedChecksum) {
+                emojiBuf = ""
+                basic.showIcon(IconNames.Heart)
+                // Convert to hex manually
+                let checksumHex = ""
+                let high = Math.idiv(checksum, 16)
+                let low = checksum % 16
+                checksumHex = "0123456789ABCDEF".charAt(high) + "0123456789ABCDEF".charAt(low)
+                serial.writeString("STATUS:OK|" + checksumHex + "\n")
+                drawRGBEmoji(hexData)
+            } else {
+                // Checksum failed - discard
+                emojiBuf = ""
+                basic.showIcon(IconNames.No)
+                // Convert both checksums to hex manually
+                let calcHigh = Math.idiv(checksum, 16)
+                let calcLow = checksum % 16
+                let calcHex = "0123456789ABCDEF".charAt(calcHigh) + "0123456789ABCDEF".charAt(calcLow)
+                let expHigh = Math.idiv(expectedChecksum, 16)
+                let expLow = expectedChecksum % 16
+                let expHex = "0123456789ABCDEF".charAt(expHigh) + "0123456789ABCDEF".charAt(expLow)
+                serial.writeString("STATUS:BAD|" + calcHex + "|" + expHex + "\n")
+            }
             return
         }
     }
