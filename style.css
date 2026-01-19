@@ -545,6 +545,31 @@ button:disabled {
   align-items: center;
   width: 100%;
   box-sizing: border-box;
+  position: relative;
+}
+
+/* 🌈 FUN RAINBOW GLOW BORDER FOR KIDS! */
+.emoji-matrix-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 12px;
+  padding: 3px;
+  background: linear-gradient(45deg, 
+    #ff0000, #ff7700, #ffff00, #00ff00, 
+    #0099ff, #6633ff, #ff00ff, #ff0000);
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rainbow-spin 3s linear infinite;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+@keyframes rainbow-spin {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
 }
 
 .emoji-matrix-title{
@@ -588,6 +613,44 @@ button:disabled {
   background: radial-gradient(circle at 30% 30%, #fef9c3, #facc15);
   border-color: rgba(250,204,21,1);
   box-shadow: 0 0 10px rgba(250,204,21,0.55);
+}
+
+/* 🎨 FUN BOUNCY PAINT ANIMATION FOR KIDS! */
+@keyframes bouncy-paint {
+  0% {
+    transform: scale(0.3) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.4) rotate(180deg);
+  }
+  70% {
+    transform: scale(0.9) rotate(360deg);
+  }
+  85% {
+    transform: scale(1.1) rotate(380deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+@keyframes sparkle-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 25px currentColor, 0 0 35px currentColor;
+  }
+}
+
+.pixel-cell.just-painted {
+  animation: bouncy-paint 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.pixel-cell.painted-active {
+  animation: sparkle-glow 0.8s ease-in-out;
 }
 
 /* Mode selector (tabs) */

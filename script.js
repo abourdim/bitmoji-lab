@@ -798,6 +798,18 @@ function setPixel(index, color) {
   if (on) {
     cell.style.background = `rgb(${previewColors[index].r}, ${previewColors[index].g}, ${previewColors[index].b})`;
     cell.style.boxShadow = `0 0 8px rgba(${previewColors[index].r}, ${previewColors[index].g}, ${previewColors[index].b}, 0.8)`;
+    
+    // 🎨 FUN BOUNCY ANIMATION FOR KIDS!
+    cell.classList.add('just-painted');
+    cell.classList.add('painted-active');
+    
+    // Remove animation classes after animation completes
+    setTimeout(() => {
+      cell.classList.remove('just-painted');
+    }, 500);
+    setTimeout(() => {
+      cell.classList.remove('painted-active');
+    }, 800);
   } else {
     cell.style.background = '';
     cell.style.boxShadow = '';
