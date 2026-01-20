@@ -87,8 +87,18 @@ body {
     font-size: 1.2rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #f9fafb;
+    background: linear-gradient(135deg, #10b981, #3b82f6, #a855f7, #ec4899, #10b981);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin: 0;
+    animation: gradientShift 6s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 .title-block .subtitle {
@@ -738,17 +748,10 @@ details.collapsible > .card {
   }
 }
 
-/* Logo animation */
-@keyframes pulse-logo {
-  0% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(53,224,183,0.2)); }
-  50% { transform: scale(1.05); filter: drop-shadow(0 0 8px rgba(53,224,183,0.6)); }
-  100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(53,224,183,0.2)); }
-}
-
+/* Logo */
 .site-logo {
-    width: 64px;
-    height: 64px;
-    animation: pulse-logo 3s infinite;
+    width: 80px;
+    height: 80px;
 }
 
 /* Mini Mission Control branding */
