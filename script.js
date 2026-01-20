@@ -31,8 +31,6 @@ const dom = {
   // Emoji UI
   emojiList: document.getElementById('emojiList'),
   emojiMatrix: document.getElementById('emojiMatrix'),
-  selectedEmojiText: document.getElementById('selectedEmojiText'),
-  selectedEmojiDescription: document.getElementById('selectedEmojiDescription'),
   sendEmojiBtn: document.getElementById('sendEmojiBtn'),
   matrixSize: document.getElementById('matrixSize'),
   brightnessSlider: document.getElementById('brightnessSlider'),
@@ -534,6 +532,7 @@ function buildEmojiPicker() {
       btn.type = 'button';
       btn.className = 'emoji-btn';
       btn.textContent = emoji;
+      btn.setAttribute('data-description', EMOJI_DESCRIPTIONS[emoji] || 'Custom emoji');
       btn.addEventListener('click', () => selectEmoji(emoji, btn));
       grid.appendChild(btn);
     }
@@ -548,13 +547,6 @@ function buildEmojiPicker() {
 
 function selectEmoji(emoji, btnEl) {
   selectedEmoji = emoji;
-  if (dom.selectedEmojiText) dom.selectedEmojiText.textContent = emoji;
-  
-  // Show emoji description
-  if (dom.selectedEmojiDescription) {
-    const description = EMOJI_DESCRIPTIONS[emoji] || 'Custom emoji';
-    dom.selectedEmojiDescription.textContent = description;
-  }
 
   // Toggle active state - find all emoji buttons in all categories
   if (dom.emojiList) {

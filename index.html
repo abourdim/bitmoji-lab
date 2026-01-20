@@ -31,7 +31,9 @@
           <img src="logo.svg" alt="Logo" class="site-logo animated-logo" />
           <div>
             <h1>bitmoji-lab</h1>
-            <div class="subtitle">explore - create - innovate</div>
+            <div class="subtitle" style="animation: rainbow 5s linear infinite;">
+              🚀 explore • 🎨 create • 💡 innovate
+            </div>
           </div>
         </div>
 
@@ -67,96 +69,80 @@
               </div>
               <div id="emojiList" class="emoji-grid" aria-label="Emoji list"></div>
               
-              <div class="emoji-selected">
-                <div class="emoji-selected-label">Selected</div>
-                <div class="emoji-selected-value" id="selectedEmojiText">—</div>
-                <div class="emoji-selected-description" id="selectedEmojiDescription" style="font-size: 0.7rem; color: #9ca3af; margin-top: 4px; text-align: center; min-height: 20px;">
-                  Click an emoji to see description
-                </div>
-                
-                <!-- Matrix Size Selector -->
-                <div style="margin: 12px 0;">
-                  <label for="matrixSize" style="display: block; font-size: 0.75rem; color: #9ca3af; margin-bottom: 6px;">
-                    📐 Matrix Size
-                  </label>
-                  <select id="matrixSize" style="width: 100%; padding: 6px; background: rgba(15,23,42,0.6); color: #e5e7eb; border: 1px solid rgba(148,163,184,0.3); border-radius: 6px; cursor: pointer;">
-                    <option value="16">16×16 (256 LEDs)</option>
-                    <option value="8">8×8 (64 LEDs)</option>
-                  </select>
-                </div>
-                
-                <!-- Brightness Control -->
-                <div style="margin: 12px 0;">
-                  <label for="brightnessSlider" style="display: block; font-size: 0.75rem; color: #9ca3af; margin-bottom: 6px;">
-                    💡 Brightness: <span id="brightnessValue">5</span>%
-                  </label>
-                  <input type="range" id="brightnessSlider" min="10" max="255" value="13" 
-                         style="width: 100%; height: 6px; accent-color: #22c55e;">
-                </div>
-                
-                
-                <!-- Magic Paintbrush - Collapsible -->
-                <details class="collapsible">
-                  <summary>
-                    <span class="icon">🖌️</span> Magic Paintbrush
-                  </summary>
-                  <div class="card">
-                    <div style="margin: 12px 0; padding: 12px; background: linear-gradient(135deg, rgba(255,0,255,0.1), rgba(0,255,255,0.1)); border-radius: 12px; border: 2px dashed rgba(148,163,184,0.4);">
-                      <label for="brushColor" style="display: block; font-size: 0.85rem; color: #fbbf24; margin-bottom: 8px; font-weight: 700; text-align: center; text-shadow: 0 0 10px rgba(251,191,36,0.5);">
-                        ✨ PAINT YOUR EMOJI ✨
+              <!-- Matrix Size Selector -->
+              <div class="control-section" style="margin-top: 12px;">
+                <label for="matrixSize" style="display: block; font-size: 0.75rem; color: #9ca3af; margin-bottom: 6px;">
+                  📐 Matrix Size
+                </label>
+                <select id="matrixSize" style="width: 100%; padding: 6px; background: rgba(15,23,42,0.6); color: #e5e7eb; border: 1px solid rgba(148,163,184,0.3); border-radius: 6px; cursor: pointer;">
+                  <option value="16">16×16 (256 LEDs)</option>
+                  <option value="8">8×8 (64 LEDs)</option>
+                </select>
+              </div>
+              
+              <!-- Brightness Control -->
+              <div class="control-section">
+                <label for="brightnessSlider" style="display: block; font-size: 0.75rem; color: #9ca3af; margin-bottom: 6px;">
+                  💡 Brightness: <span id="brightnessValue">5</span>%
+                </label>
+                <input type="range" id="brightnessSlider" min="10" max="255" value="13" 
+                       style="width: 100%; height: 6px; accent-color: #22c55e;">
+              </div>
+              
+              <!-- Magic Paintbrush - Collapsible -->
+              <details class="collapsible">
+                <summary>
+                  <span class="icon">🖌️</span> Magic Paintbrush
+                </summary>
+                <div class="card">
+                  <div style="margin: 12px 0; padding: 12px; background: linear-gradient(135deg, rgba(255,0,255,0.1), rgba(0,255,255,0.1)); border-radius: 12px; border: 2px dashed rgba(148,163,184,0.4);">
+                    <label for="brushColor" style="display: block; font-size: 0.85rem; color: #fbbf24; margin-bottom: 8px; font-weight: 700; text-align: center; text-shadow: 0 0 10px rgba(251,191,36,0.5);">
+                      ✨ PAINT YOUR EMOJI ✨
+                    </label>
+                    
+                    <!-- Rainbow Color Buttons -->
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 10px;">
+                      <button class="color-btn" data-color="#ff0000" style="background: linear-gradient(135deg, #ff0000, #ff6b6b); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Red">
+                        🍓
+                      </button>
+                      <button class="color-btn" data-color="#ffa500" style="background: linear-gradient(135deg, #ffa500, #ffdd57); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Orange">
+                        🦊
+                      </button>
+                      <button class="color-btn" data-color="#ffff00" style="background: linear-gradient(135deg, #ffff00, #fff89a); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Yellow">
+                        ⭐
+                      </button>
+                      <button class="color-btn" data-color="#00ff00" style="background: linear-gradient(135deg, #00ff00, #7aff7a); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Green">
+                        🦖
+                      </button>
+                      <button class="color-btn" data-color="#0080ff" style="background: linear-gradient(135deg, #0080ff, #66b3ff); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Blue">
+                        🚀
+                      </button>
+                      <button class="color-btn" data-color="#a020f0" style="background: linear-gradient(135deg, #a020f0, #d17aff); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Purple">
+                        🦄
+                      </button>
+                      <button class="color-btn" data-color="#ff1493" style="background: linear-gradient(135deg, #ff1493, #ff69b4); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Pink">
+                        🦩
+                      </button>
+                      <button class="color-btn" data-color="#ffffff" style="background: linear-gradient(135deg, #ffffff, #f0f0f0); height: 36px; border-radius: 8px; border: 2px solid rgba(148,163,184,0.5); cursor: pointer; transition: transform 0.2s;" title="White">
+                        ☁️
+                      </button>
+                    </div>
+                    
+                    <!-- Custom Color Picker -->
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <label for="brushColor" style="font-size: 0.7rem; color: #e5e7eb;">
+                        🌈 Or pick your own:
                       </label>
-                      
-                      <!-- Rainbow Color Buttons -->
-                      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 10px;">
-                        <button class="color-btn" data-color="#ff0000" style="background: linear-gradient(135deg, #ff0000, #ff6b6b); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Red">
-                          🍓
-                        </button>
-                        <button class="color-btn" data-color="#ffa500" style="background: linear-gradient(135deg, #ffa500, #ffdd57); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Orange">
-                          🦊
-                        </button>
-                        <button class="color-btn" data-color="#ffff00" style="background: linear-gradient(135deg, #ffff00, #fff89a); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Yellow">
-                          ⭐
-                        </button>
-                        <button class="color-btn" data-color="#00ff00" style="background: linear-gradient(135deg, #00ff00, #7aff7a); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Green">
-                          🦖
-                        </button>
-                        <button class="color-btn" data-color="#0080ff" style="background: linear-gradient(135deg, #0080ff, #66b3ff); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Blue">
-                          🚀
-                        </button>
-                        <button class="color-btn" data-color="#a020f0" style="background: linear-gradient(135deg, #a020f0, #d17aff); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Purple">
-                          🦄
-                        </button>
-                        <button class="color-btn" data-color="#ff1493" style="background: linear-gradient(135deg, #ff1493, #ff69b4); height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: transform 0.2s;" title="Pink">
-                          🦩
-                        </button>
-                        <button class="color-btn" data-color="#ffffff" style="background: linear-gradient(135deg, #ffffff, #f0f0f0); height: 36px; border-radius: 8px; border: 2px solid rgba(148,163,184,0.5); cursor: pointer; transition: transform 0.2s;" title="White">
-                          ☁️
-                        </button>
-                      </div>
-                      
-                      <!-- Custom Color Picker -->
-                      <div style="display: flex; align-items: center; gap: 8px;">
-                        <label for="brushColor" style="font-size: 0.7rem; color: #e5e7eb;">
-                          🌈 Or pick your own:
-                        </label>
-                        <input type="color" id="brushColor" value="#ff0000"
-                               style="flex: 1; height: 32px; padding: 0; border: 2px solid rgba(148,163,184,0.4); border-radius: 8px; background: rgba(15,23,42,0.6); cursor: pointer;" />
-                      </div>
-                      
-                      <div class="hint" style="margin-top:8px; text-align: center; font-size: 0.7rem; color: #a5f3fc;">
-                        🖱️ Click + drag to paint • Hold Shift to erase ✨
-                      </div>
+                      <input type="color" id="brushColor" value="#ff0000"
+                             style="flex: 1; height: 32px; padding: 0; border: 2px solid rgba(148,163,184,0.4); border-radius: 8px; background: rgba(15,23,42,0.6); cursor: pointer;" />
+                    </div>
+                    
+                    <div class="hint" style="margin-top:8px; text-align: center; font-size: 0.7rem; color: #a5f3fc;">
+                      🖱️ Click + drag to paint • Hold Shift to erase ✨
                     </div>
                   </div>
-                </details>
-
-                <div class="hint" style="margin-top:10px;">
-                  <div class="hint-title">Serial payload</div>
-                  <div class="hint-text">
-                    We send <code>RGBMOJI:&lt;1536-hex&gt;</code> (256 pixels × RGB = 768 bytes) - now with deduplication!
-                  </div>
                 </div>
-              </div>
+              </details>
             </div>
 
             <!-- RIGHT: Preview -->
@@ -208,34 +194,7 @@
         </div>
       </div>
 
-      <!-- ================= CONNECTION CARD ================= -->
-      <div class="card" id="connectionCard" style="margin-bottom: 16px;">
-        <div class="card-header">
-          <div>
-            <div class="card-title">
-              <span class="icon">🔌</span> Connection
-            </div>
-            <div class="card-subtitle">Connect to your micro:bit over USB Serial</div>
-          </div>
-        </div>
 
-        <div class="button-row">
-          <button id="connectBtn" class="primary" style="flex: 1;">
-            <span class="btn-icon">🔗</span>Connect
-          </button>
-          <button id="disconnectBtn" class="secondary" disabled style="flex: 1;">
-            <span class="btn-icon">⛔</span>Disconnect
-          </button>
-        </div>
-
-        <div class="hint">
-          <div class="hint-title">Tip</div>
-          <ol>
-            <li>Use Chrome / Edge (desktop)</li>
-            <li>Select the micro:bit serial port</li>
-          </ol>
-        </div>
-      </div>
 
       <!-- ================= COLLAPSIBLE: SAVED DESIGNS ================= -->
       <details class="collapsible">
@@ -320,16 +279,46 @@
         </div>
       </details>
 
-      <!-- ================= COLLAPSIBLE: SEND MESSAGE ================= -->
+      <!-- ================= COLLAPSIBLE: CONNECTION & SEND MESSAGE ================= -->
       <details class="collapsible">
         <summary>
-          <span class="icon">✉️</span> Send Message
+          <span class="icon">🔌</span> Connection & Message
         </summary>
         <div class="card" id="messageCard">
-          <div class="card-subtitle" style="margin-bottom: 8px;">
-            Type a short message or run the throughput test
+          <div class="card-subtitle" style="margin-bottom: 12px;">
+            Connect to your micro:bit and send messages
           </div>
 
+          <!-- CONNECTION SECTION -->
+          <div class="control-section" style="margin-bottom: 16px;">
+            <div class="section-header">
+              <div class="section-title">
+                <span class="section-icon">🔌</span> Connection
+              </div>
+              <div class="section-subtitle">
+                Connect to your micro:bit over USB Serial
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button id="connectBtn" class="primary" style="flex: 1;">
+                <span class="btn-icon">🔗</span>Connect
+              </button>
+              <button id="disconnectBtn" class="secondary" disabled style="flex: 1;">
+                <span class="btn-icon">⛔</span>Disconnect
+              </button>
+            </div>
+
+            <div class="hint">
+              <div class="hint-title">Tip</div>
+              <ol>
+                <li>Use Chrome / Edge (desktop)</li>
+                <li>Select the micro:bit serial port</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- MESSAGE SECTION -->
           <div class="control-section">
             <div class="section-header">
               <div class="section-title">

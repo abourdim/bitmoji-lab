@@ -77,11 +77,18 @@ body {
     gap: 8px;
 }
 
+.title-block {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
 .title-block h1 {
     font-size: 1.2rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #f9fafb;
+    margin: 0;
 }
 
 .title-block .subtitle {
@@ -419,12 +426,41 @@ button:disabled {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
-.emoji-btn:hover { transform: translateY(-1px) scale(1.03); }
+.emoji-btn:hover { 
+  transform: translateY(-1px) scale(1.03); 
+}
+
 .emoji-btn.active {
   border-color: rgba(34,197,94,0.9);
   box-shadow: 0 0 0 1px rgba(34,197,94,0.7), 0 0 16px rgba(34,197,94,0.35);
+}
+
+.emoji-btn::after {
+  content: attr(data-description);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  background: rgba(15, 23, 42, 0.98);
+  color: #e5e7eb;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  border: 1px solid rgba(148,163,184,0.4);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+.emoji-btn:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
 }
 
 /* Emoji Categories */
@@ -497,29 +533,6 @@ button:disabled {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(148,163,184,0.7);
-}
-
-/* Selected Info Box */
-.emoji-selected {
-  border-radius: 10px;
-  border: 1px solid rgba(31,41,55,0.85);
-  background: rgba(15,23,42,0.65);
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-}
-
-.emoji-selected-label {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #9ca3af;
-}
-
-.emoji-selected-value {
-  font-size: 2.5rem;
-  margin: 4px 0 8px;
-  text-align: center;
 }
 
 /* THE PREVIEW MATRIX WRAPPER 
@@ -723,8 +736,8 @@ details.collapsible > .card {
 }
 
 .site-logo {
-    width: 40px;
-    height: 40px;
+    width: 64px;
+    height: 64px;
     animation: pulse-logo 3s infinite;
 }
 
@@ -741,4 +754,13 @@ details.collapsible > .card {
     opacity: 0.3;
     color: rgba(200, 230, 255, 0.9);
     pointer-events: none;
+}
+
+/* Subtle rainbow animation */
+@keyframes rainbow {
+  0% { color: #10b981; }
+  25% { color: #3b82f6; }
+  50% { color: #a855f7; }
+  75% { color: #ec4899; }
+  100% { color: #10b981; }
 }
