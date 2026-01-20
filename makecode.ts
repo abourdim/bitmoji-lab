@@ -14,13 +14,13 @@ let N = 256
 
 // Create strip for maximum size (256 LEDs)
 let strip = neopixel.create(LED_PIN, 256, NeoPixelMode.RGB)
-strip.setBrightness(13)  // 5% brightness (13/255)
+strip.setBrightness(10)  // 10% brightness - safe default
 strip.clear()
 strip.show()
 
 serial.redirectToUSB()
-serial.setRxBufferSize(200)
-serial.setTxBufferSize(200)
+serial.setRxBufferSize(254)  // Maximum for micro:bit
+serial.setTxBufferSize(254)  // Maximum for micro:bit
 
 // Reassembly buffer
 let emojiBuf = ""
@@ -69,8 +69,10 @@ function drawRGBEmoji(hexData: string) {
         }
     }
 
+    // Small delay to ensure NeoPixels are ready (prevents garbage on first draw)
+    basic.pause(1)
     strip.show()
-    basic.showIcon(IconNames.Yes)
+    // Don't show icon here - it blocks and prevents fast animation frames
 }
 
 // Legacy monochrome emoji (backward compatible)
@@ -117,18 +119,17 @@ function tryConsumeEmojiBuffer() {
             
             if (checksum == expectedChecksum) {
                 emojiBuf = ""
-                basic.showIcon(IconNames.Heart)
                 // Convert to hex manually
                 let checksumHex = ""
                 let high = Math.idiv(checksum, 16)
                 let low = checksum % 16
                 checksumHex = "0123456789ABCDEF".charAt(high) + "0123456789ABCDEF".charAt(low)
-                serial.writeString("STATUS:OK|" + checksumHex + "\n")
+                // Draw FIRST, then send STATUS (so we're ready for next frame)
                 drawRGBEmoji(hexData)
+                serial.writeString("STATUS:OK|" + checksumHex + "\n")
             } else {
                 // Checksum failed - discard
                 emojiBuf = ""
-                basic.showIcon(IconNames.No)
                 // Convert both checksums to hex manually
                 let calcHigh = Math.idiv(checksum, 16)
                 let calcLow = checksum % 16
@@ -137,6 +138,8 @@ function tryConsumeEmojiBuffer() {
                 let expLow = expectedChecksum % 16
                 let expHex = "0123456789ABCDEF".charAt(expHigh) + "0123456789ABCDEF".charAt(expLow)
                 serial.writeString("STATUS:BAD|" + calcHex + "|" + expHex + "\n")
+                // Show brief error on 5x5 LED (non-blocking would be better, but this is rare)
+                basic.showIcon(IconNames.No)
             }
             return
         }
@@ -168,15 +171,15 @@ serial.onDataReceived(serial.delimiters(Delimiters.NewLine), function () {
     let line = serial.readUntil(serial.delimiters(Delimiters.NewLine)).trim()
     if (line.length == 0) return
 
-    // ✅ ACK FIRST (critical) - must be immediate, no delays
-    serial.writeString(">" + line + "\n")
-
     // Chunk format: "seq|payload"
     let bar = line.indexOf("|")
     if (bar != -1) {
         let seqStr = line.substr(0, bar)
         let seq = parseInt(seqStr)
         let payload = line.substr(bar + 1)
+
+        // ✅ ACK with sequence number only (lightweight - prevents buffer overflow)
+        serial.writeString(">" + seqStr + "\n")
 
         // Check if this is emoji-related
         let isRGBStart = payload.indexOf("RGBMOJI:") == 0
@@ -204,7 +207,10 @@ serial.onDataReceived(serial.delimiters(Delimiters.NewLine), function () {
         return
     }
 
-    // Non-chunk emoji
+    // Non-chunked commands get full echo (they're short)
+    serial.writeString(">" + line + "\n")
+
+    // Non-chunk emoji (rare, but support it)
     if (line.indexOf("RGBMOJI:") == 0 || line.indexOf("EMOJI:") == 0) {
         emojiBuf = line
         lastChunkSeq = -1
@@ -212,14 +218,28 @@ serial.onDataReceived(serial.delimiters(Delimiters.NewLine), function () {
         return
     }
 
+    // Clear emoji buffer when receiving other commands (prevents corruption)
+    emojiBuf = ""
+    lastChunkSeq = -1
+
+    // Clear/reset command - sent on connect to ensure clean state
+    if (line.indexOf("CLEAR") == 0) {
+        strip.clear()
+        strip.show()
+        return
+    }
+
     // Brightness command: "BRIGHTNESS:value"
     if (line.indexOf("BRIGHTNESS:") == 0) {
         let brightnessStr = line.substr(11)
         let brightness = parseInt(brightnessStr)
-        if (brightness >= 10 && brightness <= 255) {
+        // Safety cap: 10-100 range (100 is already very bright for NeoPixels!)
+        // Values above 100 can be uncomfortably bright at close range
+        if (brightness >= 10 && brightness <= 100) {
             strip.setBrightness(brightness)
-            strip.show()  // Update display with new brightness
-            basic.showIcon(IconNames.Yes)
+            strip.show()  // Apply new brightness to current display
+            basic.pause(10)  // Let NeoPixels settle before next command
+            // Don't use basic.showIcon() here - it blocks and corrupts serial!
         }
         return
     }

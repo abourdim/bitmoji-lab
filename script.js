@@ -9,8 +9,8 @@
 const CONFIG = {
   baudRate: 115200,
   chunkSize: 50,  // Reduced from 64 for RGB reliability
-  ackTimeout: 50, // Increased from 30 for RGB processing
-  retryDelay: 15, // Increased from 10 for stability
+  ackTimeout: 100, // Increased for reliable ACK handling
+  retryDelay: 20, // Increased for stability
   maxRetries: 10,
   maxSeq: 1000
 };
@@ -59,6 +59,7 @@ const dom = {
   demoFireworks: document.getElementById('demoFireworks'),
   demoRacingCar: document.getElementById('demoRacingCar'),
   demoStopSign: document.getElementById('demoStopSign'),
+  demoBlinkingEye: document.getElementById('demoBlinkingEye'),
   stopDemo: document.getElementById('stopDemo'),
   logContainer: document.getElementById('logContainer'),
   clearLogBtn: document.getElementById('clearLogBtn'),
@@ -594,6 +595,7 @@ async function sendEmoji() {
 
 // Send current preview colors to micro:bit (for demos)
 let demoSendInProgress = false;
+let statusOkResolver = null;
 
 async function sendCurrentFrame() {
   if (!isConnected || demoSendInProgress) return;
@@ -606,8 +608,23 @@ async function sendCurrentFrame() {
     const checksum = calculateChecksum(hexData);
     const payload = `RGBMOJI:${hexData}|${checksum}`;
     
-    // Wait for micro:bit to finish displaying before sending next frame
+    // Create a promise that resolves when we receive STATUS:OK
+    const statusPromise = new Promise((resolve) => {
+      statusOkResolver = resolve;
+      // Timeout after 2 seconds in case STATUS never arrives
+      setTimeout(() => {
+        if (statusOkResolver === resolve) {
+          statusOkResolver = null;
+          resolve(false);
+        }
+      }, 2000);
+    });
+    
+    // Send the frame
     await sendChunked(payload);
+    
+    // Wait for micro:bit to confirm it finished displaying
+    await statusPromise;
   } catch (err) {
     console.error('Demo frame send error:', err);
   } finally {
@@ -721,13 +738,17 @@ async function connect() {
   setConnected(true);
   log('Connected', 'success');
   
+  // Reset micro:bit state first (clears any leftover buffer data)
+  await delay(100); // Small delay to let connection stabilize
+  await sendRaw('CLEAR');
+  await delay(50);
+  
   // Send initial MODE command based on selected matrix size
   const matrixSize = parseInt(dom.matrixSize?.value || '8');
-  await delay(100); // Small delay to let connection stabilize
   await sendMode(matrixSize);
   
-  // Sync brightness with micro:bit (5% default)
-  const brightness = parseInt(dom.brightnessSlider?.value || '13');
+  // Sync brightness with micro:bit (10% default - safe for NeoPixels)
+  const brightness = parseInt(dom.brightnessSlider?.value || '10');
   await sendBrightness(brightness);
 }
 
@@ -791,9 +812,21 @@ function handleStatusMessage(status) {
   if (result === 'OK') {
     showStatusBadge(`✓ 0x${mbChecksum}`, '#10b981', 2000);
     log(`✓ Checksum OK: 0x${mbChecksum}`, 'success');
+    // Resolve the demo frame promise so next frame can be sent
+    if (statusOkResolver) {
+      const resolver = statusOkResolver;
+      statusOkResolver = null;
+      resolver(true);
+    }
   } else if (result === 'BAD') {
     showStatusBadge(`✗ 0x${mbChecksum}≠0x${sentChecksum}`, '#ef4444', 4000);
     log(`✗ Checksum FAILED! Calculated: 0x${mbChecksum}, Expected: 0x${sentChecksum}`, 'error');
+    // Also resolve on failure so demo doesn't hang
+    if (statusOkResolver) {
+      const resolver = statusOkResolver;
+      statusOkResolver = null;
+      resolver(false);
+    }
   }
 }
 
@@ -852,21 +885,12 @@ function waitForAck(payload) {
 function tryResolveAck(echoed) {
   if (!awaitingResolve || !awaitingPayload) return;
   
-  // Exact match (best case)
-  if (echoed === awaitingPayload) {
-    clearTimeout(awaitingTimer);
-    const resolve = awaitingResolve;
-    awaitingPayload = awaitingResolve = awaitingReject = null;
-    resolve(true);
-    return;
-  }
-  
-  // Match for chunked data: "seq|payload"
+  // For chunked data: "seq|payload" - accept just the sequence number
   const barIdx = awaitingPayload.indexOf('|');
   if (barIdx > 0) {
     const expectedSeq = awaitingPayload.substring(0, barIdx);
     
-    // Accept sequence-only ACK (optimized protocol)
+    // Accept sequence-only ACK (lightweight protocol - prevents buffer overflow)
     if (echoed === expectedSeq) {
       clearTimeout(awaitingTimer);
       const resolve = awaitingResolve;
@@ -875,14 +899,23 @@ function tryResolveAck(echoed) {
       return;
     }
     
-    // Legacy: partial payload match
-    const expectedStart = awaitingPayload.substring(0, Math.min(barIdx + 20, awaitingPayload.length));
-    if (echoed.startsWith(expectedSeq + '|') && echoed.substring(0, expectedStart.length) === expectedStart) {
+    // Also accept full payload echo (backward compatibility)
+    if (echoed === awaitingPayload) {
       clearTimeout(awaitingTimer);
       const resolve = awaitingResolve;
       awaitingPayload = awaitingResolve = awaitingReject = null;
       resolve(true);
+      return;
     }
+  }
+  
+  // Exact match for non-chunked commands
+  if (echoed === awaitingPayload) {
+    clearTimeout(awaitingTimer);
+    const resolve = awaitingResolve;
+    awaitingPayload = awaitingResolve = awaitingReject = null;
+    resolve(true);
+    return;
   }
   
   // Match for non-chunked commands (MODE, BRIGHTNESS, etc)
@@ -1296,9 +1329,16 @@ async function sendMode(size) {
 if (dom.brightnessSlider && dom.brightnessValue) {
   console.log('Brightness control initialized');
   
+  // Set safer max (100 is already very bright for NeoPixels!)
+  dom.brightnessSlider.max = '100';
+  dom.brightnessSlider.min = '10';
+  if (parseInt(dom.brightnessSlider.value) > 100) {
+    dom.brightnessSlider.value = '10'; // Safe default
+  }
+  
   dom.brightnessSlider.oninput = function() {
     console.log('Brightness slider moved:', this.value);
-    const percent = Math.round((this.value / 255) * 100);
+    const percent = Math.round((this.value / 100) * 100);
     dom.brightnessValue.textContent = percent;
   };
   
@@ -1324,10 +1364,23 @@ async function sendBrightness(brightness) {
     return;
   }
   
+  // Cap brightness for safety (100 is already very bright!)
+  brightness = Math.max(10, Math.min(100, brightness));
+  
   const payload = `BRIGHTNESS:${brightness}`;
-  log(`Setting brightness to ${brightness}`, 'info');
+  log(`Setting brightness to ${brightness}%`, 'info');
   await sendRaw(payload);
-  await waitForAck(payload);
+  
+  // Wait for ACK with timeout, but don't fail if it times out
+  try {
+    await waitForAck(payload);
+  } catch (e) {
+    // Brightness command might not always get ACK'd cleanly
+    console.log('Brightness ACK timeout (non-critical)');
+  }
+  
+  // Longer delay to let NeoPixels settle before next command
+  await delay(100);
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -1557,20 +1610,26 @@ renderSavedDesigns();
 //  🎬 DEMO ANIMATIONS
 // ═══════════════════════════════════════════════════════════════════
 
-let demoInterval = null;
+let demoRunning = false;
+let demoStopRequested = false;
 
 function stopDemoAnimation() {
-  if (demoInterval) {
-    clearInterval(demoInterval);
-    demoInterval = null;
-  }
+  demoStopRequested = true;
+  demoRunning = false;
   hideLoadingIndicator();
 }
 
-function startDemo(demoFunction) {
+async function startDemo(demoFunction) {
   stopDemoAnimation();
+  
+  // Wait a moment for any previous demo to fully stop
+  await delay(50);
+  
   ensureEmojiMatrixGrid();
   ensurePreviewColorsSize();
+  
+  demoStopRequested = false;
+  demoRunning = true;
   
   // Show brief indicator when starting demo
   if (isConnected) {
@@ -1578,14 +1637,43 @@ function startDemo(demoFunction) {
     setTimeout(() => hideLoadingIndicator(), 1500);
   }
   
-  demoFunction();
-  
   // Log connection status
   if (isConnected) {
     log('🎬 Demo streaming to micro:bit! 📡', 'success');
   } else {
     log('🎬 Demo started (connect micro:bit to stream live!)', 'info');
   }
+  
+  // Run the demo (it's now an async loop)
+  demoFunction();
+}
+
+// Helper: run demo loop with proper frame timing
+async function runDemoLoop(frameInterval, renderFrame) {
+  while (demoRunning && !demoStopRequested) {
+    const frameStart = performance.now();
+    
+    // Render the frame to preview
+    renderFrame();
+    paintEmojiMatrix(previewColors);
+    
+    // Send to micro:bit and wait for completion
+    if (isConnected) {
+      await sendCurrentFrame();
+    }
+    
+    // Check if demo was stopped during send
+    if (demoStopRequested) break;
+    
+    // Wait for remaining frame time
+    const elapsed = performance.now() - frameStart;
+    const remaining = frameInterval - elapsed;
+    if (remaining > 0) {
+      await delay(remaining);
+    }
+  }
+  
+  demoRunning = false;
 }
 
 // 🏴 Waving Flag Animation
@@ -1597,7 +1685,7 @@ function demoWavingFlagAnim() {
     { r: 239, g: 65, b: 53 }    // Red
   ];
   
-  demoInterval = setInterval(async () => {
+  runDemoLoop(100, () => {
     for (let y = 0; y < 16; y++) {
       for (let x = 0; x < 16; x++) {
         const idx = y * 16 + x;
@@ -1607,12 +1695,8 @@ function demoWavingFlagAnim() {
         previewColors[idx] = { ...colors[colorIdx] };
       }
     }
-    paintEmojiMatrix(previewColors);
-    await sendCurrentFrame(); // Throttled internally
     frame++;
-  }, 100);
-  
-  // Demo started via startDemo()
+  });
 }
 
 // 🚦 Traffic Light Animation
@@ -1624,7 +1708,7 @@ function demoTrafficLightAnim() {
   ];
   let stateIdx = 0;
   
-  demoInterval = setInterval(async () => {
+  runDemoLoop(1500, () => {
     const state = states[stateIdx];
     
     // Fill entire grid with current light color
@@ -1632,20 +1716,14 @@ function demoTrafficLightAnim() {
       previewColors[i] = { ...state.color };
     }
     
-    paintEmojiMatrix(previewColors);
-    await sendCurrentFrame();
     log(`🚦 ${state.name}`, 'info');
-    
     stateIdx = (stateIdx + 1) % 3;
-  }, 1500);
-  
-  // Demo started via startDemo()
+  });
 }
 
 // 💓 Heart Beat Animation
 function demoHeartBeatAnim() {
   let beat = 0;
-  const heartColor = { r: 255, g: 0, b: 100 };
   
   // Heart shape pattern (simplified 16x16)
   const heartPattern = [
@@ -1667,7 +1745,7 @@ function demoHeartBeatAnim() {
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
   ];
   
-  demoInterval = setInterval(async () => {
+  runDemoLoop(100, () => {
     const scale = 0.8 + Math.sin(beat) * 0.2; // Pulsating scale
     const brightness = Math.floor(255 * scale);
     
@@ -1683,12 +1761,8 @@ function demoHeartBeatAnim() {
       }
     }
     
-    paintEmojiMatrix(previewColors);
-    await sendCurrentFrame();
     beat += 0.3;
-  }, 100);
-  
-  // Demo started via startDemo()
+  });
 }
 
 // ⭐ Spinning Star Animation
@@ -1696,7 +1770,7 @@ function demoSpinningStarAnim() {
   let angle = 0;
   const starColor = { r: 255, g: 215, b: 0 };
   
-  demoInterval = setInterval(async () => {
+  runDemoLoop(80, () => {
     // Clear
     for (let i = 0; i < 256; i++) {
       previewColors[i] = { r: 0, g: 0, b: 0 };
@@ -1720,19 +1794,15 @@ function demoSpinningStarAnim() {
       }
     }
     
-    paintEmojiMatrix(previewColors);
-    await sendCurrentFrame();
     angle += 0.15;
-  }, 50);
-  
-  // Demo started via startDemo()
+  });
 }
 
 // 🌈 Rainbow Wave Animation
 function demoRainbowWaveAnim() {
   let offset = 0;
   
-  demoInterval = setInterval(async () => {
+  runDemoLoop(100, () => {
     for (let y = 0; y < 16; y++) {
       for (let x = 0; x < 16; x++) {
         const idx = y * 16 + x;
@@ -1741,13 +1811,8 @@ function demoRainbowWaveAnim() {
         previewColors[idx] = rgb;
       }
     }
-    
-    paintEmojiMatrix(previewColors);
-    await sendCurrentFrame();
     offset++;
-  }, 100);
-  
-  // Demo started via startDemo()
+  });
 }
 
 // 😄 Happy Face Animation
@@ -1776,7 +1841,7 @@ function demoSmileyAnim() {
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
   ];
   
-  demoInterval = setInterval(async () => {
+  runDemoLoop(100, () => {
     const showEyes = Math.floor(blink) % 20 > 1; // Blink occasionally
     
     for (let i = 0; i < 256; i++) {
@@ -1789,13 +1854,100 @@ function demoSmileyAnim() {
       }
     }
     
-    paintEmojiMatrix(previewColors);
-    await sendCurrentFrame();
     blink += 0.5;
-  }, 100);
-  
-  // Demo started via startDemo()
+  });
 }
+
+// 👁️ Blinking Eye Animation (dynamic 8×8 / 16×16)
+function scaleBitsSquare(bits, srcSize, dstSize) {
+  const out = new Array(dstSize * dstSize).fill(0);
+  for (let y = 0; y < dstSize; y++) {
+    for (let x = 0; x < dstSize; x++) {
+      const sx = Math.floor((x / dstSize) * srcSize);
+      const sy = Math.floor((y / dstSize) * srcSize);
+      out[y * dstSize + x] = bits[sy * srcSize + sx] ? 1 : 0;
+    }
+  }
+  return out;
+}
+
+const BLINKING_EYE_8_FRAMES = [
+  // open
+  [
+    0,0,1,1,1,1,0,0,
+    0,1,0,0,0,0,1,0,
+    1,0,1,1,1,1,0,1,
+    1,0,1,0,0,1,0,1,
+    1,0,1,0,0,1,0,1,
+    1,0,1,1,1,1,0,1,
+    0,1,0,0,0,0,1,0,
+    0,0,1,1,1,1,0,0
+  ],
+  // half blink
+  [
+    0,0,0,0,0,0,0,0,
+    0,1,1,1,1,1,1,0,
+    1,0,0,0,0,0,0,1,
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,
+    1,0,0,0,0,0,0,1,
+    0,1,1,1,1,1,1,0,
+    0,0,0,0,0,0,0,0
+  ],
+  // closed
+  [
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,
+    1,1,1,1,1,1,1,1,
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,
+    1,1,1,1,1,1,1,1,
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0
+  ]
+];
+
+function demoBlinkingEyeAnim() {
+  let frame = 0;
+  const white = { r: 255, g: 255, b: 255 };
+  const black = { r: 0, g: 0, b: 0 };
+
+  // open → half → closed → half → open ...
+  const seq = [0, 1, 2, 1, 0];
+
+  runDemoLoop(120, () => {
+    const size = getMatrixSize();
+    ensurePreviewColorsSize();
+    const n = size * size;
+
+    const idx = seq[frame % seq.length];
+    let bits = BLINKING_EYE_8_FRAMES[idx];
+
+    if (size !== 8) {
+      bits = scaleBitsSquare(bits, 8, size);
+    }
+
+    // Add a tiny pupil when open (center 2×2)
+    if (idx === 0) {
+      const cx = Math.floor(size / 2);
+      const cy = Math.floor(size / 2);
+      const pts = [[cx, cy], [cx - 1, cy], [cx, cy - 1], [cx - 1, cy - 1]];
+      for (const [x, y] of pts) {
+        if (x >= 0 && x < size && y >= 0 && y < size) {
+          bits[y * size + x] = 1;
+        }
+      }
+    }
+
+    // Write into previewColors
+    for (let i = 0; i < n; i++) {
+      previewColors[i] = bits[i] ? { ...white } : { ...black };
+    }
+
+    frame++;
+  });
+}
+
 
 // ⏳ Loading Bar Animation
 function demoLoadingBarAnim() {
@@ -1803,7 +1955,7 @@ function demoLoadingBarAnim() {
   const green = { r: 0, g: 255, b: 0 };
   const gray = { r: 50, g: 50, b: 50 };
   
-  demoInterval = setInterval(async () => {
+  runDemoLoop(150, () => {
     // Clear
     for (let i = 0; i < 256; i++) {
       previewColors[i] = { r: 0, g: 0, b: 0 };
@@ -1818,14 +1970,9 @@ function demoLoadingBarAnim() {
       previewColors[8 * 16 + x] = { ...color };
     }
     
-    paintEmojiMatrix(previewColors);
-    await sendCurrentFrame();
-    
     progress++;
     if (progress > 14) progress = 0;
-  }, 150);
-  
-  // Demo started via startDemo()
+  });
 }
 
 // 🎆 Fireworks Animation
@@ -1839,7 +1986,7 @@ function demoFireworksAnim() {
     { r: 255, g: 0, b: 255 }
   ];
   
-  demoInterval = setInterval(async () => {
+  runDemoLoop(100, () => {
     // Clear
     for (let i = 0; i < 256; i++) {
       previewColors[i] = { r: 0, g: 0, b: 0 };
@@ -1865,12 +2012,8 @@ function demoFireworksAnim() {
       }
     }
     
-    paintEmojiMatrix(previewColors);
-    await sendCurrentFrame();
     frame++;
-  }, 100);
-  
-  // Demo started via startDemo()
+  });
 }
 
 // 🏎️ Racing Car Animation
@@ -1879,7 +2022,7 @@ function demoRacingCarAnim() {
   const carColor = { r: 255, g: 0, b: 0 };
   const roadColor = { r: 100, g: 100, b: 100 };
   
-  demoInterval = setInterval(async () => {
+  runDemoLoop(100, () => {
     // Clear
     for (let i = 0; i < 256; i++) {
       previewColors[i] = { r: 0, g: 50, b: 0 }; // Grass
@@ -1902,14 +2045,9 @@ function demoRacingCarAnim() {
       previewColors[9 * 16 + carX + 1] = { r: 0, g: 0, b: 0 };
     }
     
-    paintEmojiMatrix(previewColors);
-    await sendCurrentFrame();
-    
     carX++;
     if (carX > 16) carX = -2;
-  }, 100);
-  
-  // Demo started via startDemo()
+  });
 }
 
 // 🛑 Stop Sign Animation (pulsating)
@@ -1936,7 +2074,7 @@ function demoStopSignAnim() {
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
   ];
   
-  demoInterval = setInterval(async () => {
+  runDemoLoop(100, () => {
     const brightness = 0.7 + Math.sin(pulse) * 0.3;
     const red = Math.floor(255 * brightness);
     const white = Math.floor(255 * brightness);
@@ -1951,12 +2089,8 @@ function demoStopSignAnim() {
       }
     }
     
-    paintEmojiMatrix(previewColors);
-    await sendCurrentFrame();
     pulse += 0.2;
-  }, 100);
-  
-  // Demo started via startDemo()
+  });
 }
 
 // HSL to RGB helper for rainbow
@@ -2019,6 +2153,9 @@ if (dom.demoRacingCar) {
 }
 if (dom.demoStopSign) {
   dom.demoStopSign.addEventListener('click', () => startDemo(demoStopSignAnim));
+}
+if (dom.demoBlinkingEye) {
+  dom.demoBlinkingEye.addEventListener('click', () => startDemo(demoBlinkingEyeAnim));
 }
 if (dom.stopDemo) {
   dom.stopDemo.addEventListener('click', () => {
