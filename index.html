@@ -159,7 +159,7 @@
               </div>
             </div>
 
-            <!-- RIGHT: Preview -->
+            <!-- RIGHT: Preview + Connection -->
             <div class="emoji-right">
               <div class="emoji-matrix-wrap">
                 <div class="emoji-matrix-title">16×16 preview</div>
@@ -201,6 +201,31 @@
                       💾 Save
                     </button>
                   </div>
+                </div>
+              </div>
+
+              <!-- 🔌 CONNECTION CONTROLS (BELOW PREVIEW) -->
+              <div class="control-section" style="margin-top: 12px; border: 2px dashed rgba(34,197,94,0.5); background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(15,23,42,0.95));">
+                <div class="section-header">
+                  <div class="section-title">
+                    <span class="icon">🔌</span> Connection
+                  </div>
+                  <div class="section-subtitle">Connect to your micro:bit over USB Serial</div>
+                </div>
+                <div class="button-row">
+                  <button id="connectBtn" class="primary" style="flex: 1;">
+                    <span class="btn-icon">🔗</span>Connect
+                  </button>
+                  <button id="disconnectBtn" class="secondary" disabled style="flex: 1;">
+                    <span class="btn-icon">⛔</span>Disconnect
+                  </button>
+                </div>
+                <div class="hint" style="margin-top: 8px;">
+                  <div class="hint-title">Tip</div>
+                  <ol>
+                    <li>Use Chrome / Edge (desktop)</li>
+                    <li>Select the micro:bit serial port</li>
+                  </ol>
                 </div>
               </div>
             </div>
@@ -291,35 +316,7 @@
         </div>
       </details>
 
-      <!-- ================= COLLAPSIBLE: CONNECTION ================= -->
-      <details class="collapsible" open>
-        <summary>
-          <span class="icon">🔌</span> Connection
-        </summary>
-        <div class="card" id="connectionCard">
-          <div class="card-subtitle" style="margin-bottom: 8px;">
-            Connect to your micro:bit over USB Serial
-          </div>
 
-          <div class="button-row">
-            <button id="connectBtn" class="primary">
-              <span class="btn-icon">🔗</span>Connect
-            </button>
-
-            <button id="disconnectBtn" class="secondary" disabled>
-              <span class="btn-icon">⛔</span>Disconnect
-            </button>
-          </div>
-
-          <div class="hint">
-            <div class="hint-title">Tip</div>
-            <ol>
-              <li>Use Chrome / Edge (desktop)</li>
-              <li>Select the micro:bit serial port</li>
-            </ol>
-          </div>
-        </div>
-      </details>
 
       <!-- ================= COLLAPSIBLE: SEND MESSAGE ================= -->
       <details class="collapsible">
