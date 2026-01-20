@@ -305,7 +305,7 @@ function ensureEmojiMatrixGrid() {
   if (!dom.emojiMatrix) return;
   
   // Get the selected matrix size
-  const matrixSize = parseInt(dom.matrixSize?.value || '16');
+  const matrixSize = parseInt(dom.matrixSize?.value || '8');
   const numCells = matrixSize * matrixSize;
   
   // Only rebuild if size changed
@@ -557,7 +557,7 @@ function selectEmoji(emoji, btnEl) {
   if (btnEl) btnEl.classList.add('active');
 
   // Extract RGB color data based on selected matrix size
-  const matrixSize = parseInt(dom.matrixSize?.value || '16');
+  const matrixSize = parseInt(dom.matrixSize?.value || '8');
   const colors = renderEmojiToRGB(emoji, matrixSize);
   setPreviewFromColors(colors, emoji);
 
@@ -722,7 +722,7 @@ async function connect() {
   log('Connected', 'success');
   
   // Send initial MODE command based on selected matrix size
-  const matrixSize = parseInt(dom.matrixSize?.value || '16');
+  const matrixSize = parseInt(dom.matrixSize?.value || '8');
   await delay(100); // Small delay to let connection stabilize
   await sendMode(matrixSize);
   
@@ -1067,7 +1067,7 @@ let previewDragMode = 'paint'; // 'paint' | 'erase'
 let previewLastIndex = -1;
 
 function getMatrixSize() {
-  return parseInt(dom.matrixSize?.value || '16');
+  return parseInt(dom.matrixSize?.value || '8');
 }
 
 function ensurePreviewColorsSize() {
