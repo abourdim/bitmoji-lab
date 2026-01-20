@@ -35,6 +35,7 @@ const dom = {
   matrixSize: document.getElementById('matrixSize'),
   brightnessSlider: document.getElementById('brightnessSlider'),
   brightnessValue: document.getElementById('brightnessValue'),
+  simpleModeToggle: document.getElementById('simpleModeToggle'),
   brushColor: document.getElementById('brushColor'),
   // Preview controls
   clearPreviewBtn: document.getElementById('clearPreviewBtn'),
@@ -1327,6 +1328,19 @@ async function sendBrightness(brightness) {
   log(`Setting brightness to ${brightness}`, 'info');
   await sendRaw(payload);
   await waitForAck(payload);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// SIMPLE MODE TOGGLE
+// ═══════════════════════════════════════════════════════════════════
+if (dom.simpleModeToggle) {
+  dom.simpleModeToggle.onchange = function() {
+    if (this.checked) {
+      dom.emojiMatrix.classList.add('simple-mode');
+    } else {
+      dom.emojiMatrix.classList.remove('simple-mode');
+    }
+  };
 }
 
 // ═══════════════════════════════════════════════════════════════════

@@ -604,6 +604,16 @@ button:disabled {
   transition: transform 0.1s ease;
 }
 
+/* Simple mode - flat colors */
+.pixel-matrix.simple-mode .pixel-cell {
+  background: #0f172a;
+  border-color: rgba(55, 65, 81, 0.3);
+}
+
+.pixel-matrix.simple-mode .pixel-cell.on {
+  box-shadow: none;
+}
+
 .pixel-matrix.editable .pixel-cell:hover {
   transform: scale(1.2);
   border-color: rgba(255,255,255,0.3);
