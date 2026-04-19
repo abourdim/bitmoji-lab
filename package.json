@@ -1,0 +1,9 @@
+{
+  "name": "bitmoji-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Bitmoji Lab — Paint • Glow • Share",
+  "scripts": { "build:etsy": "node etsy-package/build-package.js" },
+  "devDependencies": { "@playwright/test": "^1.48.0" }
+}
