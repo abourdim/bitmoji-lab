@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bitmoji Lab — Etsy 60-sec Shoot Card (A4)</title>
+<style>
+  @page { size: A4; margin: 10mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #0a0e12;
+    background: #f5f7f5;
+    padding: 10mm;
+    font-size: 10pt;
+    line-height: 1.35;
+  }
+  h1 {
+    font-size: 20pt;
+    font-weight: 900;
+    color: #00884a;
+    border-bottom: 3px solid #00884a;
+    padding-bottom: 2mm;
+    margin-bottom: 4mm;
+    letter-spacing: 0.02em;
+  }
+  h1 small {
+    font-size: 10pt;
+    font-weight: 400;
+    color: #6b7a85;
+    float: right;
+    margin-top: 10pt;
+  }
+  h2 {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #00884a;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 4mm 0 2mm;
+    padding: 1mm 2mm;
+    background: #e0f0e5;
+    border-left: 3px solid #00884a;
+  }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  ul { list-style: none; }
+  li { padding: 0.8mm 0; padding-left: 6mm; position: relative; }
+  li::before {
+    content: '☐';
+    position: absolute;
+    left: 0;
+    color: #6b7a85;
+    font-size: 11pt;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+  th, td { text-align: left; padding: 1.5mm 2mm; border-bottom: 1px solid #d0d8d2; vertical-align: top; }
+  th { background: #0a0e12; color: #00ff88; font-weight: 700; text-transform: uppercase; font-size: 8pt; letter-spacing: 0.1em; }
+  td.t { font-family: 'Courier New', monospace; font-weight: 700; color: #00884a; white-space: nowrap; width: 14mm; }
+  td.say { font-style: italic; color: #0a0e12; }
+  td.do { color: #3a4a45; font-size: 8.5pt; }
+  .tight td { padding: 1mm 2mm; }
+  .cheat {
+    font-family: 'Courier New', monospace;
+    background: #0a0e12;
+    color: #00ff88;
+    padding: 3mm;
+    font-size: 9pt;
+    line-height: 1.5;
+    border-radius: 2mm;
+    white-space: pre;
+  }
+  .warn { color: #c44; font-weight: 700; }
+  .ok { color: #00884a; font-weight: 700; }
+  .footer { margin-top: 5mm; font-size: 8pt; color: #6b7a85; text-align: center; }
+</style>
+</head>
+<body>
+
+<h1>Etsy 60-sec Video Shoot Card <small>Bitmoji Lab · Script A</small></h1>
+
+<div class="row">
+  <div>
+    <h2>Pre-flight (90s)</h2>
+    <ul>
+      <li>micro:bit V2 powered, firmware flashed (makecode.ts)</li>
+      <li>NeoPixel matrix wired: VCC→3V/ext · GND→GND · DIN→P0</li>
+      <li>External power connected if shooting 16×16</li>
+      <li>Chrome or Edge desktop open, <code>index.html</code> loaded</li>
+      <li>Web Serial connected — status <span class="ok">green</span>, picker showed <strong>CMSIS-DAP</strong></li>
+      <li>Mode auto-detected: <strong>MODE:8</strong> or <strong>MODE:16</strong> in log</li>
+      <li>Brightness slider at <strong>5% default</strong> (camera-friendly)</li>
+      <li>Language matches voiceover (EN / FR / AR)</li>
+      <li>Phone in 9:16 on tripod, front-lit</li>
+      <li>Matrix angled to catch lens — no hotspot</li>
+      <li>Desk cleared — micro:bit + matrix + cable only</li>
+      <li>Props on standby: USB cable, external 5V pack for 16×16</li>
+      <li>Captions app ready OR overlay plan</li>
+      <li>Script read once, under 55s</li>
+      <li>Phone silenced, kids/dogs warned</li>
+    </ul>
+  </div>
+
+  <div>
+    <h2>Specs (memorise)</h2>
+    <table class="tight">
+      <tr><td><strong>Length</strong></td><td>≤ 60s (aim 55s)</td></tr>
+      <tr><td><strong>Aspect</strong></td><td><strong>9:16 portrait</strong></td></tr>
+      <tr><td><strong>Res</strong></td><td>1080 × 1920 min</td></tr>
+      <tr><td><strong>Codec</strong></td><td>MP4 / H.264 + AAC</td></tr>
+      <tr><td><strong>Size</strong></td><td>&lt; 100 MB</td></tr>
+      <tr><td><strong>Audio</strong></td><td>Muted by default → <span class="warn">captions mandatory</span></td></tr>
+      <tr><td><strong>Cover</strong></td><td>First frame = thumbnail (lit matrix)</td></tr>
+      <tr><td><strong>Hook</strong></td><td>First 3s decides the scroll</td></tr>
+    </table>
+
+    <h2>Framing & lighting</h2>
+    <ul>
+      <li>Two-shot: laptop screen left, matrix right</li>
+      <li>Matrix tilted ~15° toward lens — no glare</li>
+      <li>Key light soft, off-axis — don't wash the pixels</li>
+      <li>Brightness <strong>5%</strong> on camera looks like 50% to the eye</li>
+      <li>If 16×16, ramp brightness only after cover frame</li>
+      <li>One scene per phase — don't cut every 2s</li>
+      <li>Switch on words, not mid-sentence</li>
+      <li>1s pause on Send button</li>
+      <li>Smile for final 3s — loop frame</li>
+    </ul>
+  </div>
+</div>
+
+<h2>The 60-second arc — Script A</h2>
+<table>
+  <thead>
+    <tr><th>Time</th><th>Say</th><th>Do / Click</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="t">0–3s</td>   <td class="say">"Paint pixels in your browser. Watch them glow on a real NeoPixel matrix."</td> <td class="do">Close-up NeoPixel matrix wired to micro:bit V2. USB cable in frame.</td></tr>
+    <tr><td class="t">3–10s</td>  <td class="say">"One cable, one click — Web Serial over USB."</td>                                <td class="do">Click Connect → picker shows CMSIS-DAP → status <span class="ok">green</span>.</td></tr>
+    <tr><td class="t">10–20s</td> <td class="say">"Pick an emoji from 100+ — send it."</td>                                         <td class="do">Emoji Library → tap a face → Send. Cut to matrix lighting up.</td></tr>
+    <tr><td class="t">20–30s</td> <td class="say">"Or paint your own — click, drag, Shift-click to erase."</td>                     <td class="do">Magic Paintbrush, click-drag a heart, Shift-click one pixel. Send.</td></tr>
+    <tr><td class="t">30–40s</td> <td class="say">"Auto-switches 8×8 or 16×16. Save designs by name. Brightness stays kind."</td>   <td class="do">Toggle 16×16 (MODE:16). Save as "My Heart". Slider at 5%.</td></tr>
+    <tr><td class="t">40–50s</td> <td class="say">"Ten built-in animations — one click and it dances."</td>                         <td class="do">Click Rainbow Wave. Matrix rolls color. TX/RX/ACK ticks in log.</td></tr>
+    <tr><td class="t">50–55s</td> <td class="say">"Link below — code BITMOJI5 drops it to five dollars."</td>                       <td class="do">Face-cam. Eye contact with lens.</td></tr>
+    <tr><td class="t">55–60s</td> <td class="say">"Paint • Glow • Share."</td>                                                      <td class="do">Hold on glowing matrix. Logo + handle freeze. Loop frame.</td></tr>
+  </tbody>
+</table>
+
+<div class="row" style="margin-top: 4mm;">
+  <div>
+    <h2>After Stop</h2>
+    <ul>
+      <li>Watch once, eyes off script</li>
+      <li>Trim to 55s (iMovie / CapCut / DaVinci)</li>
+      <li>Burn in captions — centered below subject</li>
+      <li>On-screen overlays: "Web Serial · USB · Chrome" at 0:03; "100+ emoji · 8×8 / 16×16" at 0:15; "BITMOJI5 → $5" at 0:50</li>
+      <li>Set first frame = lit matrix close-up</li>
+      <li>Export MP4/H.264, &lt; 100 MB</li>
+      <li>Upload · verify autoplay · phone + sound off</li>
+    </ul>
+  </div>
+  <div>
+    <h2>Cheat card</h2>
+<div class="cheat">PRE     micro:bit V2 · DIN→P0 · ext 5V for 16×16
+        Chrome desktop · Web Serial · 5% bright
+LAUNCH  lit matrix in first 3s · hook on pixels
+DURING  emoji→Send · paint→Send · Rainbow Wave
+        TX/RX/ACK visible in Communication Log
+AFTER   Stop → trim 55s → captions → overlays
+        first frame = glowing matrix
+UPLOAD  echo "Paint · Glow · Share" in title</div>
+  </div>
+</div>
+
+<div class="footer">Bitmoji Lab v1.0.0 · Print A4 · Tape next to shoot rig · Companion to video-teleprompter.html</div>
+
+</body>
+</html>
