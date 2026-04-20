@@ -1,6 +1,13 @@
+# macOS
 .DS_Store
+
+# Node
 /node_modules/
 /package-lock.json
+
+# Built Etsy artifacts
 etsy-package/output/
 etsy-package/BitmojiLab-v*/
+
+# Track the shipped ZIP for reference
 !etsy-package/BitmojiLab-v*.zip

@@ -19,8 +19,8 @@ that require human hands. Don't hit Publish until they're done.
       `seller-only/etsy-playbook.html` (EN). Export ≤100 MB, 1080p+,
       upload as the listing video. Etsy algorithmically prefers listings
       with videos by ~30%.
-- [ ] **Create the LAUNCH10 Etsy promo code** (Shop Manager → Marketing
-      → Sales & coupons → new code `LAUNCH10`, $7 discount off $12.99,
+- [ ] **Create the BITMOJI5 Etsy promo code** (Shop Manager → Marketing
+      → Sales & coupons → new code `BITMOJI5`, $5 discount off $9.99,
       10 uses, expires 14 days). Paste the review-request template from
       ETSY_LISTING.md to the first 10 buyers.
 
@@ -35,7 +35,7 @@ that require human hands. Don't hit Publish until they're done.
       Reviewers flagged that listings with *physical hardware + the
       app together* convert better. Retake the hero with a micro:bit
       V2 held next to (or propped on top of) a laptop showing the
-      Sensors tab. Good light, plain background, crop square.
+      emoji library. Good light, plain background, crop square.
 - [ ] **Test Etsy's square thumbnail crop** on mockup 1. The canvas
       is 2000×1500 (4:3). Etsy will center-crop to square for the
       search thumbnail — make sure the product name and the
@@ -70,7 +70,7 @@ that require human hands. Don't hit Publish until they're done.
       If CTR on search < 1.2% → hero image is the problem. If CTR is
       fine but conversion < 1% → description or price is the problem.
 - [ ] Reply to every message within 24 h (Etsy rewards fast sellers).
-- [ ] Collect the first 5 reviews. Raise price from $12.99 → $17.99
+- [ ] Collect the first 5 reviews. Raise price from $9.99 → $14.99
       once you hit 5 ★ reviews (per `ETSY_LISTING.md` pricing ladder).
 
 ### 🔁 Ongoing
@@ -91,11 +91,11 @@ that require human hands. Don't hit Publish until they're done.
       listing description.
 - [ ] **Record a 5-second demo GIF** (pairing + LED draw) — becomes
       listing image #3. Etsy mobile auto-plays GIFs in the image grid.
-- [ ] **Create the tripwire $5 Classroom Poster listing** after main
+- [ ] **Create the tripwire $3 Classroom Poster listing** after main
       listing has 3 reviews. Drives buyers back for the full thing.
 - [ ] **Stand up the lead-magnet landing page** — free 3-lesson PDF
       behind an email opt-in. Builds a remarketing list.
-- [ ] **Create the LAUNCH10 promo code** (first 10 buyers: $12.99 → $7
+- [ ] **Create the BITMOJI5 promo code** (first 10 buyers: $9.99 → $5
       with review request). Ships reviews fast.
 - [ ] **Duplicate listing in FR + AR** using `etsy-playbook-fr.html` +
       `etsy-playbook-ar.html` scripts. Same ZIP, localized copy.

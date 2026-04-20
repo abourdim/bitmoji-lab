@@ -9,12 +9,13 @@
   "VERSION_PLAIN": "1.0.0",
   "TAGLINE": "Paint • Glow • Share",
   "HARDWARE": "BBC micro:bit V2 + LED matrix",
-  "PRICE_LAUNCH": "12.99",
-  "PRICE_STANDARD": "17.99",
-  "PRICE_BUNDLE": "29.99",
-  "PRICE_TRIPWIRE": "5",
-  "PRICE_SITE": "199",
-  "PRICE_DISTRICT": "499",
-  "PROMO_CODE": "LAUNCH10",
-  "PROMO_PRICE": "7"
+  "PRICE_LAUNCH": "9.99",
+  "PRICE_STANDARD": "14.99",
+  "PRICE_BUNDLE": "24.99",
+  "PRICE_TRIPWIRE": "3",
+  "PRICE_SITE": "149",
+  "PRICE_DISTRICT": "399",
+  "PROMO_CODE": "BITMOJI5",
+  "PROMO_PRICE": "5",
+  "ALLOWED_TERMS": ["led matrix", "5x5 led", "5×5 led"]
 }
