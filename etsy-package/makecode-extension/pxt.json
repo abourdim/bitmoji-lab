@@ -1,7 +1,7 @@
 {
     "name": "bitmoji-lab-companion",
     "version": "0.1.0",
-    "description": "Companion firmware blocks for the bitmoji-lab browser app — pairs any micro:bit V2 with the Etsy-distributed BLE Control Panel (https://abourdim.github.io/bitmoji-lab/). Adds one-click streaming of temperature, light, sound, accel, matrix size, buttons, and touch pins, plus receives LED pattern / paintbrush / sound commands.",
+    "description": "Companion firmware blocks for the bitmoji-lab browser app — pairs any micro:bit V2 with the Etsy-distributed BLE Control Panel (https://abourdim.github.io/bitmoji-lab/). Adds one-click streaming of Tap an emoji, accel, matrix size, buttons, and touch pins, plus receives LED pattern / paintbrush / sound commands.",
     "license": "MIT",
     "dependencies": {
         "core": "*",

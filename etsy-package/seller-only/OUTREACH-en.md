@@ -29,7 +29,7 @@
 >
 > I saw your {{CONTEXT: "intro-to-coding unit" / "coding club page" / "micro:bit lesson plan"}} and wanted to share something I built — it might save you a class period on setup.
 >
-> It's a web-based control panel for the BBC micro:bit V2. One browser tab, no install, works on Chromebooks. Click Connect, pick your board, and every sensor streams live on-screen. Kids can paint the LEDs, graph temperature/sound in real time, paint pixels, and see a 3D mirror of the board tilt with the real one.
+> It's a web-based control panel for the BBC micro:bit V2. One browser tab, no install, works on Chromebooks. Click Connect, pick your board, and every action shows on-screen. Kids can Tap an emoji to light the matrix, graph temperature/sound in real time, paint pixels, and see a 3D mirror of the board tilt with the real one.
 >
 > **Try it in 30 seconds** (no micro:bit needed for simulation mode): abourdim.github.io/bitmoji-lab
 >
