@@ -168,22 +168,22 @@
 </nav>
 <main>
 <h1 id="etsy-package-">etsy-package 🛒</h1>
-<p>All Etsy-release assets for <strong>Bitmoji Lab</strong>:
-the ZIP builder, the printables shipped to buyers, the Etsy listing
-mockups, and — inside <a
-href="seller-only/"><code>seller-only/</code></a> — the business
-playbook and site-license paperwork.</p>
+<p>All Etsy-release assets for <strong>Bitmoji Lab</strong>: the ZIP
+builder, the printables shipped to buyers, the Etsy listing mockups, and
+— inside <a href="seller-only/"><code>seller-only/</code></a> — the
+business playbook and site-license paperwork.</p>
 <h2 id="build-the-buyer-zip">Build the buyer ZIP</h2>
 <pre class="bash"><code>node etsy-package/build-package.js</code></pre>
-<p>Produces <code>etsy-package/BitmojiLab-v&lt;version&gt;.zip</code>
-with the app source, docs, LICENSE, SETUP, README, CHANGELOG,
-printables, and the 7 Etsy listing mockup PNGs. Anything in
-<code>seller-only/</code> is <strong>never</strong> included.</p>
+<p>Produces <code>etsy-package/BitmojiLab-v1.0.0.zip</code> with the app
+source, docs, LICENSE, SETUP, README, CHANGELOG, printables, and the 7
+Etsy listing mockup PNGs. Anything in <code>seller-only/</code> is
+<strong>never</strong> included.</p>
 <h2 id="layout">Layout</h2>
 <pre><code>etsy-package/
 ├── build-package.js           🛠  ZIP builder
 ├── LICENSE.txt                ✅ End-user license (ships to buyer)
 ├── README.md                  📘 This file
+├── USERGUIDE.html / .md       📖 Full workflow guide (start here)
 │
 ├── quickstart-card.html       ✅ A4  5-min setup card
 ├── shortcuts-cheatsheet.html  ✅ A4L Keyboard shortcuts
@@ -194,19 +194,27 @@ printables, and the 7 Etsy listing mockup PNGs. Anything in
 ├── etsy-listing-mockups.html  🖼  Source for 7 Etsy listing images
 │
 ├── output/                    🔧 Rendered PNGs (rebuilt on demand)
-├── BitmojiLab-v*/          📦 Build staging dir (rebuilt on demand)
-├── BitmojiLab-v*.zip       📦 Final buyer ZIP
+├── BitmojiLab-v1.0.0/         📦 Build staging dir
+├── BitmojiLab-v1.0.0.zip      📦 Final buyer ZIP
 │
 └── seller-only/               🔒 NOT shipped — business &amp; legal
-    ├── ETSY_LISTING.md / .html        Listing copy, tags, pricing, scripts
+    ├── ETSY_LISTING.md / .html        Listing copy, tags, pricing
     ├── ETSY_PUBLISH_GUIDE.html        16-step launch checklist
     ├── etsy-playbook.html (+fr/ar)    1-minute listing playbook
     ├── ETSY-1MIN-PLAYBOOK.md          Markdown twin of the playbook
+    ├── pinterest-pins.html            4 Pinterest pin mockups
+    ├── TODO.md                        Pre-launch manual checklist
     ├── LICENSE-SITE                   School site-license legal text
     └── SITE_LICENSE_CERTIFICATE.html  Per-sale certificate template</code></pre>
-<p>The repo is private, but <code>seller-only/</code> makes it explicit
-which files would need to be withheld if the repo ever goes public
-again.</p>
+<p>Start with <a href="USERGUIDE.html">USERGUIDE.html</a> for the full
+workflow.</p>
+<blockquote>
+<p>This folder was generated from <a
+href="../../etsy-package-template"><code>etsy-package-template/</code></a>.
+Regenerate with
+<code>node ../etsy-package-template/apply-template.mjs --force</code>
+after editing <code>product.json</code>.</p>
+</blockquote>
 
 </main>
 </body>

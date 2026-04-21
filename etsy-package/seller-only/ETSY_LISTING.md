@@ -46,7 +46,7 @@
 
 ## Title (140 char max — pack it with searchable keywords)
 
-Bluetooth Web App for BBC micro:bit V2 + Illustrated Guide | Features, 100+ Emojis, Live Graphs | STEM Classroom | Digital Download
+Emoji to LED Matrix for BBC micro:bit V2 | 100+ Emojis, Paint & Send to NeoPixel 8x8 or 16x16 | USB Web Serial | Kids Digital Download
 
 > Product name in your Etsy shop is **"Bitmoji Lab"** — use the phrase **"for the BBC micro:bit V2"** everywhere else to stay within the Micro:bit Educational Foundation's trademark-use guidelines.
 
@@ -57,7 +57,7 @@ Digital Downloads → Educational Resources
 
 ## Tags (13 max — Etsy lets you use all 13, use them)
 
-micro:bit, microbit v2, STEM, coding kids, BBC microbit, bluetooth app, MakeCode, classroom resource, homeschool STEM, robotics, web bluetooth, coding club, chromebook stem
+neopixel, led matrix, emoji art, pixel art, microbit v2, BBC microbit, web serial, makerspace, STEM art, coding kids, classroom resource, homeschool STEM, christmas lights
 
 > Replaced the two weakest tags (`edtech` — corporate, not what teachers search; `sensor playground` — zero search volume) with `coding club` and `chromebook stem` (both strong long-tail teacher queries).
 
@@ -82,18 +82,18 @@ micro:bit, microbit v2, STEM, coding kids, BBC microbit, bluetooth app, MakeCode
 > 🧪 **Try it now** (Simulate mode, no micro:bit needed): <https://abourdim.github.io/bitmoji-lab/>
 >
 > ✨ **What you get** (instant download):
-> • A complete web app (HTML, CSS, JS) you run locally in Chrome or Edge
-> • Ready-to-flash micro:bit firmware (`makecode.ts`)
-> • **Illustrated trilingual user guide (EN/FR/AR) with built-in diagrams:**
->   — architecture diagram • micro:bit V2 pin-out • firmware flow storyboard
->   — interactive LED playground inside the guide (click cells, copy hex commands)
->   — visual troubleshooting: decision tree, symptom picker, icon gallery, reset recipe
-> • A printable Quick Setup guide (`SETUP.md`)
-> • 4 themes (Stealth, Neon, Arctic, Blaze)
-> • 7 emoji categories: LED matrix, Sensors, Paintbrush, Paintbrush, Graph, Pixel Canvas, Bench, Settings
-> • 5 interactive 3D models (micro:bit, Buggy, Robot Arm, Balance Game, Weather Station)
-> • Session recording, live graphs, annotations, JSON export
-> • Beginner & Expert modes — grows with the learner
+> • Complete web app to **paint any emoji onto a NeoPixel LED matrix** over USB Web Serial
+> • **100+ built-in emojis** in 7 categories: Basic, Robots, Vehicles, Tools, Symbols, Flags, Road Signs
+> • **Magic Paintbrush** — 8 preset colors + custom color picker, click-drag to paint, Shift+drag to erase
+> • **8×8 or 16×16 matrix** support (switch with a dropdown)
+> • **Brightness slider** (10–100%) + Simple Mode for flat colors
+> • **11 animated demos** — Waving Flag, Traffic Light, Heart Beat, Spinning Star, Rainbow Wave, Happy Face, Loading Bar, Fireworks, Racing Car, Stop Sign, Blinking Eye
+> • **Save designs** with custom names — reload + send later
+> • **Stress test** button (iterate 0..1000) for hardware validation
+> • **Communication log** with Clear / Copy / Export
+> • Ready-to-flash `makecode.ts` firmware for the micro:bit
+> • Wiring diagram + 5-step setup card
+> • Works on **Chromebook** (Web Serial supported) — no install, no account, no cloud
 >
 > 🧒 **Perfect for**: classrooms, homeschool, after-school clubs, makerspaces, STEM camps, robotics enthusiasts, parents teaching kids to code.
 >
@@ -130,18 +130,19 @@ Paste this block into the listing just above the FAQ. No fabricated reviews — 
 
 ## Compare table for the description
 
-**What makes Bitmoji Lab different?** Side-by-side with the two free alternatives most teachers try first:
+**What makes Bitmoji Lab different?** Side-by-side with the free alternatives:
 
-| Feature | Bitmoji Lab | MakeCode Editor | Raw Web Bluetooth demos |
+| Feature | Bitmoji Lab | Adafruit IO + CircuitPython | MakeCode + copy-paste hex |
 |---|:---:|:---:|:---:|
-| Works in-browser, zero install | ✅ | ✅ | ✅ |
-| Ready-to-use sensor dashboard (temp, light, sound, accel, matrix size, touch) | ✅ | ❌ | ❌ |
-| Live graph + CSV / PNG export + session record & replay | ✅ | ❌ | ❌ |
-| Dual paintbrush control UI with gauges and trim | ✅ | ❌ | Build it yourself |
-| 5 interactive 3D models (micro:bit, Buggy, Arm, Balance, Weather) | ✅ | ❌ | ❌ |
-| Trilingual EN/FR/AR with full RTL support | ✅ | Partial | ❌ |
-| Classroom lesson plan + printable stickers & A3 poster | ✅ | ❌ | ❌ |
-| Works offline after first load (installable PWA) | ✅ | ❌ | ❌ |
+| One-click emoji → LED matrix | ✅ | ❌ write the code | ❌ write the code |
+| 100+ pre-loaded emojis | ✅ | ❌ | ❌ |
+| 8×8 and 16×16 matrix support (switch live) | ✅ | ❌ | Per-firmware |
+| Paint tool with custom colors + erase | ✅ | Partial | ❌ |
+| 11 animated demos (Flag, Heart, Fireworks, Race Car…) | ✅ | ❌ | ❌ |
+| Save designs locally, reload later | ✅ | ❌ (cloud only) | ❌ |
+| USB Web Serial — no Bluetooth pairing, no account | ✅ | Needs Wi-Fi + account | ❌ |
+| Works on Chromebook | ✅ | ❌ (Python install) | ✅ |
+| Classroom-ready printables + lesson plan | ✅ | ❌ | ❌ |
 
 ---
 

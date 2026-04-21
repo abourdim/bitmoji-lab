@@ -174,8 +174,8 @@ order</a></li>
 <h1 id="etsy-package--user-guide"><code>etsy-package/</code> — User
 Guide</h1>
 <p>Everything in this folder exists for <strong>one purpose</strong>: to
-publish and maintain the <strong>Bitmoji Lab</strong> listing
-on Etsy.</p>
+publish and maintain the <strong>Bitmoji Lab</strong> listing on
+Etsy.</p>
 <blockquote>
 <p>🛒 <strong>Create a listing</strong>: <a
 href="https://www.etsy.com/your/shops/me/listing-editor/create">https://www.etsy.com/your/shops/me/listing-editor/create</a></p>
@@ -247,8 +247,7 @@ never be pasted into the Etsy listing itself unless explicitly intended
 <ul>
 <li><strong>What:</strong> Node script that renders the 6 printable HTML
 templates to PNG via Playwright, renders the 7 Etsy listing mockups, and
-zips everything into
-<code>BitmojiLab-v&lt;version&gt;.zip</code>.</li>
+zips everything into <code>BitmojiLab-v&lt;version&gt;.zip</code>.</li>
 <li><strong>When to use:</strong> every time you make a release. Run
 from the repo root:
 <pre class="bash"><code>node etsy-package/build-package.js
@@ -258,10 +257,10 @@ npm run build:etsy</code></pre></li>
 <ul>
 <li><code>etsy-package/output/*.png</code> (printables + mockups,
 rebuilt)</li>
-<li><code>etsy-package/BitmojiLab-v&lt;version&gt;/</code> (staging
-dir, rebuilt)</li>
-<li><code>etsy-package/BitmojiLab-v&lt;version&gt;.zip</code> (the
-buyer ZIP)</li>
+<li><code>etsy-package/BitmojiLab-v&lt;version&gt;/</code> (staging dir,
+rebuilt)</li>
+<li><code>etsy-package/BitmojiLab-v&lt;version&gt;.zip</code> (the buyer
+ZIP)</li>
 </ul></li>
 <li><strong>Versioning:</strong> edit the <code>VERSION</code> constant
 at the top of the file when you bump.</li>
@@ -353,7 +352,8 @@ Rendered by <code>build-package.js</code> into
 <ol type="1">
 <li><strong>Hero shot</strong> — product name + tagline on Stealth
 background</li>
-<li><strong>16-cell feature grid</strong> — 7 emoji categories × features</li>
+<li><strong>16-cell feature grid</strong> — 7 emoji categories ×
+features</li>
 <li><strong>Teacher pitch</strong> — "For teachers" with quotes</li>
 <li><strong>Kid pitch</strong> — big, playful, colorful</li>
 <li><strong>What's in the ZIP</strong> — file manifest</li>
@@ -494,8 +494,8 @@ email to the buyer. Log the order in your own tracker.</li>
 bump the version, re-run <code>npm run build:etsy</code>, and update the
 Etsy listing's description + attached ZIP.</li>
 <li>Keep old ZIPs tracked in Git (the <code>.gitignore</code> exemption
-keeps <code>etsy-package/BitmojiLab-v*.zip</code> in history) so you
-can always recover the exact artifact any past buyer received.</li>
+keeps <code>etsy-package/BitmojiLab-v*.zip</code> in history) so you can
+always recover the exact artifact any past buyer received.</li>
 </ol>
 <hr />
 <h2 id="rules-of-thumb">Rules of thumb</h2>
