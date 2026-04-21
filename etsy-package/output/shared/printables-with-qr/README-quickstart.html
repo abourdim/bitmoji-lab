@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!--
+  ═══════════════════════════════════════════════════════════════════════
+  ⚠️  REWRITE PER PRODUCT — DO NOT SHIP AS-IS
+  ───────────────────────────────────────────────────────────────────────
+  apply-template.mjs only substituted identifiers (Bitmoji Lab,
+  v1.0.0, https://abourdim.github.io/bitmoji-lab/, etc.). The feature content, steps,
+  shortcuts, and examples below were inherited from the template's
+  source product (bitmoji-lab) and WILL BE WRONG for your product
+  unless you rewrite them.
+  
+  Before including this file in a buyer ZIP:
+    1. Delete this banner.
+    2. Rewrite every mention of specific features, shortcuts,
+       tab names, hardware interactions, etc. to match your product.
+    3. Verify with: grep -iE "paintbrush|chart\.js|3d board|gamepad|
+       brightness|matrix size|led matrix|7 emoji categories|sensors tab" this-file.
+  ═══════════════════════════════════════════════════════════════════════
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bitmoji Lab — Welcome</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Righteous&family=Orbitron:wght@500&family=Tajawal:wght@400;500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @page { size: A4 portrait; margin: 0; }
+  body { width: 210mm; height: 297mm; font-family: 'Tajawal', sans-serif; background: #020617; color: #cbd5e1; overflow: hidden; font-size: 13px; line-height: 1.6; }
+  .page { width: 210mm; height: 297mm; padding: 14mm 18mm; position: relative; }
+  .page::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(34,197,94,.012) 3px, rgba(34,197,94,.012) 6px);
+    pointer-events: none;
+  }
+
+  .header { text-align: center; margin-bottom: 6mm; position: relative; }
+  .header h1 { font-family: 'Righteous', sans-serif; font-size: 36px; color: #22c55e; }
+  .header .sub { font-size: 15px; color: #94a3b8; }
+  .header .ver { font-size: 11px; color: #64748b; margin-top: 2px; font-family: 'Orbitron', monospace; }
+  .header .line { width: 60%; height: 2px; background: linear-gradient(90deg, transparent, rgba(34,197,94,.35), transparent); margin: 8px auto 0; }
+
+  h2 { font-family: 'Righteous', sans-serif; font-size: 18px; color: #22d3ee; margin: 6mm 0 3mm; padding-left: 10px; border-left: 3px solid #22d3ee; }
+  p { margin: 2mm 0; color: #94a3b8; }
+
+  .thanks {
+    background: rgba(34,197,94,.05); border: 1px solid rgba(34,197,94,.18);
+    border-radius: 10px; padding: 10px 14px; margin: 3mm 0; font-size: 12px;
+  }
+  .thanks strong { color: #22c55e; }
+
+  .files { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 3mm 0; }
+  .file {
+    display: flex; align-items: center; gap: 6px; padding: 4px 8px;
+    background: rgba(15,23,42,.5); border-radius: 6px; font-size: 12px;
+  }
+  .file .icon { font-size: 14px; }
+  .file code { color: #22c55e; font-family: 'Orbitron', monospace; font-size: 10px; }
+  .file span { color: #64748b; font-size: 10px; }
+
+  .steps-mini { margin: 3mm 0; }
+  .step-m {
+    display: flex; align-items: center; gap: 10px; padding: 6px 10px;
+    margin: 3px 0; background: rgba(34,197,94,.04); border-radius: 8px;
+  }
+  .step-m .num {
+    width: 24px; height: 24px; background: #22c55e; color: #020617;
+    border-radius: 50%; font-family: 'Orbitron', monospace; font-size: 12px;
+    display: flex; align-items: center; justify-content: center; font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .req { margin: 3mm 0; }
+  .req div { display: flex; align-items: center; gap: 6px; padding: 2px 0; font-size: 12px; }
+  .req .check { color: #22c55e; }
+  .req .label { color: #94a3b8; }
+
+  .box {
+    background: rgba(34,197,94,.04); border: 1px solid rgba(34,197,94,.12);
+    border-radius: 10px; padding: 10px 14px; margin: 3mm 0;
+  }
+  .box h4 { font-size: 13px; color: #22c55e; margin-bottom: 3px; }
+  .box p { font-size: 12px; margin: 1mm 0; }
+
+  .footer {
+    position: absolute; bottom: 10mm; left: 18mm; right: 18mm;
+    text-align: center; border-top: 1px solid rgba(34,197,94,.1);
+    padding-top: 4px;
+  }
+  .footer span { font-size: 10px; color: #64748b; }
+  .footer .brand { font-family: 'Orbitron', monospace; color: #22c55e; }
+  code.c { color: #22c55e; background: rgba(34,197,94,.1); padding: 0 4px; border-radius: 3px; font-family: 'Orbitron', monospace; font-size: 11px; }
+  kbd { background: rgba(0,0,0,.5); border: 1px solid rgba(34,197,94,.25); border-radius: 4px; padding: 0 6px; font-family: 'Orbitron', monospace; font-size: 10px; color: #22c55e; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>Bitmoji Lab</h1>
+    <div class="sub">Browser BLE Control Panel for the BBC micro:bit V2 + LED matrix</div>
+    <div class="ver">v1.0.0 &bull; Digital Download</div>
+    <div class="line"></div>
+  </div>
+
+  <div class="thanks">
+    <strong>Thank you for buying Bitmoji Lab!</strong> You just grabbed a zero-install, zero-account, browser-local control panel for the BBC micro:bit V2 + LED matrix. Everything runs on your machine &mdash; no cloud, no telemetry, no nonsense. This page walks you through the first three things to do.
+  </div>
+
+  <h2>First 3 Things To Do</h2>
+  <div class="steps-mini">
+    <div class="step-m"><div class="num">1</div><span><strong style="color:#22c55e;">Flash the firmware.</strong> Open <a style="color:#22d3ee;">makecode.microbit.org</a>, switch to JavaScript, paste <code class="c">makecode.ts</code>, click Download, and drag the <code class="c">.hex</code> to your micro:bit V2. The board will show an <strong style="color:#fff;">X</strong>.</span></div>
+    <div class="step-m"><div class="num">2</div><span><strong style="color:#22c55e;">Open the app.</strong> Double-click <code class="c">index.html</code> in <strong style="color:#fff;">Chrome</strong> or <strong style="color:#fff;">Edge</strong>. It loads locally. Click <strong style="color:#22c55e;">Connect</strong>, pick your board, watch the status dot turn green.</span></div>
+    <div class="step-m"><div class="num">3</div><span><strong style="color:#22c55e;">Play.</strong> Press <kbd>1</kbd>&hellip;<kbd>8</kbd> to hop between LEDs, Sensors, Paintbrush, Paintbrush, Graph, 3D, Bench, About. Tap <kbd>F</kbd> for fullscreen graph. No board? Flip on <strong style="color:#22d3ee;">Simulate Mode</strong>.</span></div>
+  </div>
+
+  <h2>What&apos;s in the ZIP</h2>
+  <div class="files">
+    <div class="file"><span class="icon">🌐</span><code>index.html</code><span>&mdash; Main app</span></div>
+    <div class="file"><span class="icon">🎨</span><code>styles.css</code><span>&mdash; 4 themes</span></div>
+    <div class="file"><span class="icon">📦</span><code>sw.js</code><span>&mdash; Offline PWA</span></div>
+    <div class="file"><span class="icon">🤖</span><code>makecode.ts</code><span>&mdash; Firmware</span></div>
+    <div class="file"><span class="icon">⚙️</span><code>js/*.js</code><span>&mdash; BLE + logic</span></div>
+    <div class="file"><span class="icon">🎲</span><code>js/models/</code><span>&mdash; 5 3D models</span></div>
+    <div class="file"><span class="icon">📖</span><code>docs/guide.html</code><span>&mdash; Full user guide</span></div>
+    <div class="file"><span class="icon">⌨️</span><code>docs/cheatsheet.html</code><span>&mdash; Shortcuts</span></div>
+    <div class="file"><span class="icon">❓</span><code>docs/faq.html</code><span>&mdash; FAQ</span></div>
+    <div class="file"><span class="icon">📜</span><code>LICENSE.txt</code><span>&mdash; Your license</span></div>
+  </div>
+  <p style="font-size:11px;color:#64748b;">Printable extras live in <code class="c">etsy-package/</code>: quick-start card, shortcut cheat sheet, A3 classroom poster, sticker sheet, lesson plan.</p>
+
+  <h2>Requirements</h2>
+  <div class="req">
+    <div><span class="check">&#10003;</span><span class="label">BBC micro:bit <strong style="color:#fff;">V2</strong> (V1 lacks the sound sensor)</span></div>
+    <div><span class="check">&#10003;</span><span class="label">Chrome 90+ or Edge 90+ on desktop or Android (Web Bluetooth)</span></div>
+    <div><span class="check">&#10003;</span><span class="label">Bluetooth enabled on the host device</span></div>
+    <div><span class="check">&#10003;</span><span class="label">Optional: hobby paintbrushes on pins <strong style="color:#22c55e;">P1</strong> / <strong style="color:#22c55e;">P2</strong></span></div>
+    <div><span class="check">&#10003;</span><span class="label">No internet needed after first load &mdash; installs as a PWA</span></div>
+  </div>
+
+  <h2>Key Features</h2>
+  <div class="box">
+    <p><strong style="color:#22d3ee;">Control:</strong> 5&times;5 LED matrix &bull; 2 paintbrushes (P1/P2) &bull; buzzer &bull; D-pad gamepad</p>
+    <p><strong style="color:#22d3ee;">Read:</strong> temperature &bull; light &bull; sound &bull; brightness &bull; matrix size &bull; buttons &bull; touch pins</p>
+    <p><strong style="color:#22d3ee;">Visualize:</strong> Canvas API live graph (fullscreen, record, export JSON) &bull; 3D Three.js board view with 5 models</p>
+    <p><strong style="color:#22d3ee;">Polish:</strong> 4 themes &bull; EN / FR / AR &bull; simulate mode &bull; keyboard shortcuts &bull; PWA offline</p>
+  </div>
+
+  <h2>Privacy</h2>
+  <div class="box">
+    <h4>100% Local &mdash; Zero Data Collection</h4>
+    <p>Runs entirely in your browser. No accounts, no cloud, no tracking, no analytics. Sessions, settings, and recordings stay on your device. Safe for school networks.</p>
+  </div>
+
+  <h2>Languages</h2>
+  <p>Built-in <strong style="color:#fff;">English</strong>, <strong style="color:#fff;">Français</strong>, and <strong style="color:#fff;">العربية</strong> (full RTL). Cycle with <kbd>L</kbd>.</p>
+
+  <h2>Need Help?</h2>
+  <div class="box">
+    <p>Open <code class="c">docs/guide.html</code> for the complete walkthrough and troubleshooting.</p>
+    <p>Open <code class="c">docs/faq.html</code> for the top buyer questions.</p>
+    <p>Press <kbd>?</kbd> inside the app for the built-in shortcuts overlay.</p>
+  </div>
+
+  <div class="footer">
+    <span>Thank you for supporting indie educational software! &bull; </span>
+    <span class="brand">Bitmoji Lab v1.0.0</span>
+    <span> &bull; Free lifetime updates via Etsy</span>
+  </div>
+
+</div>
+<!-- QR-BLOCK-START -->
+<div style="position:fixed;right:12mm;bottom:12mm;display:flex;gap:8mm;align-items:center;
+  background:rgba(10,14,18,0.92);color:#e8ffe8;padding:4mm 5mm;border-radius:3mm;
+  box-shadow:0 2mm 6mm rgba(0,0,0,0.35);font-family:-apple-system,Segoe UI,sans-serif;
+  max-width:80mm;z-index:9999;">
+  <img src="data:image/png;base64,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" alt="QR code — scan to open live demo" style="width:24mm;height:24mm;background:#fff;padding:1mm;border-radius:1.5mm;display:block;"/>
+  <div style="display:flex;flex-direction:column;gap:1mm;min-width:0;">
+    <div style="font-weight:700;font-size:9pt;color:#00ff88;line-height:1.2;">Run it now — no install</div>
+    <div style="font-size:7pt;opacity:0.75;line-height:1.3;word-break:break-all;">abourdim.github.io/bitmoji-lab/</div>
+  </div>
+</div>
+<!-- QR-BLOCK-END -->
+</body>
+</html>

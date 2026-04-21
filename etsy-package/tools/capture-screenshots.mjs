@@ -109,7 +109,7 @@ async function switchTab(page, slug) {
   }
   const btn = page.locator(tab.selector);
   if (await btn.count() === 0) return false;
-  await btn.click();
+  if (tab.noClick) { try { await btn.scrollIntoViewIfNeeded({ timeout: 2000 }); } catch {} } else { try { await btn.click({ timeout: 3000 }); } catch { try { await btn.scrollIntoViewIfNeeded({ timeout: 1000 }); } catch {} } }
   await page.waitForTimeout(tab.settle ?? 500);
   if (tab.prep?.action === 'click') {
     const p = page.locator(tab.prep.selector).first();

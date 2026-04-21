@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="UTF-8"><style>
+  @import url('https://fonts.googleapis.com/css2?family=Righteous&family=Orbitron:wght@500;700&family=Inter:wght@400;600;800;900&family=Tajawal:wght@400;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @page { size: A4 portrait; margin: 0; }
+  html, body { width: 210mm; height: 297mm; }
+  body {
+    font-family: 'Tajawal', 'Inter', sans-serif;
+    background: #020617;
+    color: #e8ffe8;
+    overflow: hidden;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .page { width: 210mm; height: 297mm; padding: 14mm 14mm; position: relative; overflow: hidden; }
+  .page::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(circle at 85% 10%, rgba(34,197,94,.14) 0%, transparent 50%),
+      radial-gradient(circle at 10% 95%, rgba(34,211,238,.10) 0%, transparent 55%);
+  }
+
+  .top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 4mm;
+  }
+  .brand-mark {
+    font-family: 'Orbitron', monospace; font-size: 9pt;
+    color: #22d3ee; letter-spacing: 0.2em;
+  }
+  .badge {
+    background: #22c55e; color: #020617;
+    padding: 1.5mm 4mm; border-radius: 999px;
+    font-size: 9pt; font-weight: 800; letter-spacing: 0.05em;
+  }
+
+  .title {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 34pt;
+    font-weight: 900;
+    color: #22c55e;
+    line-height: 1.05;
+    letter-spacing: normal;
+    white-space: pre-line;
+  }
+  .tagline {
+    font-size: 13pt; font-weight: 600; color: #22d3ee;
+    margin-top: 2.5mm;
+  }
+  .subtitle {
+    font-size: 10.5pt; color: #cbd5e1;
+    margin-top: 2mm; line-height: 1.4;
+  }
+
+  .shot-row {
+    display: flex; gap: 3mm; margin: 6mm 0 5mm;
+  }
+  .shot-row .shot {
+    flex: 1; border-radius: 2mm; overflow: hidden;
+    box-shadow: 0 4mm 10mm rgba(0,0,0,.5), 0 0 0 1px rgba(34,197,94,.2);
+    background: #000;
+  }
+  .shot-row .shot img { width: 100%; display: block; }
+
+  .steps-block {
+    background: rgba(15,23,42,.7);
+    border: 1px solid rgba(34,197,94,.18);
+    border-radius: 3mm;
+    padding: 5mm 6mm;
+    margin-bottom: 4mm;
+  }
+  .steps-block h2 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 13pt; color: #22c55e;
+    margin-bottom: 3mm; letter-spacing: 0.02em;
+  }
+  .steps { list-style: none; counter-reset: s; }
+  .steps li {
+    counter-increment: s;
+    padding: 1.5mm 0 1.5mm 0;
+    padding-right: 10mm;
+    position: relative;
+    font-size: 10.5pt; color: #cbd5e1; line-height: 1.4;
+    border-bottom: 1px dashed rgba(34,197,94,.1);
+  }
+  .steps li:last-child { border-bottom: none; }
+  .steps li::before {
+    content: counter(s);
+    position: absolute; right: 0; top: 1.5mm;
+    width: 6mm; height: 6mm;
+    background: linear-gradient(135deg, #22c55e, #15803d);
+    color: #020617; border-radius: 50%;
+    font-family: 'Orbitron', monospace; font-size: 9pt; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .features {
+    display: flex; gap: 3mm; margin-bottom: 4mm;
+  }
+  .feat {
+    flex: 1;
+    background: rgba(15,23,42,.55);
+    border: 1px solid rgba(34,197,94,.15);
+    border-radius: 2mm;
+    padding: 3mm;
+  }
+  .feat .icon { font-size: 14pt; }
+  .feat h3 { color: #22c55e; font-size: 10pt; font-weight: 800; margin: 1.5mm 0 1mm; }
+  .feat p { color: #94a3b8; font-size: 8.5pt; line-height: 1.35; }
+
+  .bottom {
+    position: absolute; bottom: 10mm; left: 14mm; right: 14mm;
+    display: flex; justify-content: space-between; align-items: center; gap: 6mm;
+  }
+  .qr-block {
+    display: flex; align-items: center; gap: 4mm;
+    background: rgba(10,14,18,.92);
+    padding: 3.5mm 4mm; border-radius: 2mm;
+    border: 1px solid rgba(34,197,94,.3);
+  }
+  .qr-block img { width: 22mm; height: 22mm; background: #fff; padding: 1mm; border-radius: 1mm; display: block; }
+  .qr-block .qr-caption { font-weight: 700; font-size: 9pt; color: #22c55e; }
+  .qr-block .qr-url { font-family: 'Orbitron', monospace; font-size: 7pt; color: #94a3b8; margin-top: 1mm; }
+
+  .bottom-right { text-align: left; flex: 1; }
+  .motto { font-size: 9pt; color: #64748b; font-style: italic; line-height: 1.4; }
+  .audience { font-size: 9pt; color: #22d3ee; margin-top: 2mm; font-weight: 600; }
+</style></head>
+<body><div class="page">
+  <div class="top">
+    <div class="brand-mark">BITMOJI-LAB</div>
+    <div class="badge">micro:bit V2</div>
+  </div>
+
+  <div class="title">كل حساس،
+مباشرةً في المتصفح.</div>
+  <div class="tagline">المتصفح هو بيئة التطوير.</div>
+  <div class="subtitle">لوحة تحكم جاهزة للقاعة الدراسية. 30 جهازاً. بدون تثبيت.</div>
+
+  <div class="shot-row">
+    <div class="shot"><img src="file://D:/work/dev/16_workshop/102_etsy/bitmoji-lab/etsy-package/output/ar/screenshots/screenshot-emoji.png"></div>
+    <div class="shot"><img src="file://D:/work/dev/16_workshop/102_etsy/bitmoji-lab/etsy-package/output/en/screenshots/screenshot-audience-kid-3d.png"></div>
+    <div class="shot"><img src="file://D:/work/dev/16_workshop/102_etsy/bitmoji-lab/etsy-package/output/en/screenshots/screenshot-audience-maker-3d.png"></div>
+  </div>
+
+  <div class="steps-block">
+    <h2>ابدأ خلال 60 ثانية</h2>
+    <ol class="steps">
+      <li>وصّل micro:bit (USB أو بطارية).</li><li>افتح Chrome أو Edge.</li><li>زُر الرابط أدناه — بدون تثبيت.</li><li>اضغط Connect واختر لوحتك.</li><li>تتحول النقطة إلى الأخضر. جاهز.</li>
+    </ol>
+  </div>
+
+  <div class="features">
+    
+    <div class="feat">
+      <span class="icon">⚡</span>
+      <h3>مستشعرات حية</h3>
+      <p>الحرارة، الصوت، الضوء، التسارع، البوصلة — كلها في الوقت الحقيقي.</p>
+    </div>
+    <div class="feat">
+      <span class="icon">🎛️</span>
+      <h3>تحكم كامل</h3>
+      <p>ارسم على مصفوفة LED، أدِر السيرفو، قُد المحركات. تصدير CSV للدروس.</p>
+    </div>
+    <div class="feat">
+      <span class="icon">🧊</span>
+      <h3>مرآة ثلاثية الأبعاد</h3>
+      <p>لوحة واقعية تميل مع micro:bit الفعلي. الفيزياء تصبح مرئية.</p>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="qr-block">
+      <img src="data:image/png;base64,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">
+      <div>
+        <div class="qr-caption">امسح لتجربة العرض المباشر</div>
+        <div class="qr-url">abourdim.github.io/bitmoji-lab</div>
+      </div>
+    </div>
+    <div class="bottom-right">
+      <div class="audience">للمعلمين والأطفال والمبدعين.</div>
+      <div class="motto">كل عالِم بدأ بسؤال: «ماذا يحدث لو ضغطت هنا؟»</div>
+    </div>
+  </div>
+</div></body></html>

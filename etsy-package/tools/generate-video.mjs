@@ -84,11 +84,11 @@ function resolveFont(preferBold) {
 // 8-scene arc — durations sum to 60.0s
 const SCENES = [
   { id: 1, dur: 3,  type: 'title',  text: 'Bitmoji Lab',                   subtitle: 'Paint • Glow • Share' },
-  { id: 2, dur: 7,  type: 'image',  src: 'screenshot-controls.png', effect: 'zoom-in' },
-  { id: 3, dur: 10, type: 'image',  src: 'screenshot-3d.png',       effect: 'pan-right' },
-  { id: 4, dur: 10, type: 'image',  src: 'screenshot-motors.png',   effect: 'zoom-in' },
-  { id: 5, dur: 10, type: 'image',  src: 'screenshot-graph.png',    effect: 'pan-left' },
-  { id: 6, dur: 10, type: 'image',  src: 'screenshot-sensors.png',  effect: 'zoom-out' },
+  { id: 2, dur: 7,  type: 'image',  src: 'screenshot-emoji.png', effect: 'zoom-in' },
+  { id: 3, dur: 10, type: 'image',  src: 'screenshot-saved.png',       effect: 'pan-right' },
+  { id: 4, dur: 10, type: 'image',  src: 'screenshot-emoji.png',   effect: 'zoom-in' },
+  { id: 5, dur: 10, type: 'image',  src: 'screenshot-saved.png',    effect: 'pan-left' },
+  { id: 6, dur: 10, type: 'image',  src: 'screenshot-emoji.png',  effect: 'zoom-out' },
   { id: 7, dur: 5,  type: 'cta',    text: 'Full kit',                           subtitle: '' },
   { id: 8, dur: 5,  type: 'end',    text: 'Bitmoji Lab',                   subtitle: '' },
 ];
@@ -166,7 +166,7 @@ function sceneTitle(s, out) {
 function sceneImage(s, out) {
   const src = join(SHOTS, s.src);
   if (!existsSync(src)) {
-    // Back-compat fallback to legacy filename (e.g. screenshot-3d.png).
+    // Back-compat fallback to legacy filename (e.g. screenshot-saved.png).
     const legacy = s.src.replace(/^pair-|-live|-active|-on|-tilted|-heart/g, '').replace(/^/, 'screenshot-').replace('screenshot-screenshot-', 'screenshot-');
     const alt = join(SHOTS, legacy);
     if (existsSync(alt)) { console.log(`  · fallback: ${legacy}`); return sceneImage({ ...s, src: legacy }, out); }
