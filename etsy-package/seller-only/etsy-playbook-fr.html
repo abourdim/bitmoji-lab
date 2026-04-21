@@ -149,8 +149,8 @@
     <li><input type="checkbox"><label>Chrome ou Edge ouvert, <code>index.html</code> chargé<span class="where">Safari/Firefox/iOS ne fonctionneront pas</span></label></li>
     <li><input type="checkbox"><label>BLE connecté — la puce d'état est <strong>verte</strong><span class="where">Cliquez sur 🔗 Connecter, choisissez BBC micro:bit dans la fenêtre</span></label></li>
     <li><input type="checkbox"><label>Thème choisi — <strong>Neon</strong> rend le mieux à la caméra<span class="where">En-tête → menu rouleau de peinture</span></label></li>
-    <li><input type="checkbox"><label>micro:bit V2 apparié (optionnel)</label></li>
-    <li><input type="checkbox"><label>Onglet Pixel Canvas ouvert, Robot ou Bras principal sélectionné<span class="where">Vue principale</span></label></li>
+    <li><input type="checkbox"><label>Servo branché sur P1 (pour Bras Robot / Buggy)</label></li>
+    <li><input type="checkbox"><label>Onglet 3D Board ouvert, Buggy ou Bras Robot sélectionné<span class="where">Onglet 6 → menu des modèles</span></label></li>
     <li><input type="checkbox"><label>Téléphone en 9:16 sur trépied, éclairé de face</label></li>
     <li><input type="checkbox"><label>Bureau dégagé — uniquement la carte et un accessoire dans le cadre</label></li>
     <li><input type="checkbox"><label>Script lu à voix haute une fois — chronométré sous 55 s</label></li>
@@ -164,87 +164,86 @@
   <pre style="color:var(--accent2);font-family:var(--mono);font-size:.9rem;line-height:1.7;margin:0">
  0–3 s   ACCROCHE    « Regardez ce que ce micro:bit fait en 60 secondes. »
  3–10 s  CONTEXTE    Carte à l'écran, icône X → le statut passe au vert.
-10–35 s  DÉMO        Inclinez → le modèle 3D suit. Appuyez sur A → cœur LED. Le paintbrush bouge.
-35–50 s  RÉCOMPENSE  Zoom sur l'écran du produit en action.
+10–35 s  DÉMO        Inclinez → le modèle 3D suit. Appuyez sur A → cœur LED. Le servo bouge.
+35–50 s  RÉCOMPENSE  Zoom sur le graphique en direct + modèle 3D qui reflète la carte réelle.
 50–55 s  CTA         « Kit complet dans ma boutique — lien ci-dessous. »
 55–60 s  IMAGE FIN   Logo + pseudo figé pour l'aperçu en boucle.</pre>
 </div>
 
 <!-- ═══════════ SCRIPT ═══════════ -->
 <div class="slug" id="script">SLUG — SCRIPT SCÈNE PAR SCÈNE</div>
-<h2>Modèle : « Le micro:bit devient un terrain de jeu »</h2>
+<!-- REWRITE PER PRODUCT — LE SCRIPT CI-DESSOUS DOIT ÊTRE RÉÉCRIT POUR CHAQUE PRODUIT.
+     Les 6 scènes sont des coquilles. Remplacez chaque `DIRE` par une phrase-clé
+     spécifique à votre produit et chaque `FAIRE` par une action filmable.
+     Ne laissez JAMAIS ce fichier partir en production avec les coquilles. -->
+
+<h2>Modèle 6 scènes — Bitmoji Lab</h2>
+<p class="aka" style="color:#f59e0b;font-weight:700;">⚠️ Les 6 scènes ci-dessous sont des coquilles. Réécrivez chacune avec une action filmable propre à Bitmoji Lab avant de tourner.</p>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:00–00:03</span><span class="scene-phase phase-hook">ACCROCHE</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 DIRE</div>« Votre micro:bit est un terrain de jeu. Aucune installation, aucun compte — juste un navigateur. »</div>
-    <div class="do"><div class="do-label">🎬 FAIRE</div>Tenez la carte dans le cadre. Gros plan sur l'icône X qui pulse sur la matrice LED.</div>
+    <div class="say"><div class="say-label">🎙 DIRE</div><em>[Phrase d'accroche — 1 seconde, promesse claire du produit, pourquoi scroller s'arrête]</em></div>
+    <div class="do"><div class="do-label">🎬 FAIRE</div><em>[Le plan d'accroche — ce qu'on voit à l'écran pendant la phrase]</em></div>
   </div>
 </div>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:03–00:10</span><span class="scene-phase phase-demo">CONTEXTE</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 DIRE</div>« Ouvrez la page, cliquez sur connecter — c'est tout. Capteurs en direct, LED en direct, paintbrushes en direct. »</div>
-    <div class="do"><div class="do-label">🎬 FAIRE</div>Enregistrement d'écran : cliquez sur <strong>🔗 Connecter au micro:bit</strong>, choisissez la carte, la puce d'état passe au vert.</div>
+    <div class="say"><div class="say-label">🎙 DIRE</div><em>[Phrase qui situe : à qui c'est destiné, quel problème c'est résolu]</em></div>
+    <div class="do"><div class="do-label">🎬 FAIRE</div><em>[Action à l'écran — setup, connexion, premier affichage utile]</em></div>
   </div>
 </div>
 
 <div class="scene">
-  <div class="scene-head"><span class="scene-time">00:10–00:25</span><span class="scene-phase phase-demo">DÉMO · CAPTEURS + 3D</span></div>
+  <div class="scene-head"><span class="scene-time">00:10–00:25</span><span class="scene-phase phase-demo">DÉMO 1</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 DIRE</div>« Inclinez-la — le modèle 3D à l'écran s'incline aussi. Touchez le logo — il réagit. »</div>
-    <div class="do"><div class="do-label">🎬 FAIRE</div>Écran principal du produit. Montrez la vue principale en action. La main tient le micro:bit à côté de l'écran pour le split.</div>
+    <div class="say"><div class="say-label">🎙 DIRE</div><em>[Premier wow-moment — une fonctionnalité phare de Bitmoji Lab]</em></div>
+    <div class="do"><div class="do-label">🎬 FAIRE</div><em>[L'action visible — 15 secondes, mouvement à l'écran]</em></div>
   </div>
 </div>
 
 <div class="scene">
-  <div class="scene-head"><span class="scene-time">00:25–00:40</span><span class="scene-phase phase-demo">DÉMO · FEATURES</span></div>
+  <div class="scene-head"><span class="scene-time">00:25–00:40</span><span class="scene-phase phase-demo">DÉMO 2</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 DIRE</div>« Bougez un paintbrush depuis le navigateur. Pilotez un robot avec la manette. »</div>
-    <div class="do"><div class="do-label">🎬 FAIRE</div>Démontrez les fonctionnalités clés dans le navigateur.</div>
+    <div class="say"><div class="say-label">🎙 DIRE</div><em>[Second wow-moment — une deuxième fonctionnalité / cas d'usage]</em></div>
+    <div class="do"><div class="do-label">🎬 FAIRE</div><em>[L'action visible — 15 secondes]</em></div>
   </div>
 </div>
 
 <div class="scene">
-  <div class="scene-head"><span class="scene-time">00:40–00:50</span><span class="scene-phase phase-payoff">RÉCOMPENSE · GRAPHIQUE</span></div>
+  <div class="scene-head"><span class="scene-time">00:40–00:50</span><span class="scene-phase phase-payoff">RÉCOMPENSE</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 DIRE</div>« Enregistrez, rejouez, exportez en CSV. C'est un labo de sciences entier dans un onglet. »</div>
-    <div class="do"><div class="do-label">🎬 FAIRE</div>Écran → 🎲 Simuler → l'écran principal réagit. Zoom sur les actions principales.</div>
+    <div class="say"><div class="say-label">🎙 DIRE</div><em>[Le « pourquoi c'est utile » — bénéfice concret : temps gagné, sécurité, compétence acquise]</em></div>
+    <div class="do"><div class="do-label">🎬 FAIRE</div><em>[L'écran qui porte le message — export, capture, résultat visible]</em></div>
   </div>
 </div>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:50–00:60</span><span class="scene-phase phase-cta">CTA + IMAGE DE FIN</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 DIRE</div>« Kit complet, mises à jour à vie — lien en description. Enseignants, mentionnez-moi quand vous l'utilisez. »</div>
-    <div class="do"><div class="do-label">🎬 FAIRE</div>Passez à un overlay logo + pseudo. Maintenez 3 secondes immobile — ça devient l'image de la boucle.</div>
+    <div class="say"><div class="say-label">🎙 DIRE</div><em>[Appel à l'action — kit complet + lien en description]</em></div>
+    <div class="do"><div class="do-label">🎬 FAIRE</div><em>[Overlay logo + image de fin, 3 secondes immobile]</em></div>
   </div>
 </div>
 
 <!-- ═══════════ TEXTE D'ANNONCE ═══════════ -->
 <div class="slug" id="listing">SLUG — TEXTE D'ANNONCE PRÊT À COPIER</div>
 <h2>Titre Etsy (140 caractères max)</h2>
-<div class="copybox">Bitmoji Lab — Panneau de contrôle BLE pour enseignants &amp; enfants · Capteurs · Paintbrush · Export de session · Fonctionnalités · Sans installation · Chrome / Edge<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">COPIER</button></div>
+<div class="copybox">[TODO — titre Etsy 140 caractères, voir ETSY_LISTING-fr.md]<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">COPIER</button></div>
 
 <h2>Description courte (160 premiers caractères — affichés en recherche)</h2>
-<div class="copybox">Panneau de contrôle BLE dans le navigateur pour le BBC micro:bit V2 + LED matrix. Capteurs, paintbrushes, graphiques en direct, fonctionnalités et manette — le tout depuis Chrome. Sans installation, sans compte.<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">COPIER</button></div>
+<div class="copybox">[TODO — description courte 160 caractères, voir ETSY_LISTING-fr.md]<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">COPIER</button></div>
 
 <h2>Description complète</h2>
-<div class="copybox">🎮 Bitmoji Lab — un panneau de contrôle BLE dans le navigateur pour le BBC micro:bit V2 + LED matrix.
+<div class="copybox">🎮 Bitmoji Lab — un panneau de contrôle BLE dans le navigateur pour le BBC micro:bit V2.
 
-Ouvrez un fichier HTML dans Chrome ou Edge, appairez en Bluetooth, et débloquez un outil STEM interactif — sans installation, sans compte, sans serveur, sans tracking.
-
+[TODO — 1-phrase pitch de ce que le produit fait quand on ouvre le fichier]
 CE QUE VOUS OBTENEZ
-• 🎛 Matrice LED + icônes prédéfinies + texte défilant
-• 📡 Ensemble de signaux et contrôles en direct (voir la description)
-• ⚙️ 2 paintbrushes (P1 + P2) avec curseurs, jauges, trim, boutons OFF
-• 🎮 Manette D-pad pour robots et jeux
-• 📈 Export de session — rejouer, annoter, exporter
-• 🎲 5  (Three.js) : micro:bit, Robot, Bras, Équilibre, Météo
-• 🎨 4 thèmes (Default · Dark · Light · Accent) + 3 langues (EN · FR · AR avec RTL complet)
-• 📱 PWA — installable, utilisable hors ligne
-• 👶 Mode Débutant + 🧙 Mode Expert
+• [TODO — product-specific feature 1]• [TODO — your live signal list]• [TODO — your control surface if any]• [TODO — your interactive surface]
+• [TODO — your record/replay/export feature]• [TODO — your visualization feature if any]• [TODO — your themes / UI variety + languages]• 📱 PWA — installable, utilisable hors ligne
+• [TODO — learning modes if any]
 
 CONTENU DU TÉLÉCHARGEMENT
 • index.html — l'application complète
@@ -254,7 +253,7 @@ CONTENU DU TÉLÉCHARGEMENT
 • LICENSE — licence mono-utilisateur personnelle / classe
 
 PRÉREQUIS
-• BBC micro:bit V2 + LED matrix (V1 fonctionne mais sans capteur de son)
+• BBC micro:bit V2 (V1 fonctionne mais sans capteur de son)
 • Chrome ou Edge sur ordinateur (ou Chrome sur Android)
 • Bluetooth activé
 • HTTPS ou file:// — un double-clic sur le HTML suffit
@@ -291,7 +290,7 @@ Bon hacking ! 🚀🎮🤖<button class="copybtn" onclick="navigator.clipboard.w
   <span class="pill">code enfants</span>
   <span class="pill">ressource prof</span>
   <span class="pill">capteurs</span>
-  <span class="pill">paintbrushes</span>
+  <span class="pill">[product tag]</span>
   <span class="pill">classe</span>
   <span class="pill">école maison</span>
   <span class="pill">makerspace</span>
@@ -302,8 +301,8 @@ Bon hacking ! 🚀🎮🤖<button class="copybtn" onclick="navigator.clipboard.w
   <span class="pill">HTML5</span>
   <span class="pill">JavaScript</span>
   <span class="pill">Web Bluetooth</span>
-  <span class="pill">Canvas API</span>
-  <span class="pill">Three.js</span>
+  <span class="pill">[render lib]</span>
+  <span class="pill">[3D lib if any]</span>
   <span class="pill">PWA</span>
   <span class="pill">MakeCode</span>
   <span class="pill">TypeScript</span>
@@ -317,12 +316,12 @@ Bon hacking ! 🚀🎮🤖<button class="copybtn" onclick="navigator.clipboard.w
 <h2>Séquence d'images (Etsy affiche 1 &amp; 2 en plus grand)</h2>
 <div class="card">
   <ol style="padding-left:22px;line-height:2">
-    <li><strong>Hero</strong> — vrai micro:bit + écran partagé de l'ordinateur montrant le modèle 3D qui reflète l'inclinaison de la carte. Titre en surimpression en Orbitron.</li>
-    <li><strong>Vue des onglets</strong> — capture en grille des toutes les fonctionnalités avec leurs emojis.</li>
-    <li><strong>Gros plan du graphique</strong> — Canvas API avec courbes colorées + annotations, bouton Enregistrer rouge vif.</li>
-    <li><strong>Robot 3D + Bras principal</strong> — capture partagée montrant deux des cinq modèles Three.js.</li>
-    <li><strong>Main tenant la carte</strong> — vrai paintbrush branché sur P1, curseurs à l'écran en arrière-plan.</li>
-    <li><strong>Échantillon de thèmes</strong> — grille 2×2 : Default · Dark · Light · Accent.</li>
+    <li><strong>[TODO — Hero shot: hardware + computer screen showing the marquee product state]</strong></li>
+    <li><strong>[TODO — grille des écrans ou fonctionnalités du produit]</strong></li>
+    <li><strong>[TODO — plan serré sur votre feature phare]</strong></li>
+    <li><strong>[TODO — split screen of two headline product features]</strong> — capture partagée montrant deux des cinq modèles Three.js.</li>
+    <li><strong>[TODO — plan main-sur-carte ou démo terrain]</strong></li>
+    <li><strong>[TODO — styling / variety grid].</li>
     <li><strong>Carte texte</strong> — « Licence mono-utilisateur · Mises à jour à vie · Pas de cloud · Chrome / Edge » sur dégradé sombre.</li>
   </ol>
 </div>
@@ -332,7 +331,7 @@ Bon hacking ! 🚀🎮🤖<button class="copybtn" onclick="navigator.clipboard.w
 <h2>Erreurs fréquentes</h2>
 <table>
   <tr><th>❌ À éviter</th><th>✅ À faire</th></tr>
-  <tr><td>Commencer par « Bonjour, je suis… » + 10 s d'intro</td><td>Ouvrir avec la vraie carte inclinant un modèle 3D dans les 3 premières secondes</td></tr>
+  <tr><td>Commencer par « Bonjour, je suis… » + 10 s d'intro</td><td>Ouvrir avec une action produit visible dans les 3 premières secondes</td></tr>
   <tr><td>Filmer en paysage (16:9)</td><td>Portrait 9:16 — Etsy lit en auto sur mobile</td></tr>
   <tr><td>Parler par-dessus une animation chargée</td><td>Laisser le visuel respirer 1 s, puis expliquer</td></tr>
   <tr><td>Oublier les sous-titres (Etsy joue muet)</td><td>Incruster des sous-titres ou ajouter un texte à chaque scène</td></tr>
@@ -343,7 +342,7 @@ Bon hacking ! 🚀🎮🤖<button class="copybtn" onclick="navigator.clipboard.w
 <!-- ═══════════ CARTE RAPIDE ═══════════ -->
 <div class="slug">SLUG — AIDE-MÉMOIRE DE POCHE</div>
 <div class="copybox">PRÉ     V2 allumé (icône X) · Chrome ouvert · BLE vert · téléphone 9:16
-TOURNE  Accroche en 3s · Démo features · CTA
+TOURNE  Accroche en 3 s · [TODO — 3 key verbs for your product] · CTA
 POST    Coupez à 55 s · sous-titres incrustés · première image = miniature
 ANNONCE Titre · desc 160 car. · 13 étiquettes · 7 images · tarifs</div>
 

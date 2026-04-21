@@ -149,8 +149,8 @@
     <li><input type="checkbox"><label>Chrome or Edge open, <code>index.html</code> loaded<span class="where">Safari/Firefox/iOS will not work</span></label></li>
     <li><input type="checkbox"><label>BLE connected — status chip is <strong>green</strong><span class="where">Click 🔗 Connect, pick BBC micro:bit from picker</span></label></li>
     <li><input type="checkbox"><label>Theme picked — <strong>Neon</strong> looks best on camera<span class="where">Header → paint-roller dropdown</span></label></li>
-    <li><input type="checkbox"><label>micro:bit V2 paired (optional)</label></li>
-    <li><input type="checkbox"><label>Pixel Canvas tab open, Robot or Robot Arm selected<span class="where">Main view</span></label></li>
+    <li><input type="checkbox"><label>Servo plugged into P1 (if showing Robot Arm / Buggy)</label></li>
+    <li><input type="checkbox"><label>3D Board tab open, Buggy or Robot Arm selected<span class="where">Tab 6 → model dropdown</span></label></li>
     <li><input type="checkbox"><label>Phone in 9:16 mode on a tripod, lit from the front</label></li>
     <li><input type="checkbox"><label>Desk cleared — only the board and one prop in frame</label></li>
     <li><input type="checkbox"><label>Script read aloud once — timed under 55 s</label></li>
@@ -164,7 +164,7 @@
   <pre style="color:var(--accent2);font-family:var(--mono);font-size:.9rem;line-height:1.7;margin:0">
  0–3 s   HOOK        "Watch what this micro:bit does in 60 seconds."
  3–10 s  CONTEXT     Board on-screen, X icon → status turns green.
-10–35 s  DEMO        Demo the core features. Highlight main benefits.
+10–35 s  DEMO        Tilt → 3D model follows. Press A → LED heart. Servo swings.
 35–50 s  PAYOFF      Zoom on live graph + 3D model mirroring real board.
 50–55 s  CTA         "Full kit in my shop — link below."
 55–60 s  END FRAME   Logo + handle frozen for the loop preview.</pre>
@@ -172,78 +172,76 @@
 
 <!-- ═══════════ SCRIPT ═══════════ -->
 <div class="slug" id="script">SLUG — SCENE-BY-SCENE SCRIPT</div>
-<h2>Template: "The micro:bit becomes a playground"</h2>
+<!-- REWRITE PER PRODUCT — THE 6 SCENES BELOW ARE EMPTY SHELLS.
+     Fill each SAY/DO with a product-specific line BEFORE shooting.
+     Never ship this file with the placeholder italics still in place. -->
+
+<h2>6-scene template — Bitmoji Lab</h2>
+<p class="aka" style="color:#f59e0b;font-weight:700;">⚠️ The 6 scenes below are shells. Replace every line with a filmable action specific to Bitmoji Lab before you shoot.</p>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:00–00:03</span><span class="scene-phase phase-hook">HOOK</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 SAY</div>"Your micro:bit is a playground. No install, no account — just a browser."</div>
-    <div class="do"><div class="do-label">🎬 DO</div>Hold the board in frame. Close-up of the X icon pulsing on the LED matrix.</div>
+    <div class="say"><div class="say-label">🎙 SAY</div><em>[Hook line — 1-second promise, the reason a scroller stops]</em></div>
+    <div class="do"><div class="do-label">🎬 DO</div><em>[The hook shot — what the viewer sees during the line]</em></div>
   </div>
 </div>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:03–00:10</span><span class="scene-phase phase-demo">CONTEXT</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 SAY</div>"Open the page, click connect — and that's it. Sensors live, LEDs live, paintbrushes live."</div>
-    <div class="do"><div class="do-label">🎬 DO</div>Screen recording: click <strong>🔗 Connect to micro:bit</strong>, pick the board, status chip goes green.</div>
+    <div class="say"><div class="say-label">🎙 SAY</div><em>[Who this is for, what problem it solves]</em></div>
+    <div class="do"><div class="do-label">🎬 DO</div><em>[Setup shot — connecting, first meaningful screen]</em></div>
   </div>
 </div>
 
 <div class="scene">
-  <div class="scene-head"><span class="scene-time">00:10–00:25</span><span class="scene-phase phase-demo">DEMO · SENSORS + 3D</span></div>
+  <div class="scene-head"><span class="scene-time">00:10–00:25</span><span class="scene-phase phase-demo">DEMO 1</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 SAY</div>"Tilt it — the 3D model on screen tilts too. Tap the logo — it reacts."</div>
-    <div class="do"><div class="do-label">🎬 DO</div>Tab <kbd>6</kbd> → Pixel Canvas. Tilt the real board → the virtual one follows. Hand holds the micro:bit next to the screen for the split.</div>
+    <div class="say"><div class="say-label">🎙 SAY</div><em>[First wow-moment — a marquee feature of Bitmoji Lab]</em></div>
+    <div class="do"><div class="do-label">🎬 DO</div><em>[The 15-second action shot]</em></div>
   </div>
 </div>
 
 <div class="scene">
-  <div class="scene-head"><span class="scene-time">00:25–00:40</span><span class="scene-phase phase-demo">DÉMO · FEATURES</span></div>
+  <div class="scene-head"><span class="scene-time">00:25–00:40</span><span class="scene-phase phase-demo">DEMO 2</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 SAY</div>"Move a paintbrush from the browser. Drive a robot with the Paintbrush."</div>
-    <div class="do"><div class="do-label">🎬 DO</div>Click through the live demo; features run in the browser.</div>
+    <div class="say"><div class="say-label">🎙 SAY</div><em>[Second wow-moment — second feature / use case]</em></div>
+    <div class="do"><div class="do-label">🎬 DO</div><em>[The 15-second action shot]</em></div>
   </div>
 </div>
 
 <div class="scene">
-  <div class="scene-head"><span class="scene-time">00:40–00:50</span><span class="scene-phase phase-payoff">PAYOFF · GRAPH</span></div>
+  <div class="scene-head"><span class="scene-time">00:40–00:50</span><span class="scene-phase phase-payoff">PAYOFF</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 SAY</div>"Record, replay, export CSV. It's a whole science lab in a browser tab."</div>
-    <div class="do"><div class="do-label">🎬 DO</div>Tab <kbd>5</kbd> → 🎲 Simulate → live chart dances. Zoom on the Record/CSV buttons.</div>
+    <div class="say"><div class="say-label">🎙 SAY</div><em>[The "why it matters" — time saved, skill acquired, safety]</em></div>
+    <div class="do"><div class="do-label">🎬 DO</div><em>[The screen that carries the message — export, capture, result]</em></div>
   </div>
 </div>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:50–00:60</span><span class="scene-phase phase-cta">CTA + END FRAME</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 SAY</div>"Full kit, lifetime updates — link in description. Teachers, tag me when you use it."</div>
-    <div class="do"><div class="do-label">🎬 DO</div>Switch to logo + handle overlay. Hold 3 seconds still — becomes the loop frame.</div>
+    <div class="say"><div class="say-label">🎙 SAY</div><em>[Call to action — full kit + link in description]</em></div>
+    <div class="do"><div class="do-label">🎬 DO</div><em>[Logo overlay, 3-second still for the loop]</em></div>
   </div>
 </div>
 
 <!-- ═══════════ LISTING COPY ═══════════ -->
 <div class="slug" id="listing">SLUG — COPY-READY LISTING TEXT</div>
 <h2>Etsy title (140 chars max)</h2>
-<div class="copybox">Bitmoji Lab — BLE Control Panel for Teachers &amp; Kids · Sensors · Paintbrush · Live Graph · 3D Models · No Install · Chrome / Edge<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">COPY</button></div>
+<div class="copybox">[TODO — 140-char Etsy title, see ETSY_LISTING.md]<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">COPY</button></div>
 
 <h2>Short description (first 160 chars — shown in search)</h2>
-<div class="copybox">Browser-based BLE control panel for the BBC micro:bit V2 + LED matrix. Sensors, paintbrushes, live graphs, 3D models, and a Paintbrush — all from Chrome. No install, no account.<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">COPY</button></div>
+<div class="copybox">[TODO — 160-char short description, see ETSY_LISTING.md]<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">COPY</button></div>
 
 <h2>Full description</h2>
-<div class="copybox">🎮 Bitmoji Lab — a browser-based BLE control panel for the BBC micro:bit V2 + LED matrix.
+<div class="copybox">🎮 Bitmoji Lab — a browser-based BLE control panel for the BBC micro:bit V2.
 
-Open one HTML file in Chrome or Edge, pair over Bluetooth, and unlock 7 emoji categories of hands-on STEM fun — no install, no account, no backend, no tracking.
-
+[TODO — 1-sentence pitch of what the product does when opened]
 WHAT YOU GET
-• 🎛 LED matrix + preset icons + text scroller
-• 📡 Live sensors: temperature, light, sound, brightness, matrix size, touch
-• ⚙️ 2 paintbrushes (P1 + P2) with sliders, gauges, trim, OFF buttons
-• 🎮 D-pad Paintbrush for robots and games
-• 📈 Live Graph (Canvas API) — record, replay, annotate, export PNG + CSV
-• 🎲 5 interactive 3D models (Three.js): (see product features)
-• 🎨 customizable UI + 3 languages (EN · FR · AR with full RTL)
-• 📱 PWA — installable, offline-capable
+• [TODO — product-specific feature 1]• [TODO — your live signal list]• [TODO — your control surface if any]• [TODO — your interactive surface]
+• [TODO — your record/replay/export feature]• [TODO — your visualization feature if any]• [TODO — your themes / UI variety + languages]• 📱 PWA — installable, offline-capable
 • 👶 Beginner mode + 🧙 Expert mode
 
 WHAT'S IN YOUR DOWNLOAD
@@ -254,7 +252,7 @@ WHAT'S IN YOUR DOWNLOAD
 • LICENSE — personal / classroom single-user license
 
 REQUIREMENTS
-• BBC micro:bit V2 + LED matrix (V1 works but has no sound sensor)
+• BBC micro:bit V2 (V1 works but has no sound sensor)
 • Chrome or Edge on desktop (or Chrome on Android)
 • Bluetooth enabled
 • HTTPS or file:// — double-clicking the HTML works
@@ -291,7 +289,7 @@ Happy hacking! 🚀🎮🤖<button class="copybtn" onclick="navigator.clipboard.
   <span class="pill">kids coding</span>
   <span class="pill">teacher resource</span>
   <span class="pill">sensors</span>
-  <span class="pill">paintbrushes</span>
+  <span class="pill">[product tag]</span>
   <span class="pill">classroom</span>
   <span class="pill">home school</span>
   <span class="pill">makerspace</span>
@@ -302,8 +300,8 @@ Happy hacking! 🚀🎮🤖<button class="copybtn" onclick="navigator.clipboard.
   <span class="pill">HTML5</span>
   <span class="pill">JavaScript</span>
   <span class="pill">Web Bluetooth</span>
-  <span class="pill">Canvas API</span>
-  <span class="pill">Three.js</span>
+  <span class="pill">[render lib]</span>
+  <span class="pill">[3D lib if any]</span>
   <span class="pill">PWA</span>
   <span class="pill">MakeCode</span>
   <span class="pill">TypeScript</span>
@@ -317,12 +315,12 @@ Happy hacking! 🚀🎮🤖<button class="copybtn" onclick="navigator.clipboard.
 <h2>Image sequence (Etsy shows 1 &amp; 2 largest)</h2>
 <div class="card">
   <ol style="padding-left:22px;line-height:2">
-    <li><strong>Hero</strong> — real micro:bit + laptop split-screen showing the 3D model mirroring the board's tilt. Title overlay in Orbitron.</li>
-    <li><strong>Tabs overview</strong> — grid screenshot of all 7 emoji categories with emoji labels.</li>
-    <li><strong>Live graph close-up</strong> — Canvas API with colored lines + annotations, Record button glowing red.</li>
-    <li><strong>emoji pixel + Robot Arm</strong> — split screenshot showing two of the five Three.js models.</li>
-    <li><strong>Hand-holding the board</strong> — real paintbrush plugged into P1, sliders on screen in the background.</li>
-    <li><strong>Theme sampler</strong> — 2×2 grid: Default · Dark · Light · Accent.</li>
+    <li><strong>[TODO — Hero shot: hardware + computer screen showing the marquee product state]</strong></li>
+    <li><strong>[TODO — grid screenshot of your main screens or features]</strong></li>
+    <li><strong>[TODO — close-up of your marquee feature]</strong></li>
+    <li><strong>[TODO — split screenshot showing two product features]</strong></li>
+    <li><strong>[TODO — shot showing hardware in-use or hand-to-screen reference]</strong></li>
+    <li><strong>[TODO — styling / variety grid].</li>
     <li><strong>Text card</strong> — "Single-user license · Lifetime updates · No cloud · Chrome / Edge" on a dark gradient.</li>
   </ol>
 </div>
@@ -343,7 +341,7 @@ Happy hacking! 🚀🎮🤖<button class="copybtn" onclick="navigator.clipboard.
 <!-- ═══════════ QUICK CARD ═══════════ -->
 <div class="slug">SLUG — POCKET CHEAT CARD</div>
 <div class="copybox">PRE    V2 powered (X icon) · Chrome open · BLE green · 9:16 phone
-SHOOT  Hook in 3s · Live demo · CTA
+SHOOT  Hook in 3 s · [TODO — 3 verbs for your product] · CTA
 POST   Trim to 55 s · captions burn-in · first frame = thumbnail
 LIST   Title · 160-char desc · 13 tags · 7 images · price tiers</div>
 

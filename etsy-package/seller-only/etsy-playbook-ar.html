@@ -151,8 +151,8 @@
     <li><input type="checkbox"><label>Chrome أو Edge مفتوح، وملف <code>index.html</code> محمَّل<span class="where">Safari وFirefox وiOS لن تعمل</span></label></li>
     <li><input type="checkbox"><label>BLE متصل — شارة الحالة <strong>خضراء</strong><span class="where">اضغط 🔗 اتصال، ثم اختر BBC micro:bit من النافذة</span></label></li>
     <li><input type="checkbox"><label>تم اختيار السمة — <strong>Neon</strong> تبدو الأفضل أمام الكاميرا<span class="where">الرأس ← قائمة رولر الطلاء</span></label></li>
-    <li><input type="checkbox"><label>المحرِّك موصول بـ P1 (عند عرض الالشاشة الرئيسيةية أو العربة)</label></li>
-    <li><input type="checkbox"><label>علامة تبويب Pixel Canvas مفتوحة، مع اختيار العربة أو الذراع<span class="where">علامة التبويب 6 ← قائمة النماذج</span></label></li>
+    <li><input type="checkbox"><label>المحرِّك موصول بـ P1 (عند عرض الذراع الروبوتية أو العربة)</label></li>
+    <li><input type="checkbox"><label>علامة تبويب 3D Board مفتوحة، مع اختيار العربة أو الذراع<span class="where">علامة التبويب 6 ← قائمة النماذج</span></label></li>
     <li><input type="checkbox"><label>الهاتف بوضع 9:16 على ترايبود، مضاء من الأمام</label></li>
     <li><input type="checkbox"><label>المكتب مرتَّب — اللوحة وقطعة واحدة فقط في الإطار</label></li>
     <li><input type="checkbox"><label>قراءة النص بصوت عالٍ مرة واحدة — بزمن أقل من 55 ثانية</label></li>
@@ -166,7 +166,7 @@
   <pre style="color:var(--accent2);font-family:var(--mono);font-size:.9rem;line-height:1.7;margin:0">
  0–3 s   HOOK        «Watch what this micro:bit does in 60 seconds.»
  3–10 s  CONTEXT     Board on-screen, X icon → status turns green.
-10–35 s  DEMO        Demo the core features. Highlight main benefits.
+10–35 s  DEMO        Tilt → 3D model follows. Press A → LED heart. Servo swings.
 35–50 s  PAYOFF      Zoom on live graph + 3D model mirroring real board.
 50–55 s  CTA         «Full kit in my shop — link below.»
 55–60 s  END FRAME   Logo + handle frozen for the loop preview.</pre>
@@ -174,53 +174,58 @@
 
 <!-- ═══════════ النص ═══════════ -->
 <div class="slug" id="script">النص مشهدًا مشهدًا</div>
-<h2>القالب: «الـ micro:bit يصبح ساحة لعب»</h2>
+<!-- REWRITE PER PRODUCT — المشاهد الستة أدناه هي قوالب فارغة.
+     املأ كل سطر DIRE/FAIRE بنص خاص بـ Bitmoji Lab قبل التصوير.
+     لا تُرسل هذا الملف إلى الإنتاج مع النصوص المائلة كما هي. -->
+
+<h2>قالب 6 مشاهد — Bitmoji Lab</h2>
+<p class="aka" style="color:#f59e0b;font-weight:700;">⚠️ المشاهد الستة أدناه قوالب فارغة. استبدل كل سطر بفعلٍ قابلٍ للتصوير خاصٍ بـ Bitmoji Lab قبل تسجيل الفيديو.</p>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:00–00:03</span><span class="scene-phase phase-hook">الخطاف</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 قل</div>«جهاز micro:bit لديك هو ساحة لعب. بدون تثبيت، بدون حساب — فقط متصفح.»</div>
-    <div class="do"><div class="do-label">🎬 افعل</div>أمسك اللوحة في الإطار. لقطة مقربة لأيقونة X تنبض على شبكة LED.</div>
+    <div class="say"><div class="say-label">🎙 قل</div><em>[جملة الجذب — ثانية واحدة، وعد واضح يوقف التمرير]</em></div>
+    <div class="do"><div class="do-label">🎬 افعل</div><em>[لقطة الجذب — ما يظهر على الشاشة أثناء الجملة]</em></div>
   </div>
 </div>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:03–00:10</span><span class="scene-phase phase-demo">السياق</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 قل</div>«افتح الصفحة، اضغط اتصال — وهذا كل شيء. حساسات مباشرة، LED مباشر، محركات مباشرة.»</div>
-    <div class="do"><div class="do-label">🎬 افعل</div>تسجيل شاشة: اضغط على <strong>🔗 الاتصال بـ micro:bit</strong>، اختر اللوحة، شارة الحالة تصبح خضراء.</div>
+    <div class="say"><div class="say-label">🎙 قل</div><em>[لمن هذا المنتج، ما المشكلة التي يحلّها]</em></div>
+    <div class="do"><div class="do-label">🎬 افعل</div><em>[لقطة الإعداد — الاتصال، أول شاشة مفيدة]</em></div>
   </div>
 </div>
 
 <div class="scene">
-  <div class="scene-head"><span class="scene-time">00:10–00:25</span><span class="scene-phase phase-demo">العرض · الحساسات + 3D</span></div>
+  <div class="scene-head"><span class="scene-time">00:10–00:25</span><span class="scene-phase phase-demo">العرض 1</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 قل</div>«أملها — فيميل النموذج ثلاثي الأبعاد على الشاشة أيضًا. المس الشعار — فيستجيب.»</div>
-    <div class="do"><div class="do-label">🎬 افعل</div>علامة التبويب <kbd>6</kbd> ← Pixel Canvas. أمل اللوحة الحقيقية ← فيتبعها النموذج الافتراضي. اليد تحمل micro:bit بجانب الشاشة للانقسام.</div>
+    <div class="say"><div class="say-label">🎙 قل</div><em>[لحظة الإبهار الأولى — ميزة رئيسية لـ Bitmoji Lab]</em></div>
+    <div class="do"><div class="do-label">🎬 افعل</div><em>[لقطة الفعل — 15 ثانية من الحركة المرئية]</em></div>
   </div>
 </div>
 
 <div class="scene">
-  <div class="scene-head"><span class="scene-time">00:25–00:40</span><span class="scene-phase phase-demo">العرض · المحركات + يد التحكم</span></div>
+  <div class="scene-head"><span class="scene-time">00:25–00:40</span><span class="scene-phase phase-demo">العرض 2</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 قل</div>«حرّك محركًا من المتصفح. قُد روبوتًا بيد التحكم.»</div>
-    <div class="do"><div class="do-label">🎬 افعل</div>عرض الميزات الأساسية.
+    <div class="say"><div class="say-label">🎙 قل</div><em>[لحظة الإبهار الثانية — ميزة/حالة استخدام ثانية]</em></div>
+    <div class="do"><div class="do-label">🎬 افعل</div><em>[لقطة الفعل — 15 ثانية]</em></div>
   </div>
 </div>
 
 <div class="scene">
-  <div class="scene-head"><span class="scene-time">00:40–00:50</span><span class="scene-phase phase-payoff">المكافأة · المخطط</span></div>
+  <div class="scene-head"><span class="scene-time">00:40–00:50</span><span class="scene-phase phase-payoff">المكافأة</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 قل</div>«سجّل، أعِد التشغيل، صدِّر CSV. إنه مختبر علوم كامل داخل علامة تبويب.»</div>
-    <div class="do"><div class="do-label">🎬 افعل</div>علامة التبويب <kbd>5</kbd> ← 🎲 محاكاة ← يرقص المخطط الحي. زُم على أزرار التسجيل/CSV.</div>
+    <div class="say"><div class="say-label">🎙 قل</div><em>[لماذا هذا مهم — الوقت الموفّر، المهارة المكتسبة، الأمان]</em></div>
+    <div class="do"><div class="do-label">🎬 افعل</div><em>[الشاشة التي تحمل الرسالة — تصدير، التقاط، نتيجة مرئية]</em></div>
   </div>
 </div>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:50–00:60</span><span class="scene-phase phase-cta">CTA + إطار الختام</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 قل</div>«طقم كامل، تحديثات مدى الحياة — الرابط في الوصف. أيها المعلمون، اذكروني عند استخدامه.»</div>
-    <div class="do"><div class="do-label">🎬 افعل</div>انتقل إلى طبقة الشعار + المعرّف. ثبّت 3 ثوانٍ بلا حركة — لتصبح إطار التكرار.</div>
+    <div class="say"><div class="say-label">🎙 قل</div><em>[الدعوة للشراء — الطقم الكامل + الرابط في الوصف]</em></div>
+    <div class="do"><div class="do-label">🎬 افعل</div><em>[طبقة الشعار، إطار ختام ثابت لـ 3 ثوانٍ]</em></div>
   </div>
 </div>
 
@@ -230,10 +235,10 @@
 <div class="copybox">Bitmoji Lab — لوحة تحكم BLE للمعلمين والأطفال · حساسات · محركات · مخطط حي · نماذج 3D · بلا تثبيت · Chrome / Edge<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">نسخ</button></div>
 
 <h2>الوصف المختصر (أول 160 حرفًا — تظهر في البحث)</h2>
-<div class="copybox">لوحة تحكم BLE داخل المتصفح للوحة BBC micro:bit V2 + LED matrix. حساسات ومحركات ومخططات حية ونماذج ثلاثية الأبعاد ويد تحكم — كلها من Chrome. بلا تثبيت وبلا حساب.<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">نسخ</button></div>
+<div class="copybox">لوحة تحكم BLE داخل المتصفح للوحة BBC micro:bit V2. حساسات ومحركات ومخططات حية ونماذج ثلاثية الأبعاد ويد تحكم — كلها من Chrome. بلا تثبيت وبلا حساب.<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">نسخ</button></div>
 
 <h2>الوصف الكامل</h2>
-<div class="copybox">🎮 Bitmoji Lab — لوحة تحكم BLE تعمل داخل المتصفح للوحة BBC micro:bit V2 + LED matrix.
+<div class="copybox">🎮 Bitmoji Lab — لوحة تحكم BLE تعمل داخل المتصفح للوحة BBC micro:bit V2.
 
 افتح ملف HTML واحدًا في Chrome أو Edge، واقترن عبر Bluetooth، وافتح 8 علامات تبويب من المرح التعليمي (STEM) التفاعلي — بلا تثبيت، بلا حساب، بلا خادم خلفي، بلا تتبع.
 
@@ -242,9 +247,8 @@
 • 📡 حساسات مباشرة: الحرارة، الإضاءة، الصوت، مقياس التسارع، البوصلة، اللمس
 • ⚙️ محركان (P1 + P2) مع منزلقات ومؤشرات وضبط وأزرار إيقاف
 • 🎮 يد تحكم D-pad للروبوتات والألعاب
-• 📈 مخطط حي (Canvas API) — تسجيل وإعادة تشغيل وتعليقات وتصدير PNG + CSV
-• 🎲 5 نماذج ثلاثية الأبعاد تفاعلية (Three.js): micro:bit، العربة، الذراع، التوازن، الطقس
-• 🎨 4 سمات (Default · Dark · Light · Accent) + 3 لغات (EN · FR · AR مع دعم RTL كامل)
+• 📈 [TODO — ميزة منتجك الرئيسية]• 🎲 5 نماذج ثلاثية الأبعاد تفاعلية (Three.js): micro:bit، العربة، الذراع، التوازن، الطقس
+• 🎨 4 سمات (Stealth · Neon · Arctic · Blaze) + 3 لغات (EN · FR · AR مع دعم RTL كامل)
 • 📱 PWA — قابل للتثبيت ويعمل بدون إنترنت
 • 👶 وضع المبتدئ + 🧙 وضع الخبير
 
@@ -256,7 +260,7 @@
 • LICENSE — رخصة مستخدم وحيد للاستخدام الشخصي / الصفي
 
 المتطلبات
-• BBC micro:bit V2 + LED matrix (V1 يعمل لكن بدون حساس صوت)
+• BBC micro:bit V2 (V1 يعمل لكن بدون حساس صوت)
 • Chrome أو Edge على سطح المكتب (أو Chrome على أندرويد)
 • تفعيل Bluetooth
 • HTTPS أو file:// — النقر المزدوج على HTML يكفي
@@ -304,8 +308,8 @@
   <span class="pill">HTML5</span>
   <span class="pill">JavaScript</span>
   <span class="pill">Web Bluetooth</span>
-  <span class="pill">Canvas API</span>
-  <span class="pill">Three.js</span>
+  <span class="pill">[render lib]</span>
+  <span class="pill">[3D lib if any]</span>
   <span class="pill">PWA</span>
   <span class="pill">MakeCode</span>
   <span class="pill">TypeScript</span>
@@ -321,10 +325,10 @@
   <ol style="padding-right:22px;line-height:2">
     <li><strong>الصورة البطل</strong> — micro:bit حقيقي + لقطة شاشة مقسومة للحاسوب تُظهر النموذج ثلاثي الأبعاد وهو يعكس ميل اللوحة. عنوان بخط Orbitron فوقها.</li>
     <li><strong>نظرة عامة على الألسنة</strong> — لقطة شبكية لجميع الألسنة الثماني مع رموزها.</li>
-    <li><strong>لقطة مقرَّبة للمخطط</strong> — Canvas API بخطوط ملونة وتعليقات، مع زر تسجيل أحمر متوهج.</li>
-    <li><strong>العربة + الالشاشة الرئيسيةية 3D</strong> — لقطة شاشة مقسومة تُظهر نموذجين من بين نماذج Three.js الخمسة.</li>
+    <li><strong>[TODO — لقطة قريبة لأهم ميزة]</strong></li>
+    <li><strong>[TODO — لقطة مقسومة تُظهر ميزتين رئيسيتين]</strong></li>
     <li><strong>يد تمسك اللوحة</strong> — محرك حقيقي موصول بـ P1، والمنزلقات على الشاشة في الخلفية.</li>
-    <li><strong>عيّنة السمات</strong> — شبكة 2×2: Default · Dark · Light · Accent.</li>
+    <li><strong>عيّنة السمات</strong> — شبكة 2×2: Stealth · Neon · Arctic · Blaze.</li>
     <li><strong>بطاقة نصية</strong> — «رخصة مستخدم وحيد · تحديثات مدى الحياة · بلا سحابة · Chrome / Edge» على تدرج داكن.</li>
   </ol>
 </div>
