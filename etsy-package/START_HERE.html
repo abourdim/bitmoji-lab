@@ -335,7 +335,7 @@ etsy-package/
 │   ├─ theme-morph.mjs           <span class="comment">1:1 square theme crossfade loop</span>
 │   ├─ hero-compose.mjs + hero-specs.json  <span class="comment">A/B hero images</span>
 │   ├─ speed-test-clip.mjs       <span class="comment">"3.2s to live data" proof</span>
-│   ├─ fake-ble-dialog.mjs       <span class="comment">synth Chrome BLE picker shot</span>
+│   ├─ fake-ble-dialog.mjs       <span class="comment">synth Chrome USB picker shot</span>
 │   ├─ photoreal-board.mjs       <span class="comment">Three.js photoreal micro:bit</span>
 │   ├─ generate-captions.mjs     <span class="comment">A/B caption bank</span>
 │   ├─ generate-accessibility.mjs <span class="comment">audio descriptions + Braille</span>
@@ -368,7 +368,7 @@ etsy-package/
     ├─ <span class="folder">fr/</span>                      <span class="comment">French deliverables (same shape, Hortense narration)</span>
     ├─ <span class="folder">ar/</span>                      <span class="comment">Arabic deliverables (RTL layout, Naayf narration)</span>
     ├─ <span class="folder">shared/</span>                  <span class="comment">language-agnostic</span>
-    │   ├─ ble-dialog/           <span class="comment">synth Chrome BLE picker</span>
+    │   ├─ ble-dialog/           <span class="comment">synth Chrome USB picker</span>
     │   ├─ photoreal/            <span class="comment">Three.js board renders</span>
     │   ├─ datasets/             <span class="comment">100 CSV sensor sessions + teacher README</span>
     │   ├─ stand/                <span class="comment">lasercut SVG + DXF</span>
@@ -513,7 +513,7 @@ node build-package.js</code></pre>
   <li><strong><code>output/en/</code></strong> — English-language deliverables. Use these for your main Etsy listing. Zira narration.</li>
   <li><strong><code>output/fr/</code></strong> — French-language deliverables. Use these for a French-audience listing / Pinterest / YouTube. Hortense narration.</li>
   <li><strong><code>output/ar/</code></strong> — Arabic-language deliverables with RTL layout. Naayf narration. Full parity with EN + FR.</li>
-  <li><strong><code>output/shared/</code></strong> — language-agnostic (mockups, photoreal board, BLE dialog, datasets, lasercut stand, printable renders). One copy for all locales.</li>
+  <li><strong><code>output/shared/</code></strong> — language-agnostic (mockups, photoreal board, USB picker dialog, datasets, lasercut stand, printable renders). One copy for all locales.</li>
   <li><strong><code>output/_tmp/</code></strong> — ffmpeg / Playwright intermediates. Safe to delete. Gitignored.</li>
 </ul>
 

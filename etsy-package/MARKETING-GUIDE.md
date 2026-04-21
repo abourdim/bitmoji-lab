@@ -57,10 +57,10 @@ experiment pick the winner, or rotate manually weekly.
 | File | Purpose |
 |---|---|
 | `output/shared/photoreal/microbit-hero.png` | Photoreal 3D render of the micro:bit V2. Reads as "we have a real device" without needing a physical photo. |
-| `output/shared/ble-dialog/ble-pairing.png` | Synthesized Chrome Bluetooth picker. Answers the #1 pre-purchase fear: "will my browser actually pair with this thing?" |
+| `output/shared/ble-dialog/ble-pairing.png` | Synthesized Chrome USB Serial port picker. Answers the #1 pre-purchase fear: "will my browser actually pair with this thing?" |
 | `output/shared/ble-dialog/ble-pairing-lifted.png` | Alternative with lifted backdrop for print/mockup compositing. |
 
-**Where:** Etsy image 2 (photoreal) and image 3 (BLE dialog).
+**Where:** Etsy image 2 (photoreal) and image 3 (USB picker dialog).
 **When:** Permanent slots. These don't age out; they're evergreen trust signals.
 
 ### Slots 4–6 — Feature grid + app state
@@ -163,7 +163,7 @@ Short, loopable, autoplay-everywhere demonstrations of one specific feature.
 
 | File | Shows | Best channel |
 |---|---|---|
-| `ledmatrix-heart.gif` | Drawing a heart on the 5×5 LED matrix, progressive | Pinterest pin, Twitter/Bluesky reply to "what does it do?" |
+| `ledmatrix-heart.gif` | Demo GIF showing the product in use | Pinterest pin, Twitter/Bluesky reply to "what does it do?" |
 | `graph-record.gif` | Emoji panel with Simulate running — live waveform | Etsy listing slot (secondary) · YouTube community post |
 | `3d-tilt-sweep.gif` | 3D model tilting ±40° over 5 seconds | Pinterest hover card · Instagram story sticker |
 | `theme-swap.gif` | All 4 themes cycle | "Customize it" bullet in the description · Twitter thread |

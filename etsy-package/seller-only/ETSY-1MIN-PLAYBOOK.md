@@ -27,7 +27,7 @@ Before you press Record:
 
 - [ ] BBC micro:bit V2 + LED matrix powered on, showing the **X** icon *(if not → re-flash `makecode.ts`)*
 - [ ] Chrome or Edge open with `index.html` loaded
-- [ ] BLE paired — status chip is **green**
+- [ ] USB connected — status chip is **green**
 - [ ] Theme set — **Default** photographs best; **Light** reads best in harsh daylight
 - [ ] Language matches your voiceover (EN / FR / AR)
 - [ ] micro:bit V2 paired (optional)
@@ -55,13 +55,13 @@ Etsy loops the video, so the **end frame should match the cover** — keeps view
 
 ---
 
-## Script Template A — "Your micro:bit becomes a playground" (hero demo)
+## Script Template A — "Bitmoji Lab — Paint 100+ Emojis on a NeoPixel LED Matrix · USB Web Serial · 8×8 / 16×16 · Chrome / Edge" (hero demo)
 
-**Use case:** the main Etsy listing video. Showcases the 3D, the BLE pairing, and the live graph in one go.
+**Use case:** the main Etsy listing video. Showcases the 3D, the USB connect, and the live graph in one go.
 
 | Time | What to SAY | What to CLICK / DO |
 |---|---|---|
-| 0–3 s | *"Your micro:bit becomes a playground — in the browser, in 60 seconds."* | Close-up of the real board with the X icon on the LEDs. Your hand holds it. |
+| 0–3 s | *"Bitmoji Lab — Paint 100+ Emojis on a NeoPixel LED Matrix · USB Web Serial · 8×8 / 16×16 · Chrome / Edge — in the browser, in 60 seconds."* | Close-up of the real board with the X icon on the LEDs. Your hand holds it. |
 | 3–10 s | *"One page, one click, paired."* | Cut to the laptop. Click **🔗 Connect to micro:bit** → pick the board → chip turns green. |
 | 10–20 s | *"Sensors live — tilt it, the 3D model tilts too."* | Tab **6 · Pixel Canvas**. Tilt the real board. The virtual one mirrors it. Hold both in frame. |
 | 20–30 s | *"Click through the live demo — features run in the browser."* | Click through the live demo; features run in the browser.|
@@ -144,7 +144,7 @@ Etsy loops the video, so the **end frame should match the cover** — keeps view
 ## Etsy-specific upload tips
 
 - Etsy listing videos appear at the top as an **autoplaying preview tile**. First frame is the cover — make it visually clean.
-- Use the listing **title** to echo the video's first words. If you say *"Your micro:bit becomes a playground"*, the listing title starts with *"Bitmoji Lab — BLE Control Panel…"*.
+- Use the listing **title** to echo the video's first words. If you say *"Bitmoji Lab — Paint 100+ Emojis on a NeoPixel LED Matrix · USB Web Serial · 8×8 / 16×16 · Chrome / Edge"*, the listing title starts with *"Bitmoji Lab — Paint Emojis Panel…"*.
 - Add the captions text into the listing **description** — searchable, helps SEO.
 - Tag the listing with words you actually said in the video.
 - Price tiers: single user `{{PRICE}}` · classroom / site `{{PRICE}}`.
@@ -166,7 +166,7 @@ Etsy loops the video, so the **end frame should match the cover** — keeps view
 ## Quick-reference cheat card
 
 ```
-PRE     V2 has X icon · Chrome open · BLE green · 9:16 phone · default theme
+PRE     V2 has X icon · Chrome open · USB connected · 9:16 phone · default theme
 LAUNCH  Record → first words land in the first 3 seconds
 DURING  Tilt → 3D · A → LED · slider → paintbrush · Simulate → graph
 AFTER   Stop → trim to 55 s → burn captions → first frame = thumbnail
@@ -179,22 +179,22 @@ UPLOAD  Etsy listing → upload MP4 → echo first words in listing title
 
 **Title (140 chars max):**
 ```
-Bitmoji Lab — BLE Control Panel for Teachers & Kids · Sensors · Paintbrush · Live Graph · 3D Models · No Install · Chrome / Edge
+Bitmoji Lab — Paint Emojis on LEDs for Teachers & Kids · Sensors · Paintbrush · Live Graph · 3D Models · No Install · Chrome / Edge
 ```
 
 **160-char short description:**
 ```
-Browser-based BLE control panel for the BBC micro:bit V2 + LED matrix. Sensors, paintbrushes, live graphs, 3D models, and a Paintbrush — all from Chrome. No install, no account.
+Browser tool that paints 100+ emojis onto a NeoPixel LED matrix via USB Web Serial. 8×8 or 16×16, Magic Paintbrush, 11 animations. Chromebook. No install, no account.
 ```
 
 **13 Etsy tags:**
 ```
-micro:bit, BLE, bluetooth, education, STEM, robotics, kids coding, teacher resource, sensors, paintbrushes, classroom, home school, makerspace
+neopixel, led matrix, pixel art, emoji art, microbit v2, web serial, makerspace, STEM art, classroom, homeschool STEM, christmas lights, coding kids, BBC microbit
 ```
 
 **Materials:**
 ```
-HTML5, JavaScript, Web Bluetooth, Canvas API, Three.js, PWA, MakeCode, TypeScript
+HTML5, JavaScript, Web Serial, Canvas API, Three.js, PWA, MakeCode, TypeScript
 ```
 
 **SEO keywords:**

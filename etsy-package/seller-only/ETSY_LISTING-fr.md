@@ -22,7 +22,7 @@
 
 ## Titre (140 caractères max)
 
-Application Bluetooth Web pour BBC micro:bit V2 + Guide Illustré | Fonctions Complètes, 100+ Emojis, Graphiques en Direct | STEM École | Téléchargement Numérique
+Application USB Web pour BBC micro:bit V2 + Guide Illustré | Fonctions Complètes, 100+ Emojis, Graphiques en Direct | STEM École | Téléchargement Numérique
 
 > Nom produit sur la boutique Etsy : **« Bitmoji Lab »**. Utilisez la formulation **« pour le BBC micro:bit V2 »** partout afin de respecter les règles de marque de la Micro:bit Educational Foundation.
 
@@ -37,7 +37,7 @@ micro:bit, microbit v2, STEM, codage enfants, BBC microbit, application bluetoot
 
 ## Description de l'annonce
 
-> **Panneau de contrôle Bluetooth basé navigateur pour le BBC micro:bit V2. Rien à installer. Fonctionne sur Chromebook. Nécessite Chrome ou Edge — pas iPhone / iPad / Safari.**
+> **Panneau de contrôle USB basé navigateur pour le BBC micro:bit V2. Rien à installer. Fonctionne sur Chromebook. Nécessite Chrome ou Edge — pas iPhone / iPad / Safari.**
 >
 > ✅ **Testé sur Chromebook** — appareil cible principal pour les écoles. S'installe comme une PWA, fonctionne hors ligne après le premier chargement.
 >
@@ -66,9 +66,9 @@ micro:bit, microbit v2, STEM, codage enfants, BBC microbit, application bluetoot
 > ⚙️ **Nécessite** :
 > • BBC micro:bit V2 (vendu séparément)
 > • Navigateur Chrome ou Edge sur ordinateur de bureau, portable ou tablette Android
-> • Bluetooth activé
+> • USB activé
 >
-> ❌ **Ne fonctionne PAS sur** : Safari, Firefox, iPhone, iPad. (Limitation de Web Bluetooth — pas de l'application.)
+> ❌ **Ne fonctionne PAS sur** : Safari, Firefox, iPhone, iPad. (Limitation de Web Serial — pas de l'application.)
 >
 > ♿ **Accessibilité** : descriptions audio (voix Hortense fr-FR), transcriptions texte pour lecteurs DAISY, Braille Unicode Grade 1 français. Conforme aux exigences procurement des académies françaises (RGAA 4).
 
@@ -80,7 +80,7 @@ micro:bit, microbit v2, STEM, codage enfants, BBC microbit, application bluetoot
 Non — il suffit de flasher le firmware une fois et de cliquer Connecter.
 
 **Q : Est-ce que ça fonctionne sur mon iPad ?**
-Non. Apple n'autorise pas Web Bluetooth dans les navigateurs iOS. Utilisez un ordinateur portable, un Chromebook ou une tablette Android.
+Non. Apple n'autorise pas Web Serial dans les navigateurs iOS. Utilisez un ordinateur portable, un Chromebook ou une tablette Android.
 
 **Q : Puis-je l'utiliser dans ma classe de 30 élèves ?**
 Oui — un seul enseignant, une seule école, élèves illimités. Pour plusieurs enseignants ou une licence académique, contactez-moi.
@@ -108,7 +108,7 @@ Oui — mises à jour gratuites dans la ligne v1.x (nouvelles fonctionnalités e
 
 ## Annonce de boutique
 
-> 🎮 **Bitmoji Lab** — panneau de contrôle Bluetooth + guide illustré pour le BBC micro:bit V2. Rien à installer. Fonctionne sur Chromebook. Conçu pour les salles STEM.
+> 🎮 **Bitmoji Lab** — outil USB Web Serial + guide illustré pour le BBC micro:bit V2. Rien à installer. Fonctionne sur Chromebook. Conçu pour les salles STEM.
 >
 > Sortie v1.2.0 : guide illustré trilingue (EN/FR/AR), aire de jeu LED interactive, modes Débutant/Expert. Ouvrez-le dans Chrome ou Edge, cliquez Connecter — vos capteurs s'animent.
 >
@@ -143,7 +143,7 @@ Message envoyé automatiquement dès l'achat.
 >
 > Votre téléchargement est prêt maintenant — Etsy vous a envoyé le lien par email, vous pouvez aussi le récupérer depuis **Vous → Achats & avis**.
 >
-> 📘 **Commencez ici :** décompressez le fichier et ouvrez **SETUP.md** (guide de 5 minutes). Il vous faut un BBC micro:bit V2 et Chrome ou Edge — Safari et iPhones ne fonctionnent pas (limitation de Web Bluetooth, pas de l'application).
+> 📘 **Commencez ici :** décompressez le fichier et ouvrez **SETUP.md** (guide de 5 minutes). Il vous faut un BBC micro:bit V2 et Chrome ou Edge — Safari et iPhones ne fonctionnent pas (limitation de Web Serial, pas de l'application).
 >
 > 💬 **Bloqué ?** Répondez à ce message avec votre numéro de commande Etsy et une capture d'écran — je réponds sous 24 heures.
 >
@@ -163,7 +163,7 @@ Message envoyé automatiquement dès l'achat.
 > Bonjour ! Excellente question — vérification rapide avant d'acheter :
 >
 > 1. Avez-vous un **BBC micro:bit V2** (celui avec le microphone doré) ? Le V1 n'a pas le capteur de son ni quelques fonctionnalités.
-> 2. Quel navigateur utiliserez-vous ? Il faut **Chrome ou Edge** sur un ordinateur de bureau, portable, Chromebook ou tablette Android. Safari, Firefox, iPhone et iPad ne sont pas pris en charge (limitation de Web Bluetooth).
+> 2. Quel navigateur utiliserez-vous ? Il faut **Chrome ou Edge** sur un ordinateur de bureau, portable, Chromebook ou tablette Android. Safari, Firefox, iPhone et iPad ne sont pas pris en charge (limitation de Web Serial).
 >
 > Si les deux sont OK, vous êtes bon. Dites-moi si vous voulez que je vous envoie une vidéo de démo de 30 secondes avant de décider.
 

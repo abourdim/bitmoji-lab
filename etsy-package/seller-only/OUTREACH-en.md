@@ -55,7 +55,7 @@
 
 ## <a id="t3"></a>Template 3 — Makerspace / fablab coordinator
 
-**Subject:** Web Bluetooth playground for the micro:bits you have sitting around
+**Subject:** Web Serial playground for the micro:bits you have sitting around
 
 > Hey {{FIRST_NAME}},
 >
@@ -119,7 +119,7 @@
 >
 > Big fan of {{SHOP_NAME}} — your {{PRODUCT: "micro:bit starter kit" / "robotics bundle"}} is exactly where a tool I built would add a kid-magnet visual layer.
 >
-> I make a browser-based control panel for the BBC micro:bit V2. It's the "wow" moment parents post on Instagram — sensors stream live in the browser, LED matrix draws in real time, pixel canvas tilts with the real one.
+> I make a browser-based control panel for the BBC micro:bit V2. It's the "wow" moment parents share with friends — the product comes alive in a browser tab, no install, no account.
 >
 > Two ways I can be useful:
 > 1. **Affiliate** — 30% commission on Etsy purchases via your link.
@@ -139,7 +139,7 @@
 
 > Hi {{FIRST_NAME}},
 >
-> Quick check-in — did you get a chance to try the demo on your school's Chromebooks? I know school-network proxies can be funny with Web Bluetooth.
+> Quick check-in — did you get a chance to try the demo on your school's Chromebooks? I know school-network proxies can be funny with Web Serial.
 >
 > If it worked: 🎉. If it didn't, send me a screenshot of whatever it said — 90% of the time it's either (a) Chrome on a locked-down Chromebook that needs `chrome://flags/#enable-experimental-web-platform-features` flipped, or (b) a firewall proxy intercepting the pairing dialog.
 >

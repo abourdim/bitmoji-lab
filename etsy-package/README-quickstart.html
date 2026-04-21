@@ -79,7 +79,7 @@
 
   <div class="header">
     <h1>Bitmoji Lab</h1>
-    <div class="sub">Browser BLE Control Panel for the BBC micro:bit V2</div>
+    <div class="sub">Paint emojis on NeoPixel LEDs via USB Web Serial</div>
     <div class="ver">v1.0.0 &bull; Digital Download</div>
     <div class="line"></div>
   </div>
@@ -92,17 +92,17 @@
   <div class="steps-mini">
     <div class="step-m"><div class="num">1</div><span><strong style="color:#22c55e;">Flash the firmware.</strong> Open <a style="color:#22d3ee;">makecode.microbit.org</a>, switch to JavaScript, paste <code class="c">makecode.ts</code>, click Download, and drag the <code class="c">.hex</code> to your micro:bit V2. The board will show an <strong style="color:#fff;">X</strong>.</span></div>
     <div class="step-m"><div class="num">2</div><span><strong style="color:#22c55e;">Open the app.</strong> Double-click <code class="c">index.html</code> in <strong style="color:#fff;">Chrome</strong> or <strong style="color:#fff;">Edge</strong>. It loads locally. Click <strong style="color:#22c55e;">Connect</strong>, pick your board, watch the status dot turn green.</span></div>
-    <div class="step-m"><div class="num">3</div><span><strong style="color:#22c55e;">Play.</strong> Press <kbd>1</kbd>&hellip;<kbd>8</kbd> to hop between LEDs, Sensors, NeoPixel, Paintbrush, Graph, 3D, Bench, About. Tap <kbd>F</kbd> for fullscreen graph. No board? Flip on <strong style="color:#22d3ee;">Simulate Mode</strong>.</span></div>
+    <div class="step-m"><div class="num">3</div><span><strong style="color:#22c55e;">Play.</strong> Browse 7 emoji category tabs. Pick a color with the Magic Paintbrush. Click <strong style="color:#22c55e;">Send</strong> — your NeoPixel matrix lights up instantly.</span></div>
   </div>
 
   <h2>What&apos;s in the ZIP</h2>
   <div class="files">
     <div class="file"><span class="icon">🌐</span><code>index.html</code><span>&mdash; Main app</span></div>
-    <div class="file"><span class="icon">🎨</span><code>styles.css</code><span>&mdash; 4 themes</span></div>
+    <div class="file"><span class="icon">🎨</span><code>styles.css</code><span>&mdash; kid-friendly UI</span></div>
     <div class="file"><span class="icon">📦</span><code>sw.js</code><span>&mdash; Offline PWA</span></div>
     <div class="file"><span class="icon">🤖</span><code>makecode.ts</code><span>&mdash; Firmware</span></div>
-    <div class="file"><span class="icon">⚙️</span><code>js/*.js</code><span>&mdash; BLE + logic</span></div>
-    <div class="file"><span class="icon">🎲</span><code>js/models/</code><span>&mdash; 5 3D models</span></div>
+    <div class="file"><span class="icon">⚙️</span><code>js/*.js</code><span>&mdash; USB Web Serial + paint logic</span></div>
+    <div class="file"><span class="icon">🎲</span><code>js/emojis/</code><span>&mdash; 100+ built-in emojis</span></div>
     <div class="file"><span class="icon">📖</span><code>docs/guide.html</code><span>&mdash; Full user guide</span></div>
     <div class="file"><span class="icon">⌨️</span><code>docs/cheatsheet.html</code><span>&mdash; Shortcuts</span></div>
     <div class="file"><span class="icon">❓</span><code>docs/faq.html</code><span>&mdash; FAQ</span></div>
@@ -113,18 +113,18 @@
   <h2>Requirements</h2>
   <div class="req">
     <div><span class="check">&#10003;</span><span class="label">BBC micro:bit <strong style="color:#fff;">V2</strong> (V1 lacks the sound sensor)</span></div>
-    <div><span class="check">&#10003;</span><span class="label">Chrome 90+ or Edge 90+ on desktop or Android (Web Bluetooth)</span></div>
-    <div><span class="check">&#10003;</span><span class="label">Bluetooth enabled on the host device</span></div>
-    <div><span class="check">&#10003;</span><span class="label">Optional: hobby Paintbrush on pins <strong style="color:#22c55e;">P1</strong> / <strong style="color:#22c55e;">P2</strong></span></div>
+    <div><span class="check">&#10003;</span><span class="label">Chrome 90+ or Edge 90+ on desktop or Android (Web Serial)</span></div>
+    <div><span class="check">&#10003;</span><span class="label">USB cable plugged into computer + micro:bit</span></div>
+    <div><span class="check">&#10003;</span><span class="label">NeoPixel matrix (8&times;8 or 16&times;16) wired to <strong style="color:#22c55e;">P0</strong> / 3V / GND</span></div>
     <div><span class="check">&#10003;</span><span class="label">No internet needed after first load &mdash; installs as a PWA</span></div>
   </div>
 
   <h2>Key Features</h2>
   <div class="box">
-    <p><strong style="color:#22d3ee;">Control:</strong> 5&times;5 LED matrix &bull; 2 Paintbrush (P1/P2) &bull; buzzer &bull; D-pad gamepad</p>
-    <p><strong style="color:#22d3ee;">Read:</strong> temperature &bull; light &bull; sound &bull; brightness &bull; matrix size &bull; buttons &bull; touch pins</p>
-    <p><strong style="color:#22d3ee;">Visualize:</strong> the screen live graph (fullscreen, record, export JSON) &bull; 3D Three.js board view with 5 models</p>
-    <p><strong style="color:#22d3ee;">Polish:</strong> 4 themes &bull; EN / FR / AR &bull; simulate mode &bull; keyboard shortcuts &bull; PWA offline</p>
+    <p><strong style="color:#22d3ee;">Control:</strong> 100+ built-in emojis &bull; Magic Paintbrush with 8 colors &bull; 11 animated demos</p>
+    <p><strong style="color:#22d3ee;">Features:</strong> 7 emoji categories &bull; 8&times;8 / 16&times;16 matrix switch &bull; brightness slider &bull; save designs locally</p>
+    <p><strong style="color:#22d3ee;">Tools:</strong> Communication Log (Clear/Copy/Export) &bull; test fill buttons (Red/Green/Blue/White/Clear) &bull; stress test 0..1000</p>
+    <p><strong style="color:#22d3ee;">Polish:</strong> EN / FR / AR seller docs &bull; Simple Mode (flat colors) &bull; Shift+drag to erase &bull; local-only, no cloud</p>
   </div>
 
   <h2>Privacy</h2>

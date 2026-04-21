@@ -71,7 +71,7 @@ neopixel, led matrix, emoji art, pixel art, microbit v2, BBC microbit, web seria
 
 ## Listing description
 
-> **Browser-based Bluetooth control panel for the BBC micro:bit V2. No install. Works on Chromebook. Chrome or Edge required — not iPhone / iPad / Safari.**
+> **Browser-based USB control panel for the BBC micro:bit V2. No install. Works on Chromebook. Chrome or Edge required — not iPhone / iPad / Safari.**
 >
 > ✅ **Tested on Chromebook** — primary target device for schools. Installs as a PWA, works offline after the first load.
 >
@@ -100,9 +100,9 @@ neopixel, led matrix, emoji art, pixel art, microbit v2, BBC microbit, web seria
 > ⚙️ **Requires**:
 > • BBC micro:bit V2 (sold separately)
 > • Chrome or Edge browser on a desktop, laptop, or Android device
-> • Bluetooth enabled
+> • USB enabled
 >
-> ❌ **Does NOT work on**: Safari, Firefox, iPhone, iPad. (Web Bluetooth limitation — not the app.)
+> ❌ **Does NOT work on**: Safari, Firefox, iPhone, iPad. (Web Serial limitation — not the app.)
 >
 > 📦 **Delivery**: Instant download after purchase — a single ZIP file.
 >
@@ -140,7 +140,7 @@ Paste this block into the listing just above the FAQ. No fabricated reviews — 
 | Paint tool with custom colors + erase | ✅ | Partial | ❌ |
 | 11 animated demos (Flag, Heart, Fireworks, Race Car…) | ✅ | ❌ | ❌ |
 | Save designs locally, reload later | ✅ | ❌ (cloud only) | ❌ |
-| USB Web Serial — no Bluetooth pairing, no account | ✅ | Needs Wi-Fi + account | ❌ |
+| USB Web Serial — no USB plug-ining, no account | ✅ | Needs Wi-Fi + account | ❌ |
 | Works on Chromebook | ✅ | ❌ (Python install) | ✅ |
 | Classroom-ready printables + lesson plan | ✅ | ❌ | ❌ |
 
@@ -150,7 +150,7 @@ Paste this block into the listing just above the FAQ. No fabricated reviews — 
 
 1. Hero: micro:bit + laptop screen with the app open (LED matrix tab)
 2. Sensor dashboard screenshot
-3. **Demo GIF — 5-second silent loop of pairing + drawing on the 5×5 LED matrix** (auto-plays on Etsy, highest conversion slot after the hero)
+3. **Demo GIF — 5-second loop of the core product action** (auto-plays on Etsy, highest conversion slot after the hero)
 4. pixel canvas viewer screenshot
 5. All 4 themes side-by-side
 6. Mobile / tablet view
@@ -167,7 +167,7 @@ Paste this block into the listing just above the FAQ. No fabricated reviews — 
 No — just flash the firmware once and click Connect.
 
 **Q: Will this work on my iPad?**
-No. Apple does not allow Web Bluetooth in any iOS browser. Use a laptop, Chromebook, or Android tablet.
+No. Apple does not allow Web Serial in any iOS browser. Use a laptop, Chromebook, or Android tablet.
 
 **Q: Can I use this in my classroom of 30 students?**
 Yes — single teacher, one school, unlimited students. For multi-teacher / district licenses, message me.
@@ -207,7 +207,7 @@ A3 micro:bit V2 Pin-out Classroom Poster — Printable PDF | STEM Wall Chart for
 ### Description
 > 🖨️ **One poster. One price. Print it today.**
 >
-> A printable A3 **BBC micro:bit V2 pin-out poster** — the exact diagram used in the Bitmoji Lab illustrated guide. Labeled pins, brightness axes, sound sensor callout, touch-logo arrow, radio + BLE note.
+> A printable A3 **BBC micro:bit V2 pin-out poster** — the exact diagram used in the Bitmoji Lab illustrated guide. Labeled pins, brightness axes, sound sensor callout, touch-logo arrow, radio + USB note.
 >
 > 📄 **What you get:** 1 PDF, A3 (297×420 mm) + US Tabloid (11×17 in) versions, print-at-home or send to any copy shop.
 >
@@ -215,7 +215,7 @@ A3 micro:bit V2 Pin-out Classroom Poster — Printable PDF | STEM Wall Chart for
 >
 > ⚡ **Instant download** — the file is yours seconds after checkout.
 >
-> 💬 Loved it? Check out the full **Bitmoji Lab** app in my shop — the browser Bluetooth control panel this poster was designed for.
+> 💬 Loved it? Check out the full **Bitmoji Lab** app in my shop — the browser USB control panel this poster was designed for.
 
 ### Tags (13)
 ```
@@ -371,7 +371,7 @@ Watch these weekly for the first 90 days. If the listing is below target after 3
 Small in-app tweaks that directly reduce 1-star reviews. Every 1-star review from a wrong-browser buyer drags the listing's search position down — this is the most cost-effective defense.
 
 - ✅ **Compat banner** already added to `index.html` — detects non-Chromium browsers and iOS Safari on first paint and shows a friendly red bar with "This app needs Chrome or Edge on a laptop / Chromebook / Android — not iPhone or iPad." Critical for blocking the single biggest 1-star-review trigger.
-- ✅ **Error messages polished** — the BLE connect flow now says *"No device was picked"* instead of a raw DOMException, and reconnect toasts show attempt count (*"Reconnecting 1/3"*).
+- ✅ **Error messages polished** — the USB connect flow now says *"No device was picked"* instead of a raw DOMException, and reconnect toasts show attempt count (*"Reconnecting 1/3"*).
 - ✅ **Onboarding overlay** shows on first visit only — 4 plain-English steps, dismissible, stored in `localStorage`. Reduces "I bought it and don't know what to do" messages.
 - 🔜 **Next:** add a one-line "Did this help? ⭐⭐⭐⭐⭐" prompt in the app after the first successful sensor read — most buyers never find their way back to Etsy to leave a review without a nudge.
 
@@ -416,7 +416,7 @@ This is sent automatically the moment a buyer pays. Etsy already shows them the 
 >
 > Your download is ready right now — Etsy has emailed you the link, and you can also grab it from **You → Purchases & Reviews**.
 >
-> 📘 **Start here:** unzip the file and open **SETUP.md** (5-minute guide). You'll need a BBC micro:bit V2 and Chrome or Edge — Safari and iPhones won't work (that's a Web Bluetooth limitation, not the app).
+> 📘 **Start here:** unzip the file and open **SETUP.md** (5-minute guide). You'll need a BBC micro:bit V2 and Chrome or Edge — Safari and iPhones won't work (that's a Web Serial limitation, not the app).
 >
 > 💬 **Stuck?** Reply to this message with your Etsy order number and a screenshot — I'll get back to you within 24 hours.
 >
@@ -436,7 +436,7 @@ Use this when someone messages you *before* buying with a compatibility question
 > Hi! Great question — quick check before you buy:
 >
 > 1. Do you have a **BBC micro:bit V2** (the one with the gold microphone)? V1 is missing the sound sensor and a couple of features.
-> 2. What browser will you be using? It must be **Chrome or Edge** on a desktop, laptop, Chromebook, or Android tablet. Safari, Firefox, iPhone, and iPad are not supported (Web Bluetooth limitation).
+> 2. What browser will you be using? It must be **Chrome or Edge** on a desktop, laptop, Chromebook, or Android tablet. Safari, Firefox, iPhone, and iPad are not supported (Web Serial limitation).
 >
 > If both are a yes, you're good to go. Let me know if you'd like me to send a 30-second demo video before you decide.
 
@@ -533,7 +533,7 @@ Pinterest indexes pins for years, unlike Instagram. One good pin can drive sales
 
 ```
 1. Turn a micro:bit into a STEM lab — works in any browser
-2. The micro:bit Bluetooth app every STEM teacher wishes existed
+2. The micro:bit USB app every STEM teacher wishes existed
 3. Homeschool STEM: 7 emoji categories, 100+ emojis, zero installs
 4. micro:bit V2 + Chrome = a $10 robotics classroom
 5. From "what's a micro:bit" to "I built a robot" in 5 minutes
@@ -541,9 +541,9 @@ Pinterest indexes pins for years, unlike Instagram. One good pin can drive sales
 
 ### Pin descriptions (500 chars, keyword-rich, written for the searcher)
 
-> Looking for a micro:bit project that works straight from the browser? Bitmoji Lab gives you 7 emoji categories of live control — LED matrix, sensors, paintbrushes, gamepad, real-time graphs, and 5 interactive 3D models — all over Bluetooth. Perfect for STEM teachers, homeschool parents, and after-school clubs. No installs, no accounts. Works on Chrome and Edge. One-time download. #microbit #STEM #homeschool #coding #edtech
+> Looking for a micro:bit project that works straight from the browser? Bitmoji Lab gives you 7 emoji categories of live control — LED matrix, sensors, paintbrushes, gamepad, real-time graphs, and 5 interactive 3D models — all over USB. Perfect for STEM teachers, homeschool parents, and after-school clubs. No installs, no accounts. Works on Chrome and Edge. One-time download. #microbit #STEM #homeschool #coding #edtech
 
-> The Bluetooth control panel for the BBC micro:bit V2 that turns one $20 board into an entire robotics lab. Draw on the LEDs, watch live color pickers, drive a emoji pixel with the on-screen gamepad, and record sessions for science class. Browser-based — no installs. Instant download from Etsy. #microbit #classroomresources #stemforkids #robotics #makered
+> The USB control panel for the BBC micro:bit V2 that turns one $20 board into an entire robotics lab. Draw on the LEDs, watch live color pickers, drive a emoji pixel with the on-screen gamepad, and record sessions for science class. Browser-based — no installs. Instant download from Etsy. #microbit #classroomresources #stemforkids #robotics #makered
 
 ### Hashtag bank (rotate, don't reuse the same set)
 
@@ -596,7 +596,7 @@ A weekly 5-minute "what you can build with Bitmoji Lab" video, ending with a sof
 ### Title
 
 ```
-School Site License for the BBC micro:bit V2 Bluetooth Web App | Up to 30 Teachers, Unlimited Students | STEM Classroom | Instant Digital Download
+School Site License for the BBC micro:bit V2 USB Web App | Up to 30 Teachers, Unlimited Students | STEM Classroom | Instant Digital Download
 ```
 
 ### Price
@@ -626,7 +626,7 @@ School Site License for the BBC micro:bit V2 Bluetooth Web App | Up to 30 Teache
 >
 > 👩‍🏫 **Perfect for:** STEM departments, robotics clubs, library maker corners, summer camps, after-school coding programs.
 >
-> ⚙️ **Requires:** BBC micro:bit V2 (sold separately) + Chrome or Edge. Not supported: Safari, Firefox, iPhone, iPad (Web Bluetooth limitation).
+> ⚙️ **Requires:** BBC micro:bit V2 (sold separately) + Chrome or Edge. Not supported: Safari, Firefox, iPhone, iPad (Web Serial limitation).
 >
 > 🏢 **Need more than one site?** Message me before buying — I offer discounted multi-site and district licenses.
 >
@@ -698,7 +698,7 @@ Same as English listing: `Craft Supplies & Tools → Patterns & How To → Tutor
 • متصفح Chrome أو Edge على كمبيوتر أو لابتوب أو جهاز أندرويد
 • تفعيل البلوتوث
 
-❌ لا يعمل على: Safari، Firefox، iPhone، iPad (قيود Web Bluetooth في هذه المتصفحات).
+❌ لا يعمل على: Safari، Firefox، iPhone، iPad (قيود Web Serial في هذه المتصفحات).
 
 📦 التسليم: تحميل فوري بعد الشراء — ملف ZIP واحد.
 
@@ -728,7 +728,7 @@ Same as the English listing.
 
 تم تجهيز التحميل فوراً — ستجد الرابط في بريدك الإلكتروني ومن خلال حسابك في Etsy → Purchases & Reviews.
 
-📘 ابدأ من هنا: فك ضغط الملف وافتح SETUP.md (دليل 5 دقائق). تحتاج لوحة BBC micro:bit V2 ومتصفح Chrome أو Edge — لا يعمل على Safari أو iPhone (قيود Web Bluetooth).
+📘 ابدأ من هنا: فك ضغط الملف وافتح SETUP.md (دليل 5 دقائق). تحتاج لوحة BBC micro:bit V2 ومتصفح Chrome أو Edge — لا يعمل على Safari أو iPhone (قيود Web Serial).
 
 💬 واجهت مشكلة؟ راسلني برقم الطلب وصورة من الشاشة — سأرد خلال 24 ساعة.
 
@@ -761,7 +761,7 @@ The visual helpers added in V1.2.0 unlock product angles that weren't viable bef
 The SVG diagrams inside `guide.html` are print-ready. Extract each as a standalone 1-page PDF and sell as a **STEM classroom wall poster pack**:
 
 - **micro:bit V2 pin-out** (from Firmware section) — every robotics teacher wants one on the wall
-- **Architecture diagram** (Browser ↔ BLE ↔ micro:bit) — for "how does this work" explainers
+- **Architecture diagram** (Browser ↔ USB ↔ micro:bit) — for "how does this work" explainers
 - **Troubleshooting symptom chart** — laminate, keep by the workshop table
 - **Firmware-flashing storyboard** — one-page how-to for student helpers
 
@@ -967,7 +967,7 @@ Bitmoji Lab — District-Wide STEM Licensing | Quote for 3+ Schools | Includes T
 |-------|-------|-------------|
 | 1 | **Cover** | Logo + "Bitmoji Lab — District-Wide Licensing Proposal for [District Name]" + your name + date |
 | 2 | **The problem** | 3 bullets: "Most STEM software requires installs / accounts / cloud approvals. IT departments say no. Teachers get stuck." |
-| 3 | **What it is** | Screenshot of the app + tab map. One sentence: "A browser-based Bluetooth control panel for BBC micro:bit V2 — no install, no account, no cloud." |
+| 3 | **What it is** | Screenshot of the app + tab map. One sentence: "A browser-based USB control panel for BBC micro:bit V2 — no install, no account, no cloud." |
 | 4 | **Standards alignment** | Map the 7 emoji categories to Common Core / ISTE / national STEM frameworks. *(Adapt per country.)* |
 | 5 | **What the district gets** | Unlimited schools + unlimited teachers + unlimited students + 12 months of updates + dedicated support channel + **4 printable classroom posters** + 3 live training sessions |
 | 6 | **Adoption ROI** | Cost per student: at 3 schools × 800 students = 2400 students. Total cost $2,500 → **$1.04 per student per year**. Compare to any per-seat STEM license ($15–50/student). |
@@ -1189,7 +1189,7 @@ Publish free tutorials on [Instructables](https://www.instructables.com) that ra
 #### 8a. Tutorial ideas (pick 3, publish one per week)
 1. "**How to make a micro:bit thermometer in 5 minutes**" — manual version (MakeCode only)
 2. "**micro:bit sound level meter** — no code needed" — same
-3. "**Control a paintbrush from your laptop via Bluetooth**" — advanced manual setup
+3. "**Control a paintbrush from your laptop via USB**" — advanced manual setup
 
 Each Instructable has:
 - Real, working code (shows you're credible)

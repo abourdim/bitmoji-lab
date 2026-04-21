@@ -141,7 +141,7 @@
 
   <main>
     <div class="say" id="say">Press <span style="color: var(--accent)">Space</span> to start</div>
-    <div class="do" id="do">Pre-flight: BLE green · default theme · 9:16 phone · desk clean</div>
+    <div class="do" id="do">Pre-flight: USB connected · default theme · 9:16 phone · desk clean</div>
   </main>
 
   <footer>
@@ -156,7 +156,7 @@
 
 <script>
 const SCENES = [
-  { t: 0,  phase: 'HOOK',     say: '"Your micro:bit becomes a playground — in the browser, in 60 seconds."', do: 'Close-up of the <strong>real board</strong> with the X icon on the LEDs. Your hand holds it.' },
+  { t: 0,  phase: 'HOOK',     say: '"Bitmoji Lab — Paint 100+ Emojis on a NeoPixel LED Matrix · USB Web Serial · 8×8 / 16×16 · Chrome / Edge — in the browser, in 60 seconds."', do: 'Close-up of the <strong>real board</strong> with the X icon on the LEDs. Your hand holds it.' },
   { t: 3,  phase: 'CONTEXT',  say: '"One page, one click, paired."',                                         do: 'Cut to laptop. Click <strong>🔗 Connect</strong> → pick board → chip turns <strong>green</strong>.' },
   { t: 10, phase: 'DEMO 1',   say: '"Sensors live — tilt it, the 3D model tilts too."',                    do: 'Tab <strong>6 · Pixel Canvas</strong>. Tilt real board. Virtual mirrors. Both in frame.' },
   { t: 20, phase: 'DEMO 2',   say: '"Click through the live demo — features run in the browser."',         do: 'Click through the live demo; features run in the browser.' },
@@ -236,7 +236,7 @@ function reset() {
   document.body.classList.add('idle');
   phase.textContent = 'READY';
   say.innerHTML = 'Press <span style="color: var(--accent)">Space</span> to start';
-  doEl.textContent = 'Pre-flight: BLE green · default theme · 9:16 phone · desk clean';
+  doEl.textContent = 'Pre-flight: USB connected · default theme · 9:16 phone · desk clean';
   clock.textContent = '0:00';
   clock.classList.remove('over');
   bar.style.width = '0%';

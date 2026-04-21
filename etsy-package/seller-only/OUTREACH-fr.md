@@ -56,7 +56,7 @@
 
 ## <a id="t3"></a>Template 3 — Fablab / coordinateur makerspace
 
-**Objet :** Outil Web Bluetooth pour les micro:bits de votre fablab
+**Objet :** Outil Web Serial pour les micro:bits de votre fablab
 
 > Salut {{PRENOM}},
 >
@@ -141,7 +141,7 @@
 
 > Bonjour {{PRENOM}},
 >
-> Juste un petit point — avez-vous eu l'occasion d'essayer la démo sur les Chromebooks de votre établissement ? Je sais que les proxys réseau des écoles peuvent être capricieux avec Web Bluetooth.
+> Juste un petit point — avez-vous eu l'occasion d'essayer la démo sur les Chromebooks de votre établissement ? Je sais que les proxys réseau des écoles peuvent être capricieux avec Web Serial.
 >
 > Si ça a fonctionné : 🎉. Sinon, envoyez-moi une capture de ce qui s'est affiché — dans 90 % des cas c'est soit (a) Chrome sur un Chromebook verrouillé qui a besoin de `chrome://flags/#enable-experimental-web-platform-features` activé, soit (b) un firewall qui intercepte le dialogue d'appairage.
 >

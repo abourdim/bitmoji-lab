@@ -97,13 +97,13 @@ The HTML sources ship too, so teachers can tweak them.
 
 #### `quickstart-card.html` — A4 portrait
 - **What:** 5-step setup card (flash firmware → open `index.html` →
-  Chrome/Edge → connect BLE → play).
+  Chrome/Edge → connect USB → play).
 - **When to use:** buyers print it as the first thing they hold when they
   unzip the package. Also the cover image of the "Printables" bundle
   advertised on the listing.
 
 #### `shortcuts-cheatsheet.html` — A4 landscape
-- **What:** Keyboard shortcuts (Space, 1–8, P, F, K, Esc), BLE state
+- **What:** Keyboard shortcuts (Space, 1–8, P, F, K, Esc), USB state
   cheat sheet, tab map.
 - **When to use:** teachers print and pin next to the classroom PC.
 
@@ -119,7 +119,7 @@ The HTML sources ship too, so teachers can tweak them.
   hand or in Canva, hand out.
 
 #### `sticker-sheet.html` — A4 portrait
-- **What:** 30 circular badges — "I Connected BLE!", theme icons, 3D
+- **What:** 30 circular badges — "I Painted My First Emoji!", theme icons, 3D
   model crew, language badges, achievement stickers.
 - **When to use:** teachers print on sticker paper (Avery 22807 or
   similar) for student rewards. Great "bonus" in Etsy description.
