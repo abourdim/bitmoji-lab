@@ -4,17 +4,17 @@
   ⚠️  REWRITE PER PRODUCT — DO NOT SHIP AS-IS
   ───────────────────────────────────────────────────────────────────────
   apply-template.mjs only substituted identifiers (Bitmoji Lab,
-  v1.0.0, https://abourdim.github.io/bitmoji-lab/, etc.). The feature content, steps,
+  v1.0.0, {{LIVE_DEMO_URL}}, etc.). The feature content, steps,
   shortcuts, and examples below were inherited from the template's
-  source product (bitmoji-lab) and WILL BE WRONG for your product
+  source product (bit-playground) and WILL BE WRONG for your product
   unless you rewrite them.
   
   Before including this file in a buyer ZIP:
     1. Delete this banner.
     2. Rewrite every mention of specific features, shortcuts,
        tab names, hardware interactions, etc. to match your product.
-    3. Verify with: grep -iE "paintbrush|chart\.js|3d board|gamepad|
-       brightness|matrix size|led matrix|7 emoji categories|sensors tab" this-file.
+    3. Verify with: grep -iE "servo|chart\.js|3d board|gamepad|
+       accelerometer|compass|led matrix|8 tabs|sensors tab" this-file.
   ═══════════════════════════════════════════════════════════════════════
 -->
 <html lang="en">
@@ -111,10 +111,10 @@
         <div class="group-title">Tabs (1&ndash;8)</div>
         <div class="row"><kbd>1</kbd><span class="label">LEDs &mdash; 5&times;5 matrix</span></div>
         <div class="row"><kbd>2</kbd><span class="label">Sensors &mdash; live readings</span></div>
-        <div class="row"><kbd>3</kbd><span class="label">Paintbrush &mdash; P1 &amp; P2</span></div>
-        <div class="row"><kbd>4</kbd><span class="label">Paintbrush &mdash; D-pad + Fire</span></div>
-        <div class="row"><kbd>5</kbd><span class="label">Graph &mdash; Canvas API live plot</span></div>
-        <div class="row"><kbd>6</kbd><span class="label">Pixel Canvas &mdash; Three.js view</span></div>
+        <div class="row"><kbd>3</kbd><span class="label">[TODO — actuator if any] &mdash; P1 &amp; P2</span></div>
+        <div class="row"><kbd>4</kbd><span class="label">[TODO — control surface] &mdash; D-pad + Fire</span></div>
+        <div class="row"><kbd>5</kbd><span class="label">Graph &mdash; [TODO — chart lib if any] live plot</span></div>
+        <div class="row"><kbd>6</kbd><span class="label">3D Board &mdash; Three.js view</span></div>
         <div class="row"><kbd>7</kbd><span class="label">Bench &mdash; raw JSON console</span></div>
         <div class="row"><kbd>8</kbd><span class="label">About &mdash; version &amp; credits</span></div>
       </div>
@@ -132,11 +132,11 @@
       </div>
 
       <div class="group">
-        <div class="group-title">Pixel Canvas Models</div>
+        <div class="group-title">3D Board Models</div>
         <div class="row"><kbd>M</kbd><span class="label">Switch model (cycle)</span></div>
         <div class="row"><span style="font-size:14px;">🔲</span><span class="label">micro:bit V2 board</span></div>
-        <div class="row"><span style="font-size:14px;">🚗</span><span class="label">Product demo</span></div>
-        <div class="row"><span style="font-size:14px;">🦾</span><span class="label">Robot Arm</span></div>
+        <div class="row"><span style="font-size:14px;">🚗</span><span class="label">Buggy robot</span></div>
+        <div class="row"><span style="font-size:14px;">🦾</span><span class="label">[TODO — feature]</span></div>
         <div class="row"><span style="font-size:14px;">🎯</span><span class="label">Balance game</span></div>
         <div class="row"><span style="font-size:14px;">🌦️</span><span class="label">Weather station</span></div>
       </div>
@@ -161,11 +161,11 @@
       </div>
 
       <div class="group">
-        <div class="group-title">Paintbrush (P1 / P2)</div>
-        <div class="row"><kbd>Q</kbd> / <kbd>A</kbd><span class="label">P1 paintbrush +/- 10&deg;</span></div>
-        <div class="row"><kbd>W</kbd> / <kbd>S</kbd><span class="label">P2 paintbrush +/- 10&deg;</span></div>
-        <div class="row"><kbd>0</kbd><span class="label">Center both paintbrushes (90&deg;)</span></div>
-        <div class="row"><kbd>O</kbd><span class="label">Paintbrush OFF (detach PWM)</span></div>
+        <div class="group-title">[TODO — actuator if any] (P1 / P2)</div>
+        <div class="row"><kbd>Q</kbd> / <kbd>A</kbd><span class="label">P1 servo +/- 10&deg;</span></div>
+        <div class="row"><kbd>W</kbd> / <kbd>S</kbd><span class="label">P2 servo +/- 10&deg;</span></div>
+        <div class="row"><kbd>0</kbd><span class="label">Center both servos (90&deg;)</span></div>
+        <div class="row"><kbd>O</kbd><span class="label">[TODO — actuator if any] OFF (detach PWM)</span></div>
       </div>
 
       <div class="group">
@@ -181,7 +181,7 @@
 
   <div class="footer">
     <span>Bitmoji Lab v1.0.0 &bull; Print on A4 landscape, laminate, love.</span>
-    <span class="brand">For the BBC micro:bit V2 + LED matrix</span>
+    <span class="brand">For the BBC micro:bit V2</span>
   </div>
 
 </div>

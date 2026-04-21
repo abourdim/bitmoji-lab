@@ -147,14 +147,15 @@
 <h2>قبل الضغط على تسجيل</h2>
 <div class="card">
   <ul class="checklist" onclick="var li=event.target.closest('li');if(li)li.classList.toggle('checked')">
-    <li><input type="checkbox"><label>جهاز micro:bit V2 يعمل ويعرض أيقونة <kbd>X</kbd><span class="where">إن لم يكن كذلك ← أعد تحميل <code>makecode.ts</code></span></label></li>
-    <li><input type="checkbox"><label>Chrome أو Edge مفتوح، وملف <code>index.html</code> محمَّل<span class="where">Safari وFirefox وiOS لن تعمل</span></label></li>
-    <li><input type="checkbox"><label>BLE متصل — شارة الحالة <strong>خضراء</strong><span class="where">اضغط 🔗 اتصال، ثم اختر BBC micro:bit من النافذة</span></label></li>
-    <li><input type="checkbox"><label>تم اختيار السمة — <strong>Neon</strong> تبدو الأفضل أمام الكاميرا<span class="where">الرأس ← قائمة رولر الطلاء</span></label></li>
-    <li><input type="checkbox"><label>المحرِّك موصول بـ P1 (عند عرض الذراع الروبوتية أو العربة)</label></li>
-    <li><input type="checkbox"><label>علامة تبويب 3D Board مفتوحة، مع اختيار العربة أو الذراع<span class="where">علامة التبويب 6 ← قائمة النماذج</span></label></li>
-    <li><input type="checkbox"><label>الهاتف بوضع 9:16 على ترايبود، مضاء من الأمام</label></li>
-    <li><input type="checkbox"><label>المكتب مرتَّب — اللوحة وقطعة واحدة فقط في الإطار</label></li>
+    <li><input type="checkbox"><label>جهاز micro:bit V2 مبرمج بـ <code>makecode.ts</code>، ويُظهر موجة ألوان قوس قزح عند التشغيل<span class="where">إن لم يكن كذلك ← أعد تحميل HEX من MakeCode</span></label></li>
+    <li><input type="checkbox"><label>مصفوفة NeoPixel موصولة: P0 ← DIN، 3V ← VCC، GND ← GND<span class="where">عكس VCC/GND سيحرق الـ LEDs — تحقَّق مرتين</span></label></li>
+    <li><input type="checkbox"><label>كابل USB موصول من micro:bit إلى الحاسوب — كابل بيانات، وليس شحن فقط</label></li>
+    <li><input type="checkbox"><label>Chrome أو Edge مفتوح، وملف <code>index.html</code> محمَّل<span class="where">Safari وFirefox وiOS لا تدعم Web Serial</span></label></li>
+    <li><input type="checkbox"><label>USB Serial متصل — شارة الحالة <strong>خضراء</strong><span class="where">اضغط 🔗 اتصال، ثم اختر «BBC micro:bit CMSIS-DAP»</span></label></li>
+    <li><input type="checkbox"><label>حجم المصفوفة محدَّد — <strong>8×8</strong> لإيموجيات ضخمة، <strong>16×16</strong> لمزيد من التفاصيل</label></li>
+    <li><input type="checkbox"><label>السطوع على 60–80% — ساطع بما يكفي للكاميرا دون إفراط</label></li>
+    <li><input type="checkbox"><label>الهاتف بوضع 9:16 على ترايبود، يلتقط الشاشة والمصفوفة في لقطة واحدة</label></li>
+    <li><input type="checkbox"><label>المكتب مرتَّب — الحاسوب وmicro:bit والمصفوفة والكابل فقط في الإطار</label></li>
     <li><input type="checkbox"><label>قراءة النص بصوت عالٍ مرة واحدة — بزمن أقل من 55 ثانية</label></li>
   </ul>
 </div>
@@ -164,12 +165,13 @@
 <h2>البنية</h2>
 <div class="card">
   <pre style="color:var(--accent2);font-family:var(--mono);font-size:.9rem;line-height:1.7;margin:0">
- 0–3 s   HOOK        «Watch what this micro:bit does in 60 seconds.»
- 3–10 s  CONTEXT     Board on-screen, X icon → status turns green.
-10–35 s  DEMO        Tilt → 3D model follows. Press A → LED heart. Servo swings.
-35–50 s  PAYOFF      Zoom on live graph + 3D model mirroring real board.
-50–55 s  CTA         «Full kit in my shop — link below.»
-55–60 s  END FRAME   Logo + handle frozen for the loop preview.</pre>
+ 0–3 s   HOOK        «Tap an emoji. Watch it light up in 64 LEDs.»
+ 3–10 s  CONTEXT     Chrome open · USB cable · micro:bit + matrix on the desk.
+10–25 s  DEMO 1      Pick emoji from grid → click SEND → matrix mirrors it live.
+25–40 s  DEMO 2      Magic Paintbrush: pick color → drag on 8×8 → SEND → matrix paints it.
+40–50 s  PAYOFF      Save as «Jake's Heart» → reload tomorrow → send again.
+50–55 s  CTA         «Full kit + 100+ emojis + wiring guide — link below.»
+55–60 s  END FRAME   Emoji frozen on the matrix for the loop preview.</pre>
 </div>
 
 <!-- ═══════════ النص ═══════════ -->
@@ -184,97 +186,98 @@
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:00–00:03</span><span class="scene-phase phase-hook">الخطاف</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 قل</div><em>[جملة الجذب — ثانية واحدة، وعد واضح يوقف التمرير]</em></div>
-    <div class="do"><div class="do-label">🎬 افعل</div><em>[لقطة الجذب — ما يظهر على الشاشة أثناء الجملة]</em></div>
+    <div class="say"><div class="say-label">🎙 قل</div>«جهاز micro:bit الخاص بك يستطيع عرض أيِّ إيموجي. شاهد.»</div>
+    <div class="do"><div class="do-label">🎬 افعل</div>لقطة قريبة على مصفوفة NeoPixel — نقرة واحدة تُضيء إيموجي 🔥 على 64 مصباح LED. بلا أيدٍ ولا إعداد، مجرد توهُّج.</div>
   </div>
 </div>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:03–00:10</span><span class="scene-phase phase-demo">السياق</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 قل</div><em>[لمن هذا المنتج، ما المشكلة التي يحلّها]</em></div>
-    <div class="do"><div class="do-label">🎬 افعل</div><em>[لقطة الإعداد — الاتصال، أول شاشة مفيدة]</em></div>
+    <div class="say"><div class="say-label">🎙 قل</div>«افتح Chrome، وصِّل الـ USB، انتهى. يعمل على أيّ حاسوب محمول أو Chromebook — بلا تطبيق وبلا تسجيل دخول.»</div>
+    <div class="do"><div class="do-label">🎬 افعل</div>لقطة عريضة: الحاسوب المحمول يعرض شاشة Bitmoji Lab، كابل USB يصل إلى micro:bit V2، ومصفوفة NeoPixel تتوهَّج على المكتب. اضغط 🔗 اتصال ← شارة الحالة تتحوَّل إلى الأخضر.</div>
   </div>
 </div>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:10–00:25</span><span class="scene-phase phase-demo">العرض 1</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 قل</div><em>[لحظة الإبهار الأولى — ميزة رئيسية لـ Bitmoji Lab]</em></div>
-    <div class="do"><div class="do-label">🎬 افعل</div><em>[لقطة الفعل — 15 ثانية من الحركة المرئية]</em></div>
+    <div class="say"><div class="say-label">🎙 قل</div>«أكثر من 100 إيموجي مدمج — روبوتات، أعلام، إشارات مرور، قلوب. انقر، أرسل، انتهيت.»</div>
+    <div class="do"><div class="do-label">🎬 افعل</div>إطار مقسوم: تصفَّح شبكة الإيموجي عبر علامات التبويب السبع، اختر 🚗 سيارة السباق، ثم انقر إرسال. المصفوفة تضيء فورًا بالسيارة نفسها. ثم اختر ❤️ — تتحوَّل المصفوفة إلى قلب أحمر.</div>
   </div>
 </div>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:25–00:40</span><span class="scene-phase phase-demo">العرض 2</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 قل</div><em>[لحظة الإبهار الثانية — ميزة/حالة استخدام ثانية]</em></div>
-    <div class="do"><div class="do-label">🎬 افعل</div><em>[لقطة الفعل — 15 ثانية]</em></div>
+    <div class="say"><div class="say-label">🎙 قل</div>«أو ارسم بنفسك. اختر لونًا، اسحب على الشبكة، Shift+سحب للمسح.»</div>
+    <div class="do"><div class="do-label">🎬 افعل</div>الفرشاة السحرية: انقر على اللون الوردي من الألوان الثمانية المعدَّة مسبقًا، انقر واسحب لرسم وجه مبتسم على شبكة 8×8، ثم أرسل — تعكس المصفوفة الرسم. إضافة: شغِّل أنيميشن العَلَم المرفرف، 11 عرضًا توضيحيًا متاحًا.</div>
   </div>
 </div>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:40–00:50</span><span class="scene-phase phase-payoff">المكافأة</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 قل</div><em>[لماذا هذا مهم — الوقت الموفّر، المهارة المكتسبة، الأمان]</em></div>
-    <div class="do"><div class="do-label">🎬 افعل</div><em>[الشاشة التي تحمل الرسالة — تصدير، التقاط، نتيجة مرئية]</em></div>
+    <div class="say"><div class="say-label">🎙 قل</div>«احفظه باسم «قلب أحمد». غدًا، نقرة واحدة، يعود إلى المصفوفة. يصنع الأطفال فنَّ بكسل يفخرون به.»</div>
+    <div class="do"><div class="do-label">🎬 افعل</div>اكتب «قلب أحمد» في حقل الحفظ، انقر حفظ. تظهر لوحة بها 4 صور مصغَّرة مسمَّاة. أعد تحميل المتصفح، اختر التصميم، انقر إرسال — تُضاء المصفوفة خلال ثانية.</div>
   </div>
 </div>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:50–00:60</span><span class="scene-phase phase-cta">CTA + إطار الختام</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 قل</div><em>[الدعوة للشراء — الطقم الكامل + الرابط في الوصف]</em></div>
-    <div class="do"><div class="do-label">🎬 افعل</div><em>[طبقة الشعار، إطار ختام ثابت لـ 3 ثوانٍ]</em></div>
+    <div class="say"><div class="say-label">🎙 قل</div>«الطقم الكامل + 100+ إيموجي + دليل التوصيل — الرابط في الأسفل.»</div>
+    <div class="do"><div class="do-label">🎬 افعل</div>إطار ختام: مصفوفة NeoPixel تتوهَّج بإيموجي 😀 كبير، طبقة شعار Bitmoji Lab، اسم المستخدم و«الرابط في الوصف» مدموجان. يُجمَّد لمدة 3 ثوانٍ للحلقة.</div>
   </div>
 </div>
 
 <!-- ═══════════ نص الإعلان ═══════════ -->
 <div class="slug" id="listing">نص إعلان جاهز للنسخ</div>
 <h2>عنوان Etsy (140 حرفًا كحد أقصى)</h2>
-<div class="copybox">Bitmoji Lab — لوحة تحكم BLE للمعلمين والأطفال · حساسات · محركات · مخطط حي · نماذج 3D · بلا تثبيت · Chrome / Edge<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">نسخ</button></div>
+<div class="copybox">Bitmoji Lab — ارسم الإيموجي على مصفوفة LED NeoPixel مع BBC micro:bit V2 · أكثر من 100 إيموجي · فرشاة سحرية · 11 أنيميشن · USB Chrome · STEM للأطفال<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">نسخ</button></div>
 
 <h2>الوصف المختصر (أول 160 حرفًا — تظهر في البحث)</h2>
-<div class="copybox">لوحة تحكم BLE داخل المتصفح للوحة BBC micro:bit V2. حساسات ومحركات ومخططات حية ونماذج ثلاثية الأبعاد ويد تحكم — كلها من Chrome. بلا تثبيت وبلا حساب.<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">نسخ</button></div>
+<div class="copybox">ارسم الإيموجي على مصفوفة LED NeoPixel من متصفحك. أكثر من 100 إيموجي مدمج، فرشاة مخصَّصة، 11 عرضًا، 8×8 أو 16×16. يعمل عبر USB على أيّ Chromebook.<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">نسخ</button></div>
 
 <h2>الوصف الكامل</h2>
-<div class="copybox">🎮 Bitmoji Lab — لوحة تحكم BLE تعمل داخل المتصفح للوحة BBC micro:bit V2.
+<div class="copybox">🎨 Bitmoji Lab — تطبيق ويب يرسم الإيموجي على مصفوفة LED NeoPixel تتحكَّم بها لوحة BBC micro:bit V2.
 
-افتح ملف HTML واحدًا في Chrome أو Edge، واقترن عبر Bluetooth، وافتح 8 علامات تبويب من المرح التعليمي (STEM) التفاعلي — بلا تثبيت، بلا حساب، بلا خادم خلفي، بلا تتبع.
+افتح ملف HTML واحدًا في Chrome أو Edge، ووصِّل micro:bit عبر USB، وأضِئ فنَّ البكسل على مصفوفة 8×8 أو 16×16 حقيقية. بلا تثبيت. بلا حساب. بلا سحابة. فقط انقر إيموجي، اضغط إرسال، وشاهد التوهُّج.
 
 ما ستحصل عليه
-• 🎛 شبكة LED + أيقونات جاهزة + نص متحرك
-• 📡 حساسات مباشرة: الحرارة، الإضاءة، الصوت، مقياس التسارع، البوصلة، اللمس
-• ⚙️ محركان (P1 + P2) مع منزلقات ومؤشرات وضبط وأزرار إيقاف
-• 🎮 يد تحكم D-pad للروبوتات والألعاب
-• 📈 [TODO — ميزة منتجك الرئيسية]• 🎲 5 نماذج ثلاثية الأبعاد تفاعلية (Three.js): micro:bit، العربة، الذراع، التوازن، الطقس
-• 🎨 4 سمات (Stealth · Neon · Arctic · Blaze) + 3 لغات (EN · FR · AR مع دعم RTL كامل)
-• 📱 PWA — قابل للتثبيت ويعمل بدون إنترنت
-• 👶 وضع المبتدئ + 🧙 وضع الخبير
+• 🎭 أكثر من 100 إيموجي مُحمَّل مسبقًا في 7 فئات — أساسيات، روبوتات، مركبات، أدوات، رموز، أعلام، إشارات طرق
+• 🖌 الفرشاة السحرية — 8 ألوان جاهزة + منتقي ألوان مخصَّص، انقر واسحب للرسم، Shift+سحب للمسح
+• 🔲 حجم مصفوفة قابل للتبديل — 8×8 (64 LED) أو 16×16 (256 LED) لتفاصيل أدق
+• 🎞 11 عرضًا متحركًا — العَلَم المرفرف، إشارة المرور، نبضة القلب، النجمة الدوَّارة، موجة قوس قزح، الوجه السعيد، شريط التحميل، الألعاب النارية، سيارة السباق، إشارة الوقوف، العين الغامزة
+• 💾 احفظ تصاميمك محليًا بأسماء مخصَّصة — أعد تحميلها وأرسلها لاحقًا متى شئت
+• 🔆 منزلق السطوع 10–100% · تبديل الوضع البسيط لألوان مسطَّحة
+• 🧪 أزرار اختبار — ملء أحمر / أخضر / أزرق / أبيض + مسح بنقرة واحدة
+• 📜 سجلّ اتصال حيّ مع مسح / نسخ / تصدير
+• 📱 يعمل على Chromebook وWindows وmacOS وLinux — في أيّ مكان يعمل فيه Chrome أو Edge
 
 محتويات التنزيل
 • index.html — التطبيق الكامل
-• makecode.ts — برنامج micro:bit الثابت (تُحمَّل مرة واحدة من MakeCode)
-• SETUP.md — بداية سريعة في 5 دقائق
-• docs/ — دليل مصور، ومرجع سريع، وأسئلة شائعة، ودليل Etsy
-• LICENSE — رخصة مستخدم وحيد للاستخدام الشخصي / الصفي
+• makecode.ts — برنامج micro:bit الثابت (يُبرمَج مرة واحدة من MakeCode)
+• SETUP.md — بداية سريعة في 5 دقائق + مخطَّط التوصيل
+• docs/ — دليل مصوَّر، ومرجع سريع، وأسئلة شائعة، ودليل Etsy
+• LICENSE — رخصة مستخدم وحيد للاستخدام الشخصي / الصفِّي
 
 المتطلبات
-• BBC micro:bit V2 (V1 يعمل لكن بدون حساس صوت)
-• Chrome أو Edge على سطح المكتب (أو Chrome على أندرويد)
-• تفعيل Bluetooth
-• HTTPS أو file:// — النقر المزدوج على HTML يكفي
+• BBC micro:bit V2 + مصفوفة LED NeoPixel (8×8 أو 16×16، متوافقة مع WS2812B)
+• كابل USB للبيانات (ليس شحن فقط)
+• Chrome أو Edge على سطح المكتب / Chromebook — يستخدم Web Serial API
+• التوصيل: micro:bit P0 ← DIN · 3V ← VCC · GND ← GND
 
 لمن هو موجَّه
-المعلمون الذين يديرون ورش STEM · الأسر التي تدرّس منزليًا · نوادي الروبوتات · صانعو النماذج الأولية لمشاريع BLE · كل مهتم بـ micro:bit.
+المعلمون الذين يديرون ورش STEM · الأسر التي تدرِّس منزليًا · نوادي البرمجة بعد المدرسة · الأطفال الذين يحبُّون فنَّ البكسل · الصانعون الذين يرغبون بلوحة فيزيائية لأفكار الإيموجي.
 
 الخصوصية أولًا
-لا شيء يغادر جهازك. بلا تتبع، بلا تسجيل دخول، بلا سحابة. جميع المعايرات والتسجيلات والإعدادات المسبقة تبقى في localStorage للمتصفح وعلى قرصك.
+لا شيء يغادر جهازك. بلا تتبُّع، بلا تسجيل دخول، بلا سحابة. جميع التصاميم المحفوظة تبقى في localStorage للمتصفح وعلى قرصك.
 
 تحديثات مدى الحياة
-كل إصدار يُطرح من هذا الإعلان هو ملكك للأبد. أعد تنزيل أحدث ZIP في أي وقت من صفحة مشترياتك في Etsy.
+كلُّ إصدار يُطرَح من هذا الإعلان هو ملكك للأبد. أعد تنزيل أحدث ZIP في أيِّ وقت من صفحة مشترياتك في Etsy.
 
-قرصنة سعيدة! 🚀🎮🤖<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">نسخ</button></div>
+رسمًا ممتعًا! 🎨✨🚀<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">نسخ</button></div>
 
 <h2>فئات الأسعار</h2>
 <table>
@@ -289,15 +292,15 @@
 <h2>13 وسمًا لـ Etsy (20 حرفًا لكل وسم)</h2>
 <div class="pills">
   <span class="pill">micro:bit</span>
-  <span class="pill">BLE</span>
-  <span class="pill">bluetooth</span>
-  <span class="pill">تعليم</span>
-  <span class="pill">STEM</span>
-  <span class="pill">روبوتات</span>
+  <span class="pill">neopixel</span>
+  <span class="pill">مصفوفة LED</span>
+  <span class="pill">فن البكسل</span>
+  <span class="pill">STEM أطفال</span>
+  <span class="pill">إيموجي</span>
   <span class="pill">برمجة أطفال</span>
   <span class="pill">مورد للمعلم</span>
-  <span class="pill">حساسات</span>
-  <span class="pill">محركات</span>
+  <span class="pill">web serial</span>
+  <span class="pill">chromebook</span>
   <span class="pill">غرفة صف</span>
   <span class="pill">تعليم منزلي</span>
   <span class="pill">ميكرسبيس</span>
@@ -307,29 +310,29 @@
 <div class="pills">
   <span class="pill">HTML5</span>
   <span class="pill">JavaScript</span>
-  <span class="pill">Web Bluetooth</span>
-  <span class="pill">[render lib]</span>
-  <span class="pill">[3D lib if any]</span>
-  <span class="pill">PWA</span>
+  <span class="pill">Web Serial API</span>
+  <span class="pill">Canvas 2D</span>
+  <span class="pill">NeoPixel WS2812B</span>
+  <span class="pill">micro:bit V2</span>
   <span class="pill">MakeCode</span>
   <span class="pill">TypeScript</span>
 </div>
 
 <h2>كلمات SEO</h2>
-<p><code>browser-based</code> · <code>no-install</code> · <code>privacy-first</code> · <code>offline-capable</code> · <code>web bluetooth</code> · <code>teacher resource</code> · <code>STEM workshop</code> · <code>micro:bit V2</code></p>
+<p><code>browser-based</code> · <code>no-install</code> · <code>privacy-first</code> · <code>USB Web Serial</code> · <code>NeoPixel matrix</code> · <code>teacher resource</code> · <code>STEM workshop</code> · <code>micro:bit V2</code> · <code>pixel art for kids</code></p>
 
 <!-- ═══════════ الصور ═══════════ -->
 <div class="slug" id="images">ترتيب الصور السبع للإعلان</div>
 <h2>تسلسل الصور (Etsy يعرض 1 و 2 بأكبر حجم)</h2>
 <div class="card">
   <ol style="padding-right:22px;line-height:2">
-    <li><strong>الصورة البطل</strong> — micro:bit حقيقي + لقطة شاشة مقسومة للحاسوب تُظهر النموذج ثلاثي الأبعاد وهو يعكس ميل اللوحة. عنوان بخط Orbitron فوقها.</li>
-    <li><strong>نظرة عامة على الألسنة</strong> — لقطة شبكية لجميع الألسنة الثماني مع رموزها.</li>
-    <li><strong>[TODO — لقطة قريبة لأهم ميزة]</strong></li>
-    <li><strong>[TODO — لقطة مقسومة تُظهر ميزتين رئيسيتين]</strong></li>
-    <li><strong>يد تمسك اللوحة</strong> — محرك حقيقي موصول بـ P1، والمنزلقات على الشاشة في الخلفية.</li>
-    <li><strong>عيّنة السمات</strong> — شبكة 2×2: Stealth · Neon · Arctic · Blaze.</li>
-    <li><strong>بطاقة نصية</strong> — «رخصة مستخدم وحيد · تحديثات مدى الحياة · بلا سحابة · Chrome / Edge» على تدرج داكن.</li>
+    <li><strong>الصورة البطل</strong> — إطار مقسوم: يد طفل تنقر إيموجي على شاشة الحاسوب، وفي الخلفية مصفوفة NeoPixel تتوهَّج بالإيموجي نفسه. «Bitmoji Lab» بخط Orbitron في الأعلى.</li>
+    <li><strong>لقطة شبكة الإيموجي</strong> — علامات التبويب السبع مرئية (أساسيات · روبوتات · مركبات · أدوات · رموز · أعلام · إشارات طرق)، أكثر من 100 إيموجي ظاهرة.</li>
+    <li><strong>لقطة قريبة للفرشاة السحرية</strong> — منتقي الألوان + 8 عيِّنات جاهزة + شبكة 8×8 أثناء السحب، وجه مبتسم وردي يتكوَّن.</li>
+    <li><strong>لقطة تفصيلية لوضع 16×16</strong> — أنيميشن الألعاب النارية يعمل على مصفوفة 256 LED، ألوان نابضة، حركة.</li>
+    <li><strong>لقطة سجلّ الاتصال</strong> — أسطر تبادل تسلسلي مرئية (متصل · إرسال إطار · OK)، دليل على الاتصال الحيّ عبر USB.</li>
+    <li><strong>صورة مخطَّط التوصيل</strong> — micro:bit V2 مع 3 أسلاك توصيل إلى مصفوفة NeoPixel، مُعلَّمة بوضوح P0 ← DIN · 3V ← VCC · GND ← GND.</li>
+    <li><strong>لوحة التصاميم المحفوظة</strong> — 4–5 صور مصغَّرة مسمَّاة (قلب أحمد، صاروخ بكسل، علم قوس قزح، جرو مبتسم) تُظهر سير عمل إعادة التحميل.</li>
   </ol>
 </div>
 
@@ -338,7 +341,7 @@
 <h2>أخطاء شائعة</h2>
 <table>
   <tr><th>❌ لا تفعل</th><th>✅ افعل</th></tr>
-  <tr><td>ابدأ بـ «مرحبًا، أنا…» مع 10 ثوانٍ من المقدمة</td><td>افتح باللوحة الحقيقية وهي تُميل نموذجًا ثلاثي الأبعاد في أول 3 ثوانٍ</td></tr>
+  <tr><td>ابدأ بـ «مرحبًا، أنا…» مع 10 ثوانٍ من المقدمة</td><td>افتح بنقرة إيموجي تُضيء المصفوفة في أول 3 ثوانٍ</td></tr>
   <tr><td>التصوير بالوضع الأفقي (16:9)</td><td>عمودي 9:16 — Etsy يشغّل تلقائيًا على الجوال</td></tr>
   <tr><td>التحدث فوق رسوم متحركة مزدحمة</td><td>اترك الصورة تتنفس لثانية، ثم اشرح</td></tr>
   <tr><td>نسيان الترجمة (Etsy يشغّل كتم الصوت)</td><td>ادمج الترجمة أو أضف نصًا في كل مشهد</td></tr>
@@ -348,10 +351,10 @@
 
 <!-- ═══════════ بطاقة سريعة ═══════════ -->
 <div class="slug">بطاقة الجيب المرجعية</div>
-<div class="copybox">قبل     V2 يعمل (أيقونة X) · Chrome مفتوح · BLE أخضر · هاتف 9:16
-صوِّر   خطاف في 3 ثوانٍ · إمالة ← انعكاس 3D · محرك يتحرك · محاكاة مخطط · CTA
-بعد     قصّ إلى 55 ثانية · ترجمة مدمجة · أول إطار = المصغَّرة
-أعلن    عنوان · وصف 160 حرفًا · 13 وسمًا · 7 صور · فئات الأسعار</div>
+<div class="copybox">قبل     micro:bit + المصفوفة موصولة (P0/VCC/GND) · Chrome مفتوح · USB موصول · إضاءة جيدة على المصفوفة
+صوِّر   خطاف نقر إيموجي ← المصفوفة تضيء ← عرض الفرشاة ← حفظ ← CTA
+بعد     قصّ إلى 55 ثانية · ترجمة مدمجة · أول إطار = إيموجي على المصفوفة
+أعلن    راجع ETSY_LISTING.md للعنوان والوسوم والوصف</div>
 
 <p style="text-align:center;margin-top:40px;color:var(--muted);font-size:.85rem">
   Bitmoji Lab v1.0.0 — دليل Etsy في دقيقة · اطبع بحجم A4 · غلّفه · واحتفظ به بجانب معدات التصوير

@@ -4,17 +4,17 @@
   ⚠️  REWRITE PER PRODUCT — DO NOT SHIP AS-IS
   ───────────────────────────────────────────────────────────────────────
   apply-template.mjs only substituted identifiers (Bitmoji Lab,
-  v1.0.0, https://abourdim.github.io/bitmoji-lab/, etc.). The feature content, steps,
+  v1.0.0, {{LIVE_DEMO_URL}}, etc.). The feature content, steps,
   shortcuts, and examples below were inherited from the template's
-  source product (bitmoji-lab) and WILL BE WRONG for your product
+  source product (bit-playground) and WILL BE WRONG for your product
   unless you rewrite them.
   
   Before including this file in a buyer ZIP:
     1. Delete this banner.
     2. Rewrite every mention of specific features, shortcuts,
        tab names, hardware interactions, etc. to match your product.
-    3. Verify with: grep -iE "paintbrush|chart\.js|3d board|gamepad|
-       brightness|matrix size|led matrix|7 emoji categories|sensors tab" this-file.
+    3. Verify with: grep -iE "servo|chart\.js|3d board|gamepad|
+       accelerometer|compass|led matrix|8 tabs|sensors tab" this-file.
   ═══════════════════════════════════════════════════════════════════════
 -->
 <html lang="en">
@@ -97,20 +97,20 @@
 
   <div class="header">
     <h1>Bitmoji Lab</h1>
-    <div class="sub">Browser BLE Control Panel for the BBC micro:bit V2 + LED matrix</div>
+    <div class="sub">Browser BLE Control Panel for the BBC micro:bit V2</div>
     <div class="ver">v1.0.0 &bull; Digital Download</div>
     <div class="line"></div>
   </div>
 
   <div class="thanks">
-    <strong>Thank you for buying Bitmoji Lab!</strong> You just grabbed a zero-install, zero-account, browser-local control panel for the BBC micro:bit V2 + LED matrix. Everything runs on your machine &mdash; no cloud, no telemetry, no nonsense. This page walks you through the first three things to do.
+    <strong>Thank you for buying Bitmoji Lab!</strong> You just grabbed a zero-install, zero-account, browser-local control panel for the BBC micro:bit V2. Everything runs on your machine &mdash; no cloud, no telemetry, no nonsense. This page walks you through the first three things to do.
   </div>
 
   <h2>First 3 Things To Do</h2>
   <div class="steps-mini">
     <div class="step-m"><div class="num">1</div><span><strong style="color:#22c55e;">Flash the firmware.</strong> Open <a style="color:#22d3ee;">makecode.microbit.org</a>, switch to JavaScript, paste <code class="c">makecode.ts</code>, click Download, and drag the <code class="c">.hex</code> to your micro:bit V2. The board will show an <strong style="color:#fff;">X</strong>.</span></div>
     <div class="step-m"><div class="num">2</div><span><strong style="color:#22c55e;">Open the app.</strong> Double-click <code class="c">index.html</code> in <strong style="color:#fff;">Chrome</strong> or <strong style="color:#fff;">Edge</strong>. It loads locally. Click <strong style="color:#22c55e;">Connect</strong>, pick your board, watch the status dot turn green.</span></div>
-    <div class="step-m"><div class="num">3</div><span><strong style="color:#22c55e;">Play.</strong> Press <kbd>1</kbd>&hellip;<kbd>8</kbd> to hop between LEDs, Sensors, Paintbrush, Paintbrush, Graph, 3D, Bench, About. Tap <kbd>F</kbd> for fullscreen graph. No board? Flip on <strong style="color:#22d3ee;">Simulate Mode</strong>.</span></div>
+    <div class="step-m"><div class="num">3</div><span><strong style="color:#22c55e;">Play.</strong> Press <kbd>1</kbd>&hellip;<kbd>8</kbd> to hop between LEDs, Sensors, [TODO — actuator if any], [TODO — control surface], Graph, 3D, Bench, About. Tap <kbd>F</kbd> for fullscreen graph. No board? Flip on <strong style="color:#22d3ee;">Simulate Mode</strong>.</span></div>
   </div>
 
   <h2>What&apos;s in the ZIP</h2>
@@ -133,15 +133,15 @@
     <div><span class="check">&#10003;</span><span class="label">BBC micro:bit <strong style="color:#fff;">V2</strong> (V1 lacks the sound sensor)</span></div>
     <div><span class="check">&#10003;</span><span class="label">Chrome 90+ or Edge 90+ on desktop or Android (Web Bluetooth)</span></div>
     <div><span class="check">&#10003;</span><span class="label">Bluetooth enabled on the host device</span></div>
-    <div><span class="check">&#10003;</span><span class="label">Optional: hobby paintbrushes on pins <strong style="color:#22c55e;">P1</strong> / <strong style="color:#22c55e;">P2</strong></span></div>
+    <div><span class="check">&#10003;</span><span class="label">Optional: hobby servos on pins <strong style="color:#22c55e;">P1</strong> / <strong style="color:#22c55e;">P2</strong></span></div>
     <div><span class="check">&#10003;</span><span class="label">No internet needed after first load &mdash; installs as a PWA</span></div>
   </div>
 
   <h2>Key Features</h2>
   <div class="box">
-    <p><strong style="color:#22d3ee;">Control:</strong> 5&times;5 LED matrix &bull; 2 paintbrushes (P1/P2) &bull; buzzer &bull; D-pad gamepad</p>
-    <p><strong style="color:#22d3ee;">Read:</strong> temperature &bull; light &bull; sound &bull; brightness &bull; matrix size &bull; buttons &bull; touch pins</p>
-    <p><strong style="color:#22d3ee;">Visualize:</strong> Canvas API live graph (fullscreen, record, export JSON) &bull; 3D Three.js board view with 5 models</p>
+    <p><strong style="color:#22d3ee;">Control:</strong> 5&times;5 LED matrix &bull; 2 servos (P1/P2) &bull; buzzer &bull; D-pad gamepad</p>
+    <p><strong style="color:#22d3ee;">Read:</strong> temperature &bull; light &bull; sound &bull; accelerometer &bull; compass &bull; buttons &bull; touch pins</p>
+    <p><strong style="color:#22d3ee;">Visualize:</strong> [TODO — chart lib if any] live graph (fullscreen, record, export JSON) &bull; 3D Three.js board view with 5 models</p>
     <p><strong style="color:#22d3ee;">Polish:</strong> 4 themes &bull; EN / FR / AR &bull; simulate mode &bull; keyboard shortcuts &bull; PWA offline</p>
   </div>
 

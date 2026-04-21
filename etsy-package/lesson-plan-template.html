@@ -4,17 +4,17 @@
   ⚠️  REWRITE PER PRODUCT — DO NOT SHIP AS-IS
   ───────────────────────────────────────────────────────────────────────
   apply-template.mjs only substituted identifiers (Bitmoji Lab,
-  v1.0.0, https://abourdim.github.io/bitmoji-lab/, etc.). The feature content, steps,
+  v1.0.0, {{LIVE_DEMO_URL}}, etc.). The feature content, steps,
   shortcuts, and examples below were inherited from the template's
-  source product (bitmoji-lab) and WILL BE WRONG for your product
+  source product (bit-playground) and WILL BE WRONG for your product
   unless you rewrite them.
   
   Before including this file in a buyer ZIP:
     1. Delete this banner.
     2. Rewrite every mention of specific features, shortcuts,
        tab names, hardware interactions, etc. to match your product.
-    3. Verify with: grep -iE "paintbrush|chart\.js|3d board|gamepad|
-       brightness|matrix size|led matrix|7 emoji categories|sensors tab" this-file.
+    3. Verify with: grep -iE "servo|chart\.js|3d board|gamepad|
+       accelerometer|compass|led matrix|8 tabs|sensors tab" this-file.
   ═══════════════════════════════════════════════════════════════════════
 -->
 <html lang="en">
@@ -118,12 +118,12 @@
 
   <div class="section"><div class="dot"></div> Materials &amp; Setup</div>
   <ul class="checklist">
-    <li>BBC micro:bit V2 + LED matrix (1 per student or per pair)</li>
+    <li>BBC micro:bit V2 (1 per student or per pair)</li>
     <li>USB cable or battery pack</li>
     <li>Laptop / tablet with Chrome or Edge (Bluetooth enabled)</li>
     <li>Bitmoji Lab opened via <code>index.html</code></li>
     <li>Firmware flashed from <code>makecode.ts</code></li>
-    <li>micro:bit V2 (optional)</li>
+    <li>[TODO — actuator if any](s) on pins P1 / P2 (optional)</li>
     <li>Printed Quick-Start Card &amp; Shortcuts sheet</li>
     <li>Theme chosen: ________________</li>
   </ul>
@@ -148,7 +148,7 @@
   <div class="section"><div class="dot"></div> Wrap-up</div>
   <ul class="checklist">
     <li>Stop streaming (Space)</li>
-    <li>Save session JSON from Graph tab</li>
+    <li>Save session JSON from [TODO — main panel]</li>
     <li>Students share one observation</li>
     <li>Exit-ticket question</li>
   </ul>
@@ -194,7 +194,7 @@
     </div>
     <div class="trow"><div class="tcol-time"><span class="sample">0&ndash;5</span></div><div class="tcol-act"><span class="sample">Hook: "Can your micro:bit feel a hand on its face?"</span></div><div class="tcol-tool"><span class="sample">LEDs tab</span></div><div class="tcol-notes"><span class="sample">Show heart preset</span></div></div>
     <div class="trow"><div class="tcol-time"><span class="sample">5&ndash;10</span></div><div class="tcol-act"><span class="sample">Flash firmware &amp; pair board</span></div><div class="tcol-tool"><span class="sample">Connect btn</span></div><div class="tcol-notes"><span class="sample">Help with BLE prompts</span></div></div>
-    <div class="trow"><div class="tcol-time"><span class="sample">10&ndash;18</span></div><div class="tcol-act"><span class="sample">Tour the Emoji panel &mdash; name each reading</span></div><div class="tcol-tool"><span class="sample">Sensors (2)</span></div><div class="tcol-notes"><span class="sample">Pause with Space</span></div></div>
+    <div class="trow"><div class="tcol-time"><span class="sample">10&ndash;18</span></div><div class="tcol-act"><span class="sample">Tour [TODO — main panel] &mdash; name each reading</span></div><div class="tcol-tool"><span class="sample">Sensors (2)</span></div><div class="tcol-notes"><span class="sample">Pause with Space</span></div></div>
     <div class="trow"><div class="tcol-time"><span class="sample">18&ndash;28</span></div><div class="tcol-act"><span class="sample">Investigate: cover light sensor, cup hands around board</span></div><div class="tcol-tool"><span class="sample">Graph (5)</span></div><div class="tcol-notes"><span class="sample">Press R to record</span></div></div>
     <div class="trow"><div class="tcol-time"><span class="sample">28&ndash;35</span></div><div class="tcol-act"><span class="sample">Annotate spikes on the graph</span></div><div class="tcol-tool"><span class="sample">Graph + K</span></div><div class="tcol-notes"><span class="sample">Timestamp notes</span></div></div>
     <div class="trow"><div class="tcol-time"><span class="sample">35&ndash;40</span></div><div class="tcol-act"><span class="sample">Export session JSON, open in next class</span></div><div class="tcol-tool"><span class="sample">Graph &rarr; Export</span></div><div class="tcol-notes"><span class="sample">Save to shared folder</span></div></div>
@@ -205,8 +205,8 @@
     <h4>Playground features used in this lesson</h4>
     <ul>
       <li><span class="pill pg">BLE Connect</span> Web Bluetooth pairing with auto-reconnect</li>
-      <li><span class="pill pb">Live Sensors</span> temp, light, sound, accel, matrix size all at once</li>
-      <li><span class="pill py">Canvas API Graph</span> live rolling plot, fullscreen with F</li>
+      <li><span class="pill pb">Live Sensors</span> temp, light, sound, accel, compass all at once</li>
+      <li><span class="pill py">[TODO — chart lib if any] Graph</span> live rolling plot, fullscreen with F</li>
       <li><span class="pill pg">Session Recording</span> press R, export as JSON for later analysis</li>
       <li><span class="pill pb">Simulate Mode</span> great backup if a board fails mid-class</li>
     </ul>
