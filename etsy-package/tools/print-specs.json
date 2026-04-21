@@ -1,5 +1,5 @@
 {
-  "_comment": "Per-language strings for the poster (A3 portrait) and flyer (A4 portrait). Used by generate-print.mjs. Screenshots referenced are resolved from output/<lang>/screenshots/.",
+  "_comment": "Print specs for Bitmoji Lab. USB Web Serial (NOT BLE) · NeoPixel matrix · 100+ emojis · Magic Paintbrush · 11 animated demos. Poster A3 + flyer A4 per language.",
 
   "common": {
     "url": "abourdim.github.io/bitmoji-lab",
@@ -13,79 +13,79 @@
 
   "en": {
     "brand": "bitmoji-lab",
-    "posterTitle": "Every sensor.\nLive in every browser.",
-    "posterKicker": "WEB BLUETOOTH · MICRO:BIT V2",
-    "posterSubtitle": "Classroom-ready control panel. 30 laptops. Zero install.",
+    "posterTitle": "Paint emojis.\nLight the NeoPixel matrix.",
+    "posterKicker": "USB WEB SERIAL · NEOPIXEL · MICRO:BIT V2",
+    "posterSubtitle": "Classroom pixel-art studio. Plug a USB cable. Paint on LEDs.",
     "features": [
-      { "icon": "⚡", "h": "Live sensors", "p": "Temperature, sound, light, brightness, matrix size — all streaming in real time." },
-      { "icon": "🎛️", "h": "Full control", "p": "Paint LEDs, paint pixels, drive motors. Record CSV sessions for lessons." },
-      { "icon": "🧊", "h": "Live 3D mirror", "p": "A photoreal board tilts with your micro:bit. Kids see the physics click." }
+      { "icon": "🎨", "h": "100+ emojis built in", "p": "Seven categories, one click to send. Or draw your own pixel art on an 8×8 or 16×16 NeoPixel grid." },
+      { "icon": "🖌️", "h": "Magic Paintbrush", "p": "Eight colors, brightness slider, Shift+drag to erase. Save designs locally — no cloud, no account." },
+      { "icon": "▶️", "h": "11 animated demos", "p": "Heart-pulse, rainbow sweep, fire, sparkle, and eight more. Stress-test the matrix with a communication log." }
     ],
     "steps": [
-      "Plug in the micro:bit (USB or battery).",
-      "Open Chrome or Edge on any laptop.",
-      "Visit the URL below — no install.",
-      "Click Connect, pick your board.",
-      "Dot goes green. You're live."
+      "Wire NeoPixels (8×8 or 16×16) to P0 / 3V / GND.",
+      "Plug the micro:bit into the laptop by USB.",
+      "Open Chrome or Edge — no install.",
+      "Click Connect, pick the serial port.",
+      "Paint. The matrix lights up."
     ],
     "stepsHeader": "Get started in 60 seconds",
     "qrCaption": "Scan to try the live demo",
     "audienceLine": "For teachers, kids, and makers.",
     "footerLeft": "Chrome / Edge · Works offline · No account",
     "footerRight": "MakeCode firmware · Open source friendly",
-    "flyerTagline": "The browser IS the IDE.",
-    "motto": "Every scientist started by asking \"what happens if I press this?\""
+    "flyerTagline": "The browser IS the pixel-art studio.",
+    "motto": "Every pixel is a decision. Make a thousand."
   },
 
   "fr": {
     "brand": "bitmoji-lab",
-    "posterTitle": "Chaque capteur,\nen direct dans le navigateur.",
-    "posterKicker": "WEB BLUETOOTH · MICRO:BIT V2",
-    "posterSubtitle": "Panneau de contrôle prêt pour la classe. 30 ordinateurs. Zéro installation.",
+    "posterTitle": "Peins des emojis.\nAllume la matrice NeoPixel.",
+    "posterKicker": "USB WEB SERIAL · NEOPIXEL · MICRO:BIT V2",
+    "posterSubtitle": "Studio de pixel art pour la classe. Un câble USB. De l'art sur les LEDs.",
     "features": [
-      { "icon": "⚡", "h": "Capteurs en direct", "p": "Fonctionnalités du produit — voir la description." },
-      { "icon": "🎛️", "h": "Contrôle complet", "p": "Peindre les LEDs, faire tourner les paintbrushes, piloter les moteurs. Export CSV." },
-      { "icon": "🧊", "h": "Miroir 3D", "p": "Une carte photoréaliste s'incline avec votre micro:bit. La physique prend vie." }
+      { "icon": "🎨", "h": "100+ emojis intégrés", "p": "Sept catégories, un clic pour envoyer. Ou dessine ton propre pixel art sur une grille NeoPixel 8×8 ou 16×16." },
+      { "icon": "🖌️", "h": "Pinceau magique", "p": "Huit couleurs, curseur de luminosité, Maj+glisser pour effacer. Sauvegarde locale — ni cloud, ni compte." },
+      { "icon": "▶️", "h": "11 démos animées", "p": "Battement de cœur, arc-en-ciel, feu, étincelles, et huit autres. Test de stress de la matrice avec journal de communication." }
     ],
     "steps": [
-      "Branchez le micro:bit (USB ou pile).",
-      "Ouvrez Chrome ou Edge.",
-      "Visitez l'URL ci-dessous — rien à installer.",
-      "Cliquez Connecter, choisissez votre carte.",
-      "Le point passe au vert. C'est parti."
+      "Câble les NeoPixels (8×8 ou 16×16) sur P0 / 3V / GND.",
+      "Branche le micro:bit au portable par USB.",
+      "Ouvre Chrome ou Edge — rien à installer.",
+      "Clique Connecter, choisis le port série.",
+      "Peins. La matrice s'allume."
     ],
     "stepsHeader": "Démarrez en 60 secondes",
     "qrCaption": "Scannez pour la démo en direct",
     "audienceLine": "Pour les enseignants, les enfants et les makers.",
     "footerLeft": "Chrome / Edge · Hors ligne · Sans compte",
     "footerRight": "Firmware MakeCode · Compatible open source",
-    "flyerTagline": "Le navigateur EST l'IDE.",
-    "motto": "Chaque scientifique a commencé par demander « que se passe-t-il si j'appuie ici ? »"
+    "flyerTagline": "Le navigateur EST le studio de pixel art.",
+    "motto": "Chaque pixel est une décision. Prends-en mille."
   },
 
   "ar": {
     "brand": "bitmoji-lab",
-    "posterTitle": "كل حساس،\nمباشرةً في المتصفح.",
-    "posterKicker": "WEB BLUETOOTH · MICRO:BIT V2",
-    "posterSubtitle": "لوحة تحكم جاهزة للقاعة الدراسية. 30 جهازاً. بدون تثبيت.",
+    "posterTitle": "ارسم الرموز التعبيرية.\nأضئ مصفوفة NeoPixel.",
+    "posterKicker": "USB WEB SERIAL · NEOPIXEL · MICRO:BIT V2",
+    "posterSubtitle": "استوديو بكسل للقاعة الدراسية. كابل USB. فنٌّ على الـLED.",
     "features": [
-      { "icon": "⚡", "h": "مستشعرات حية", "p": "الحرارة، الصوت، الضوء، التسارع، البوصلة — كلها في الوقت الحقيقي." },
-      { "icon": "🎛️", "h": "تحكم كامل", "p": "ارسم على مصفوفة LED، أدِر السيرفو، قُد المحركات. تصدير CSV للدروس." },
-      { "icon": "🧊", "h": "مرآة ثلاثية الأبعاد", "p": "لوحة واقعية تميل مع micro:bit الفعلي. الفيزياء تصبح مرئية." }
+      { "icon": "🎨", "h": "أكثر من 100 رمز تعبيري", "p": "سبع فئات، نقرة واحدة للإرسال. أو ارسم فنّك البكسلي على شبكة NeoPixel 8×8 أو 16×16." },
+      { "icon": "🖌️", "h": "فرشاة سحرية", "p": "ثمانية ألوان، شريط سطوع، Shift+سحب للمسح. حفظ محلي — بدون سحابة ولا حساب." },
+      { "icon": "▶️", "h": "11 عرضاً متحركاً", "p": "نبض قلب، قوس قزح، نار، بريق، وثمانية أخرى. اختبار إجهاد للمصفوفة مع سجل اتصال." }
     ],
     "steps": [
-      "وصّل micro:bit (USB أو بطارية).",
-      "افتح Chrome أو Edge.",
-      "زُر الرابط أدناه — بدون تثبيت.",
-      "اضغط Connect واختر لوحتك.",
-      "تتحول النقطة إلى الأخضر. جاهز."
+      "وصّل NeoPixels (8×8 أو 16×16) إلى P0 / 3V / GND.",
+      "وصّل micro:bit بالحاسوب عبر USB.",
+      "افتح Chrome أو Edge — بدون تثبيت.",
+      "اضغط Connect واختر منفذ الاتصال.",
+      "ارسم. المصفوفة تضيء."
     ],
     "stepsHeader": "ابدأ خلال 60 ثانية",
     "qrCaption": "امسح لتجربة العرض المباشر",
     "audienceLine": "للمعلمين والأطفال والمبدعين.",
     "footerLeft": "Chrome / Edge · يعمل دون اتصال · بدون حساب",
     "footerRight": "فيرموير MakeCode · متوافق مع المصدر المفتوح",
-    "flyerTagline": "المتصفح هو بيئة التطوير.",
-    "motto": "كل عالِم بدأ بسؤال: «ماذا يحدث لو ضغطت هنا؟»"
+    "flyerTagline": "المتصفح هو استوديو البكسل.",
+    "motto": "كل بكسل قرار. اتخذ ألفاً."
   }
 }

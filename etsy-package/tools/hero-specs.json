@@ -1,38 +1,38 @@
 {
-  "_comment": "A/B hero image specs. Each produces a 1500x1500 Etsy thumbnail. Ship 2-5 variants — Etsy's own image-order experiment picks the winner. Screenshots reference output/screenshots/<file>.",
+  "_comment": "A/B hero image specs for Bitmoji Lab. 1500×1500 Etsy thumbnails. Features: paint emojis on NeoPixel LED matrix via USB Web Serial, 100+ emojis, Magic Paintbrush, 8×8/16×16, 11 animated demos.",
 
   "heroes": [
     {
       "name": "hero-teacher",
       "theme": "arctic",
       "accentColor": "#0077cc",
-      "screenshots": ["screenshot-emoji.png", "screenshot-emoji.png"],
-      "title": "Every Sensor,\nLive in Every Browser",
-      "subtitle": "Built for STEM classrooms · 30 laptops, zero install",
+      "screenshots": ["screenshot-emoji-live.png", "screenshot-emoji.png"],
+      "title": "Paint Emojis.\nLight the Matrix.",
+      "subtitle": "100+ emojis on an 8×8 or 16×16 NeoPixel matrix. USB Web Serial. Classroom-ready.",
       "badge": "Chrome / Edge",
       "footerLeft": "Lifetime updates · Site license available",
-      "footerRight": "micro:bit V2"
+      "footerRight": "micro:bit V2 + NeoPixel"
     },
     {
       "name": "hero-kid",
       "theme": "neon",
       "accentColor": "#00ff88",
-      "screenshots": ["screenshot-emoji.png", "screenshot-audience-kid-3d.png"],
-      "title": "Your micro:bit\nbecomes a playground",
-      "subtitle": "Sensors. Paintbrush. 3D models. No install, no account.",
-      "badge": "Works offline",
-      "footerLeft": "Kid-safe · No cloud",
+      "screenshots": ["screenshot-emoji-live.png", "screenshot-emoji.png"],
+      "title": "Tap an Emoji.\nWatch it Glow.",
+      "subtitle": "100+ built-in emojis. Magic Paintbrush. Save your designs. No install, no account.",
+      "badge": "Works local",
+      "footerLeft": "Kid-safe · Local only · No cloud",
       "footerRight": "60-sec setup"
     },
     {
       "name": "hero-maker",
       "theme": "blaze",
       "accentColor": "#ff6b35",
-      "screenshots": ["screenshot-emoji.png", "screenshot-audience-maker-3d.png"],
-      "title": "BLE Control Panel\nfor Makers",
-      "subtitle": "Live motors · 3D mirrors · CSV export · open firmware",
-      "badge": "Web Bluetooth",
-      "footerLeft": "MakeCode firmware · Open source friendly",
+      "screenshots": ["screenshot-emoji-live.png", "screenshot-saved.png"],
+      "title": "USB Serial\nPixel Art",
+      "subtitle": "Magic Paintbrush · 11 animated demos · 8×8/16×16 matrix · save designs",
+      "badge": "Web Serial",
+      "footerLeft": "micro:bit V2 + NeoPixel (WS2812B)",
       "footerRight": "Hack it"
     },
     {
@@ -40,11 +40,11 @@
       "theme": "stealth",
       "accentColor": "#00ff88",
       "frame": "laptop",
-      "screenshots": ["screenshot-audience-kid-3d.png"],
-      "title": "Your micro:bit,\non your laptop.",
-      "subtitle": "One browser tab. Live 3D. Zero install.",
+      "screenshots": ["screenshot-emoji-live.png"],
+      "title": "NeoPixel art,\nstraight from Chrome.",
+      "subtitle": "One browser tab. USB cable. No Bluetooth pairing, no cloud.",
       "badge": "Chrome / Edge",
-      "footerLeft": "No cloud · No account",
+      "footerLeft": "No account · No cloud",
       "footerRight": "bitmoji-lab"
     },
     {
@@ -52,22 +52,22 @@
       "theme": "arctic",
       "accentColor": "#e63946",
       "lang": "fr",
-      "screenshots": ["screenshot-emoji.png", "screenshot-emoji.png"],
-      "title": "Chaque capteur,\nen direct, dans le navigateur",
-      "subtitle": "Conçu pour les salles de STEM · 30 ordinateurs, zéro installation",
+      "screenshots": ["screenshot-emoji-live.png", "screenshot-emoji.png"],
+      "title": "Peindre des emojis.\nAllumer la matrice.",
+      "subtitle": "100+ emojis sur matrice NeoPixel 8×8 ou 16×16. USB Web Serial. Prêt pour la classe.",
       "badge": "Chrome / Edge",
       "footerLeft": "Mises à jour à vie · Licence école disponible",
-      "footerRight": "micro:bit V2"
+      "footerRight": "micro:bit V2 + NeoPixel"
     },
     {
       "name": "hero-fr-kid",
       "theme": "neon",
       "accentColor": "#00ff88",
       "lang": "fr",
-      "screenshots": ["screenshot-emoji.png", "screenshot-audience-kid-3d.png"],
-      "title": "Ton micro:bit\nprend vie dans ton navigateur",
-      "subtitle": "Rien à installer, aucun compte.",
-      "badge": "Fonctionne hors ligne",
+      "screenshots": ["screenshot-emoji-live.png", "screenshot-emoji.png"],
+      "title": "Tape un emoji.\nRegarde-le briller.",
+      "subtitle": "100+ emojis intégrés. Magic Paintbrush. Sauvegarde tes designs. Sans installation.",
+      "badge": "100 % local",
       "footerLeft": "Sûr pour les enfants · Pas de cloud",
       "footerRight": "60 sec · c'est prêt"
     },
@@ -76,11 +76,11 @@
       "theme": "blaze",
       "accentColor": "#ff6b35",
       "lang": "fr",
-      "screenshots": ["screenshot-emoji.png", "screenshot-audience-maker-3d.png"],
-      "title": "Panneau BLE\npour makers",
-      "subtitle": "Moteurs en direct · miroir 3D · export CSV · firmware libre",
-      "badge": "Web Bluetooth",
-      "footerLeft": "Firmware MakeCode · compatible open source",
+      "screenshots": ["screenshot-emoji-live.png", "screenshot-saved.png"],
+      "title": "Pixel Art\nvia USB Serial",
+      "subtitle": "Magic Paintbrush · 11 animations · matrice 8×8/16×16 · sauvegarde locale",
+      "badge": "Web Serial",
+      "footerLeft": "micro:bit V2 + NeoPixel (WS2812B)",
       "footerRight": "À hacker"
     },
     {
@@ -89,12 +89,12 @@
       "accentColor": "#0077cc",
       "lang": "ar",
       "dir": "rtl",
-      "screenshots": ["screenshot-emoji.png", "screenshot-emoji.png"],
-      "title": "كل حساس،\nمباشرةً في المتصفح",
-      "subtitle": "مصمم لقاعات STEM · 30 جهازاً، بدون تثبيت",
+      "screenshots": ["screenshot-emoji-live.png", "screenshot-emoji.png"],
+      "title": "ارسم الإيموجي.\nأضِئ المصفوفة.",
+      "subtitle": "أكثر من 100 إيموجي على مصفوفة NeoPixel 8×8 أو 16×16. USB Web Serial. جاهز للقاعة.",
       "badge": "Chrome / Edge",
       "footerLeft": "تحديثات مدى الحياة · ترخيص مدرسي متاح",
-      "footerRight": "micro:bit V2"
+      "footerRight": "micro:bit V2 + NeoPixel"
     },
     {
       "name": "hero-ar-kid",
@@ -102,10 +102,10 @@
       "accentColor": "#00ff88",
       "lang": "ar",
       "dir": "rtl",
-      "screenshots": ["screenshot-emoji.png", "screenshot-audience-kid-3d.png"],
-      "title": "micro:bit الخاص بك\nيصبح ساحة لعب",
-      "subtitle": "مستشعرات، محركات، نماذج ثلاثية الأبعاد. بدون تثبيت، بدون حساب.",
-      "badge": "يعمل دون اتصال",
+      "screenshots": ["screenshot-emoji-live.png", "screenshot-emoji.png"],
+      "title": "انقر إيموجي.\nشاهده يتوهج.",
+      "subtitle": "100+ إيموجي جاهز. Magic Paintbrush. احفظ تصاميمك. بدون تثبيت.",
+      "badge": "محلّي 100٪",
       "footerLeft": "آمن للأطفال · بدون سحاب",
       "footerRight": "60 ثانية للبدء"
     },
@@ -115,11 +115,11 @@
       "accentColor": "#ff6b35",
       "lang": "ar",
       "dir": "rtl",
-      "screenshots": ["screenshot-emoji.png", "screenshot-audience-maker-3d.png"],
-      "title": "لوحة تحكم BLE\nللمبدعين",
-      "subtitle": "محركات حية · انعكاس ثلاثي الأبعاد · تصدير CSV · فيرموير مفتوح",
-      "badge": "Web Bluetooth",
-      "footerLeft": "فيرموير MakeCode · متوافق مع المصدر المفتوح",
+      "screenshots": ["screenshot-emoji-live.png", "screenshot-saved.png"],
+      "title": "فن البكسل\nعبر USB Serial",
+      "subtitle": "Magic Paintbrush · 11 رسوم متحركة · مصفوفة 8×8/16×16 · حفظ محلي",
+      "badge": "Web Serial",
+      "footerLeft": "micro:bit V2 + NeoPixel (WS2812B)",
       "footerRight": "للاختراق"
     }
   ]

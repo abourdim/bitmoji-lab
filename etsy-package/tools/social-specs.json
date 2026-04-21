@@ -1,5 +1,5 @@
 {
-  "_comment": "Social media kit specs — 4 aspect ratios per language, driven by generate-social.mjs. Screenshots resolved from output/<lang>/screenshots/.",
+  "_comment": "Social kit for Bitmoji Lab. USB Web Serial (NOT BLE) · NeoPixel matrix · emoji pixel-art studio.",
 
   "formats": [
     { "name": "ig-post",    "w": 1080, "h": 1080, "label": "Instagram feed",   "layout": "square" },
@@ -12,29 +12,29 @@
 
   "en": {
     "brand": "bitmoji-lab",
-    "kicker": "MICRO:BIT · WEB BLUETOOTH",
-    "title": "Every sensor.\nLive in the browser.",
-    "subtitle": "Chrome / Edge · Zero install · Works offline",
+    "kicker": "MICRO:BIT · USB WEB SERIAL · NEOPIXEL",
+    "title": "Paint emojis.\nLight the matrix.",
+    "subtitle": "Chrome / Edge · 100+ emojis · 8×8 or 16×16 NeoPixel grid",
     "cta": "Try the demo →",
     "url": "abourdim.github.io/bitmoji-lab",
-    "hashtags": "#microbit  #STEM  #EdTech"
+    "hashtags": "#microbit  #NeoPixel  #PixelArt  #STEM  #EdTech"
   },
   "fr": {
     "brand": "bitmoji-lab",
-    "kicker": "MICRO:BIT · WEB BLUETOOTH",
-    "title": "Chaque capteur,\nen direct dans le navigateur.",
-    "subtitle": "Chrome / Edge · Zéro installation · Hors ligne",
+    "kicker": "MICRO:BIT · USB WEB SERIAL · NEOPIXEL",
+    "title": "Peins des emojis.\nAllume la matrice.",
+    "subtitle": "Chrome / Edge · 100+ emojis · grille NeoPixel 8×8 ou 16×16",
     "cta": "Essayer la démo →",
     "url": "abourdim.github.io/bitmoji-lab",
-    "hashtags": "#microbit  #STEM  #EdTech"
+    "hashtags": "#microbit  #NeoPixel  #PixelArt  #STEM  #EdTech"
   },
   "ar": {
     "brand": "bitmoji-lab",
-    "kicker": "MICRO:BIT · WEB BLUETOOTH",
-    "title": "كل حساس،\nمباشرةً في المتصفح.",
-    "subtitle": "Chrome / Edge · بدون تثبيت · يعمل دون اتصال",
+    "kicker": "MICRO:BIT · USB WEB SERIAL · NEOPIXEL",
+    "title": "ارسم الرموز التعبيرية.\nأضئ المصفوفة.",
+    "subtitle": "Chrome / Edge · 100+ رمز · شبكة NeoPixel 8×8 أو 16×16",
     "cta": "← جرّب العرض التوضيحي",
     "url": "abourdim.github.io/bitmoji-lab",
-    "hashtags": "#microbit  #STEM  #EdTech"
+    "hashtags": "#microbit  #NeoPixel  #PixelArt  #STEM  #EdTech"
   }
 }
