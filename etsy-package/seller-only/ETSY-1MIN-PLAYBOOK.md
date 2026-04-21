@@ -31,7 +31,7 @@ Before you press Record:
 - [ ] Theme set — **Neon** photographs best; **Arctic** reads best in harsh daylight
 - [ ] Language matches your voiceover (EN / FR / AR)
 - [ ] micro:bit V2 paired (optional)
-- [ ] Tab 6 (3D) open with Buggy or Robot Arm selected — looks impressive in the hero shot
+- [ ] Main screen ready — looks impressive in the hero shot
 - [ ] Phone in 9:16 on a tripod, front-lit, clean background
 - [ ] Desk cleared — only the board + one prop (buggy / paintbrush / cable) in frame
 - [ ] Captions app running OR on-screen text plan ready
@@ -95,8 +95,8 @@ Etsy loops the video, so the **end frame should match the cover** — keeps view
 | Time | What to SAY | What to CLICK / DO |
 |---|---|---|
 | 0–3 s | *"My kid built a robot. With a browser tab."* | Close-up: a small hand tapping Connect. |
-| 3–10 s | *"The micro:bit drives the paintbrush. The 3D model mirrors the real robot."* | Tab 6 (emoji pixel). Real robot next to the laptop. Buggy in 3D follows. |
-| 10–20 s | *"D-pad in the browser → arrows on the LED → commands to the motors."* | Tab 4 (Paintbrush). Press ⬆ → LED arrow. Buggy crawls forward. |
+| 3–10 s | *"The micro:bit drives the paintbrush. The 3D model mirrors the real robot."* | Tab 6 (emoji pixel). Real robot next to the laptop. Robot in 3D follows. |
+| 10–20 s | *"D-pad in the browser → arrows on the LED → commands to the motors."* | Tab 4 (Paintbrush). Press ⬆ → LED arrow. Robot crawls forward. |
 | 20–30 s | *"Tilt the brain — the ball rolls to the targets."* | Tab 6 → Balance Game model. Tilt the board. Ball rolls. |
 | 30–40 s | *"Graph the sensors. Record the run. Replay for homework."* | Tab 5 → Record 3 s of accel → Replay → Save Session. |
 | 40–50 s | *"No login. Nothing leaves the computer. Offline after first load."* | Close the Wi-Fi indicator (airplane mode). App still works. |
@@ -166,7 +166,7 @@ Etsy loops the video, so the **end frame should match the cover** — keeps view
 ## Quick-reference cheat card
 
 ```
-PRE     V2 has X icon · Chrome open · BLE green · 9:16 phone · Neon theme
+PRE     V2 has X icon · Chrome open · BLE green · 9:16 phone · default theme
 LAUNCH  Record → first words land in the first 3 seconds
 DURING  Tilt → 3D · A → LED · slider → paintbrush · Simulate → graph
 AFTER   Stop → trim to 55 s → burn captions → first frame = thumbnail
@@ -217,7 +217,7 @@ browser-based · no-install · privacy-first · offline-capable · web bluetooth
 1. **Hero** — real micro:bit + laptop, 3D model mirroring the board's tilt. Title overlay in Orbitron.
 2. **Tabs overview** — grid screenshot of all 7 emoji categories with emoji labels.
 3. **Live graph** — Canvas API close-up with colored lines + annotations, Record button glowing red.
-4. **3D models** — split screenshot of Buggy + Robot Arm.
+4. **3D models** — split screenshot of Robot + Robot Arm.
 5. **Hand-holding** — real paintbrush plugged into P1, sliders on the screen.
 6. **Theme sampler** — 2×2 grid: Stealth · Neon · Arctic · Blaze.
 7. **License card** — "Single-user license · Lifetime updates · No cloud · Chrome / Edge" on a dark gradient.

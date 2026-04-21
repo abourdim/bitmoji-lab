@@ -6,7 +6,7 @@
   apply-template.mjs substituted Bitmoji Lab / v1.0.0 only.
   The SCENES array below (SAY + DO lines) was inherited from
   bitmoji-lab and references product-specific things: BLE, LEDs,
-  paintbrushes, Tab 3/5/6, "Pixel Canvas", "Motors", "Graph", "Neon theme", etc.
+  paintbrushes, Tab 3/5/6, "Pixel Canvas", "Motors", "Graph", "default theme", etc.
   Rewrite each scene to match YOUR product's 60-second arc.
 
   Before using:
@@ -160,7 +160,7 @@
 
   <main>
     <div class="say" id="say">Press <span style="color: var(--accent)">Space</span> to start</div>
-    <div class="do" id="do">Pre-flight: BLE green · Neon theme · 9:16 phone · desk clean</div>
+    <div class="do" id="do">Pre-flight: BLE green · default theme · 9:16 phone · desk clean</div>
   </main>
 
   <footer>
@@ -255,7 +255,7 @@ function reset() {
   document.body.classList.add('idle');
   phase.textContent = 'READY';
   say.innerHTML = 'Press <span style="color: var(--accent)">Space</span> to start';
-  doEl.textContent = 'Pre-flight: BLE green · Neon theme · 9:16 phone · desk clean';
+  doEl.textContent = 'Pre-flight: BLE green · default theme · 9:16 phone · desk clean';
   clock.textContent = '0:00';
   clock.classList.remove('over');
   bar.style.width = '0%';

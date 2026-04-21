@@ -43,7 +43,7 @@
     "posterKicker": "WEB BLUETOOTH · MICRO:BIT V2",
     "posterSubtitle": "Panneau de contrôle prêt pour la classe. 30 ordinateurs. Zéro installation.",
     "features": [
-      { "icon": "⚡", "h": "Capteurs en direct", "p": "Température, son, lumière, accéléromètre, boussole — tout en temps réel." },
+      { "icon": "⚡", "h": "Capteurs en direct", "p": "Fonctionnalités du produit — voir la description." },
       { "icon": "🎛️", "h": "Contrôle complet", "p": "Peindre les LEDs, faire tourner les paintbrushes, piloter les moteurs. Export CSV." },
       { "icon": "🧊", "h": "Miroir 3D", "p": "Une carte photoréaliste s'incline avec votre micro:bit. La physique prend vie." }
     ],
