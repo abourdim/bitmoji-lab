@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- REWRITE PER PRODUCT — DO NOT SHIP AS-IS -->
 <html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8" />
@@ -124,7 +125,7 @@
 <div class="slate">
   <div class="slate-clap">🎬</div>
   <div class="tag">— ETSY PLAYBOOK · v1.0.0 —</div>
-  <h1>Bitmoji <span>Lab</span></h1>
+  <h1>micro:bit <span>Playground</span></h1>
   <div class="tag">The 1-minute listing demo · copy-ready snippets</div>
   <div class="meta"><span><b>Format:</b> 9:16 portrait</span><span><b>Length:</b> ≤ 60 s</span><span><b>Goal:</b> turn scrollers into buyers</span></div>
 </div>
@@ -144,15 +145,14 @@
 <h2>Before you press Record</h2>
 <div class="card">
   <ul class="checklist" onclick="var li=event.target.closest('li');if(li)li.classList.toggle('checked')">
-    <li><input type="checkbox"><label>NeoPixel matrix wired (<code>VCC→3V/ext</code>, <code>GND→GND</code>, <code>DIN→P0</code>)<span class="where">External power pack for 64+ LEDs</span></label></li>
-    <li><input type="checkbox"><label>micro:bit V2 showing ✅ after flashing <code>makecode.ts</code><span class="where">If not → reflash from MakeCode</span></label></li>
-    <li><input type="checkbox"><label>Chrome or Edge open, <code>index.html</code> loaded<span class="where">Safari/Firefox/iOS will not work — no Web Serial</span></label></li>
-    <li><input type="checkbox"><label>USB connected — status chip is <strong>green</strong><span class="where">Click 🔗 Connect, pick BBC micro:bit CMSIS-DAP</span></label></li>
-    <li><input type="checkbox"><label>Matrix size set to match wiring (8×8 or 16×16)</label></li>
-    <li><input type="checkbox"><label>Brightness around 30–60% for the camera (default 5% looks dim on video)</label></li>
-    <li><input type="checkbox"><label>Emoji picker scrolled to a visually striking category (flags or faces)</label></li>
-    <li><input type="checkbox"><label>Phone in 9:16 mode on a tripod, matrix lit from the side</label></li>
-    <li><input type="checkbox"><label>Desk cleared — board, matrix, and one prop in frame</label></li>
+    <li><input type="checkbox"><label>micro:bit V2 powered on, showing <kbd>X</kbd> icon<span class="where">If not → reflash <code>makecode.ts</code></span></label></li>
+    <li><input type="checkbox"><label>Chrome or Edge open, <code>index.html</code> loaded<span class="where">Safari/Firefox/iOS will not work</span></label></li>
+    <li><input type="checkbox"><label>BLE connected — status chip is <strong>green</strong><span class="where">Click 🔗 Connect, pick BBC micro:bit from picker</span></label></li>
+    <li><input type="checkbox"><label>Theme picked — <strong>Neon</strong> looks best on camera<span class="where">Header → paint-roller dropdown</span></label></li>
+    <li><input type="checkbox"><label>micro:bit V2 paired (optional)</label></li>
+    <li><input type="checkbox"><label>Pixel Canvas tab open, Buggy or Robot Arm selected<span class="where">Tab 6 → model dropdown</span></label></li>
+    <li><input type="checkbox"><label>Phone in 9:16 mode on a tripod, lit from the front</label></li>
+    <li><input type="checkbox"><label>Desk cleared — only the board and one prop in frame</label></li>
     <li><input type="checkbox"><label>Script read aloud once — timed under 55 s</label></li>
   </ul>
 </div>
@@ -162,70 +162,62 @@
 <h2>Structure</h2>
 <div class="card">
   <pre style="color:var(--accent2);font-family:var(--mono);font-size:.9rem;line-height:1.7;margin:0">
- 0–3 s   HOOK        "Watch an emoji become light in 60 seconds."
- 3–10 s  CONTEXT     Open index.html → Connect → status green.
-10–30 s  DEMO        Tap a heart emoji → matrix glows. Tap a flag → it waves.
-30–45 s  PAYOFF      Paint your own pixel art, hit SEND, watch it glow.
-45–55 s  SAVE        Name it, click 💾 Save, reopen from My Saved Designs.
-55–60 s  CTA         "Full kit in my shop — link below."</pre>
+ 0–3 s   HOOK        "Watch what this micro:bit does in 60 seconds."
+ 3–10 s  CONTEXT     Board on-screen, X icon → status turns green.
+10–35 s  DEMO        Demo the core features. Highlight main benefits.
+35–50 s  PAYOFF      Zoom on live graph + 3D model mirroring real board.
+50–55 s  CTA         "Full kit in my shop — link below."
+55–60 s  END FRAME   Logo + handle frozen for the loop preview.</pre>
 </div>
 
 <!-- ═══════════ SCRIPT ═══════════ -->
 <div class="slug" id="script">SLUG — SCENE-BY-SCENE SCRIPT</div>
-<h2>Template: "Paint an emoji, send it, glow it"</h2>
+<h2>Template: "The micro:bit becomes a playground"</h2>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:00–00:03</span><span class="scene-phase phase-hook">HOOK</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 SAY</div>"What if every emoji on your phone could glow on a real LED matrix?"</div>
-    <div class="do"><div class="do-label">🎬 DO</div>Close-up of the NeoPixel matrix dark, then a heart emoji lights up red. Cut back to the laptop screen.</div>
+    <div class="say"><div class="say-label">🎙 SAY</div>"Your micro:bit is a playground. No install, no account — just a browser."</div>
+    <div class="do"><div class="do-label">🎬 DO</div>Hold the board in frame. Close-up of the X icon pulsing on the LED matrix.</div>
   </div>
 </div>
 
 <div class="scene">
   <div class="scene-head"><span class="scene-time">00:03–00:10</span><span class="scene-phase phase-demo">CONTEXT</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 SAY</div>"Open one HTML file in Chrome. Click Connect. Pick your micro:bit. Done."</div>
-    <div class="do"><div class="do-label">🎬 DO</div>Screen recording: double-click <code>index.html</code>, click <strong>🔗 Connect</strong>, picker shows BBC micro:bit CMSIS-DAP, status chip flips green.</div>
+    <div class="say"><div class="say-label">🎙 SAY</div>"Open the page, click connect — and that's it. Sensors live, LEDs live, paintbrushes live."</div>
+    <div class="do"><div class="do-label">🎬 DO</div>Screen recording: click <strong>🔗 Connect to micro:bit</strong>, pick the board, status chip goes green.</div>
   </div>
 </div>
 
 <div class="scene">
-  <div class="scene-head"><span class="scene-time">00:10–00:20</span><span class="scene-phase phase-demo">DEMO · EMOJI LIBRARY</span></div>
+  <div class="scene-head"><span class="scene-time">00:10–00:25</span><span class="scene-phase phase-demo">DEMO · SENSORS + 3D</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 SAY</div>"100+ emojis ready to send — faces, robots, flags, road signs."</div>
-    <div class="do"><div class="do-label">🎬 DO</div>Scroll the emoji grid, tap ❤️ → SEND → matrix glows red. Tap 🌈 → rainbow. Tap 🏴 → flag.</div>
+    <div class="say"><div class="say-label">🎙 SAY</div>"Tilt it — the 3D model on screen tilts too. Tap the logo — it reacts."</div>
+    <div class="do"><div class="do-label">🎬 DO</div>Tab <kbd>6</kbd> → Pixel Canvas. Tilt the real board → the virtual one follows. Hand holds the micro:bit next to the screen for the split.</div>
   </div>
 </div>
 
 <div class="scene">
-  <div class="scene-head"><span class="scene-time">00:20–00:35</span><span class="scene-phase phase-demo">DEMO · MAGIC PAINTBRUSH</span></div>
+  <div class="scene-head"><span class="scene-time">00:25–00:40</span><span class="scene-phase phase-demo">DÉMO · FEATURES</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 SAY</div>"Or open the Magic Paintbrush — pick a color, click, drag, paint your own."</div>
-    <div class="do"><div class="do-label">🎬 DO</div>Expand Magic Paintbrush. Pick 🚀 blue. Click-drag a simple rocket shape on the preview. Shift-click to erase a pixel.</div>
+    <div class="say"><div class="say-label">🎙 SAY</div>"Move a paintbrush from the browser. Drive a robot with the Paintbrush."</div>
+    <div class="do"><div class="do-label">🎬 DO</div>Click through the live demo; features run in the browser.</div>
   </div>
 </div>
 
 <div class="scene">
-  <div class="scene-head"><span class="scene-time">00:35–00:45</span><span class="scene-phase phase-payoff">PAYOFF · SEND</span></div>
+  <div class="scene-head"><span class="scene-time">00:40–00:50</span><span class="scene-phase phase-payoff">PAYOFF · GRAPH</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 SAY</div>"Hit SEND. Your drawing becomes light. For real."</div>
-    <div class="do"><div class="do-label">🎬 DO</div>Click the big green <strong>🚀 SEND TO MICRO:BIT</strong> button. Cut to close-up of the matrix glowing the rocket in blue.</div>
+    <div class="say"><div class="say-label">🎙 SAY</div>"Record, replay, export CSV. It's a whole science lab in a browser tab."</div>
+    <div class="do"><div class="do-label">🎬 DO</div>Tab <kbd>5</kbd> → 🎲 Simulate → live chart dances. Zoom on the Record/CSV buttons.</div>
   </div>
 </div>
 
 <div class="scene">
-  <div class="scene-head"><span class="scene-time">00:45–00:55</span><span class="scene-phase phase-payoff">PAYOFF · SAVE</span></div>
+  <div class="scene-head"><span class="scene-time">00:50–00:60</span><span class="scene-phase phase-cta">CTA + END FRAME</span></div>
   <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 SAY</div>"Name it, save it, reopen it anytime. Or try one of 10 built-in demos."</div>
-    <div class="do"><div class="do-label">🎬 DO</div>Type "My Rocket", click 💾 Save. Open My Saved Designs → click the tile → rocket comes back. Show one demo animation running (Fireworks).</div>
-  </div>
-</div>
-
-<div class="scene">
-  <div class="scene-head"><span class="scene-time">00:55–01:00</span><span class="scene-phase phase-cta">CTA + END FRAME</span></div>
-  <div class="scene-body">
-    <div class="say"><div class="say-label">🎙 SAY</div>"Full kit, lifetime updates — link in description. Tag me with your designs!"</div>
+    <div class="say"><div class="say-label">🎙 SAY</div>"Full kit, lifetime updates — link in description. Teachers, tag me when you use it."</div>
     <div class="do"><div class="do-label">🎬 DO</div>Switch to logo + handle overlay. Hold 3 seconds still — becomes the loop frame.</div>
   </div>
 </div>
@@ -233,63 +225,57 @@
 <!-- ═══════════ LISTING COPY ═══════════ -->
 <div class="slug" id="listing">SLUG — COPY-READY LISTING TEXT</div>
 <h2>Etsy title (140 chars max)</h2>
-<div class="copybox">Bitmoji Lab — Paint Emoji Pixel Art on a micro:bit V2 · 100+ Emojis · 8×8 &amp; 16×16 Matrix · No Install · Chrome / Edge<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">COPY</button></div>
+<div class="copybox">Bitmoji Lab — BLE Control Panel for Teachers &amp; Kids · Sensors · Paintbrush · Live Graph · 3D Models · No Install · Chrome / Edge<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">COPY</button></div>
 
 <h2>Short description (first 160 chars — shown in search)</h2>
-<div class="copybox">Paint emoji pixel art in your browser and send it to a NeoPixel LED matrix on a BBC micro:bit V2. 100+ emojis, 10 demos, save-and-share. No install.<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">COPY</button></div>
+<div class="copybox">Browser-based BLE control panel for the BBC micro:bit V2 + LED matrix. Sensors, paintbrushes, live graphs, 3D models, and a Paintbrush — all from Chrome. No install, no account.<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">COPY</button></div>
 
 <h2>Full description</h2>
-<div class="copybox">🎨 Bitmoji Lab — paint emoji art and send it live to a NeoPixel LED matrix on the BBC micro:bit V2.
+<div class="copybox">🎮 Bitmoji Lab — a browser-based BLE control panel for the BBC micro:bit V2 + LED matrix.
 
-Open one HTML file in Chrome or Edge, connect over USB, and turn every emoji on your keyboard into glowing pixel light — no install, no account, no backend, no tracking.
+Open one HTML file in Chrome or Edge, pair over Bluetooth, and unlock 7 emoji categories of hands-on STEM fun — no install, no account, no backend, no tracking.
 
 WHAT YOU GET
-• 😄 100+ emoji library in 7 categories (faces, robots, vehicles, tools, symbols, flags, road signs)
-• 🖌️ Magic Paintbrush — 8 color presets + custom color picker, click-drag to paint, Shift-click to erase
-• 🔳 Auto-switch between 8×8 (64 LEDs) and 16×16 (256 LEDs) NeoPixel matrices
-• 💡 Brightness slider (10–255), Simple Mode for flat colors
-• 🎬 10 demo animations: Waving Flag, Traffic Light, Heart Beat, Spinning Star, Rainbow Wave, Happy Face, Loading Bar, Fireworks, Racing Car, Blinking Eye
-• 💾 Save designs by name in your browser — My Saved Designs gallery
-• 📜 Communication Log with TX / RX, chunked transfer, checksum verification
-• 🧪 Test 0..1000 throughput button
+• 🎛 LED matrix + preset icons + text scroller
+• 📡 Live sensors: temperature, light, sound, brightness, matrix size, touch
+• ⚙️ 2 paintbrushes (P1 + P2) with sliders, gauges, trim, OFF buttons
+• 🎮 D-pad Paintbrush for robots and games
+• 📈 Live Graph (Canvas API) — record, replay, annotate, export PNG + CSV
+• 🎲 5 interactive 3D models (Three.js): micro:bit, Buggy, Arm, Balance, Weather
+• 🎨 4 themes (Stealth · Neon · Arctic · Blaze) + 3 languages (EN · FR · AR with full RTL)
+• 📱 PWA — installable, offline-capable
+• 👶 Beginner mode + 🧙 Expert mode
 
 WHAT'S IN YOUR DOWNLOAD
 • index.html — the full app
-• script.js + style.css — pure web, no build
-• makecode.ts — micro:bit receiver firmware (flash once from MakeCode)
-• logo.svg + assets/ — emoji library
-• USERGUIDE.html / USERGUIDE.md — complete walkthrough
-• Printable: quick-start card, quick-actions cheat sheet, A3 classroom poster, 30 achievement stickers, 45-minute lesson plan
+• makecode.ts — micro:bit firmware (flash once from MakeCode)
+• SETUP.md — 5-minute quick-start
+• docs/ — illustrated guide, cheat sheet, FAQ, Etsy playbook
 • LICENSE — personal / classroom single-user license
 
 REQUIREMENTS
-• BBC micro:bit V2 (V1 works but slower for 256-LED matrices)
-• NeoPixel / WS2812B LED matrix, 8×8 or 16×16
-• External power pack (battery or USB power bank) for 64+ LEDs
-• Chrome 90+ or Edge 90+ on desktop (Web Serial)
-• USB data cable (not charge-only)
+• BBC micro:bit V2 + LED matrix (V1 works but has no sound sensor)
+• Chrome or Edge on desktop (or Chrome on Android)
+• Bluetooth enabled
+• HTTPS or file:// — double-clicking the HTML works
 
 WHO IT'S FOR
-Teachers running STEAM + digital art workshops · home-schooling families · maker-space hosts · robotics clubs · kids who love emoji and want to see them come alive.
+Teachers running STEM workshops · home-schooling families · robotics clubs · makers prototyping BLE projects · anyone curious about the micro:bit.
 
 PRIVACY FIRST
-Nothing leaves your computer. No analytics, no logins, no cloud. Saved designs live in your browser's localStorage and on your disk.
+Nothing leaves your computer. No analytics, no logins, no cloud. All calibrations, recordings, and presets live in your browser's localStorage and on your disk.
 
 LIFETIME UPDATES
 Every version shipped from this listing is yours forever. Re-download the latest ZIP anytime from your Etsy Purchases page.
 
-Happy painting! 🎨✨🚀<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">COPY</button></div>
+Happy hacking! 🚀🎮🤖<button class="copybtn" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim())">COPY</button></div>
 
 <h2>Price tiers</h2>
 <table>
   <tr><th>Tier</th><th>Who</th><th>Price</th></tr>
-  <tr><td>Launch</td><td>First 100 buyers</td><td><code>$9.99</code></td></tr>
-  <tr><td>Standard</td><td>Single user after launch</td><td><code>$14.99</code></td></tr>
-  <tr><td>Bundle</td><td>App + printables + stickers</td><td><code>$24.99</code></td></tr>
-  <tr><td>Tripwire</td><td>Single printable upsell</td><td><code>$3</code></td></tr>
-  <tr><td>Site</td><td>Up to 30 teachers at one school</td><td><code>$149</code></td></tr>
-  <tr><td>District</td><td>Multiple sites in a district</td><td><code>$399</code></td></tr>
-  <tr><td>Promo</td><td>Code <code>BITMOJI5</code></td><td><code>$5</code></td></tr>
+  <tr><td>Single user</td><td>One teacher / family / maker</td><td><code>{{PRICE}}</code></td></tr>
+  <tr><td>Classroom / Site</td><td>Up to 30 teachers at one school, unlimited students</td><td><code>{{PRICE}}</code></td></tr>
+  <tr><td>District / OEM</td><td>Multiple sites — DM through the Etsy order</td><td>Custom</td></tr>
 </table>
 
 <!-- ═══════════ TAGS ═══════════ -->
@@ -297,46 +283,46 @@ Happy painting! 🎨✨🚀<button class="copybtn" onclick="navigator.clipboard.
 <h2>13 Etsy tags (20 chars each)</h2>
 <div class="pills">
   <span class="pill">micro:bit</span>
-  <span class="pill">neopixel</span>
-  <span class="pill">pixel art</span>
-  <span class="pill">emoji</span>
-  <span class="pill">LED</span>
-  <span class="pill">STEAM</span>
+  <span class="pill">BLE</span>
+  <span class="pill">bluetooth</span>
+  <span class="pill">education</span>
+  <span class="pill">STEM</span>
+  <span class="pill">robotics</span>
   <span class="pill">kids coding</span>
   <span class="pill">teacher resource</span>
-  <span class="pill">digital art</span>
+  <span class="pill">sensors</span>
+  <span class="pill">paintbrushes</span>
   <span class="pill">classroom</span>
   <span class="pill">home school</span>
   <span class="pill">makerspace</span>
-  <span class="pill">web serial</span>
 </div>
 
 <h2>Materials (what powers it)</h2>
 <div class="pills">
   <span class="pill">HTML5</span>
   <span class="pill">JavaScript</span>
-  <span class="pill">Web Serial</span>
-  <span class="pill">Canvas</span>
-  <span class="pill">NeoPixel</span>
-  <span class="pill">WS2812B</span>
+  <span class="pill">Web Bluetooth</span>
+  <span class="pill">Canvas API</span>
+  <span class="pill">Three.js</span>
+  <span class="pill">PWA</span>
   <span class="pill">MakeCode</span>
   <span class="pill">TypeScript</span>
 </div>
 
 <h2>SEO keywords</h2>
-<p><code>browser-based</code> · <code>no-install</code> · <code>privacy-first</code> · <code>pixel art</code> · <code>emoji matrix</code> · <code>web serial</code> · <code>teacher resource</code> · <code>micro:bit V2</code></p>
+<p><code>browser-based</code> · <code>no-install</code> · <code>privacy-first</code> · <code>offline-capable</code> · <code>web bluetooth</code> · <code>teacher resource</code> · <code>STEM workshop</code> · <code>micro:bit V2</code></p>
 
 <!-- ═══════════ IMAGES ═══════════ -->
 <div class="slug" id="images">SLUG — 7-IMAGE LISTING ORDER</div>
 <h2>Image sequence (Etsy shows 1 &amp; 2 largest)</h2>
 <div class="card">
   <ol style="padding-left:22px;line-height:2">
-    <li><strong>Hero</strong> — laptop + real glowing NeoPixel matrix split-screen, big "Paint · Glow · Share" overlay.</li>
-    <li><strong>Emoji library</strong> — screenshot of the 100+ emoji grid with a heart selected and mirrored on the matrix.</li>
-    <li><strong>Magic Paintbrush</strong> — close-up of someone painting a rocket, color swatches visible.</li>
-    <li><strong>8×8 vs 16×16</strong> — side-by-side comparison photograph of both matrices glowing the same emoji.</li>
-    <li><strong>Demo animation</strong> — motion-blurred photo of a running demo (Rainbow Wave or Fireworks).</li>
-    <li><strong>Printables</strong> — flat-lay of the A3 poster, quick-start card, cheat sheet, sticker sheet.</li>
+    <li><strong>Hero</strong> — real micro:bit + laptop split-screen showing the 3D model mirroring the board's tilt. Title overlay in Orbitron.</li>
+    <li><strong>Tabs overview</strong> — grid screenshot of all 7 emoji categories with emoji labels.</li>
+    <li><strong>Live graph close-up</strong> — Canvas API with colored lines + annotations, Record button glowing red.</li>
+    <li><strong>emoji pixel + Robot Arm</strong> — split screenshot showing two of the five Three.js models.</li>
+    <li><strong>Hand-holding the board</strong> — real paintbrush plugged into P1, sliders on screen in the background.</li>
+    <li><strong>Theme sampler</strong> — 2×2 grid: Stealth · Neon · Arctic · Blaze.</li>
     <li><strong>Text card</strong> — "Single-user license · Lifetime updates · No cloud · Chrome / Edge" on a dark gradient.</li>
   </ol>
 </div>
@@ -346,19 +332,18 @@ Happy painting! 🎨✨🚀<button class="copybtn" onclick="navigator.clipboard.
 <h2>Common mistakes</h2>
 <table>
   <tr><th>❌ Don't</th><th>✅ Do</th></tr>
-  <tr><td>Start with "Hi, I'm…" + 10 s of intro</td><td>Open with a dark matrix lighting up in the first 3 s</td></tr>
+  <tr><td>Start with "Hi, I'm…" + 10s of intro</td><td>Open with the real board tilting a 3D model in the first 3 s</td></tr>
   <tr><td>Film landscape (16:9)</td><td>9:16 portrait — Etsy autoplays on mobile</td></tr>
-  <tr><td>Shoot at default 5% brightness</td><td>Bump brightness to 30–60% for the camera</td></tr>
+  <tr><td>Talk over busy on-screen animation</td><td>Let the visual breathe for 1s, then explain</td></tr>
   <tr><td>Forget captions (Etsy plays muted)</td><td>Burn in captions or add a text overlay every scene</td></tr>
-  <tr><td>Show iOS / Safari in the video</td><td>Always demo on Chrome / Edge — iPhone users will buy and return</td></tr>
-  <tr><td>Power 64+ LEDs from the micro:bit alone</td><td>Always show the external power pack — buyers notice</td></tr>
+  <tr><td>Show iOS / Safari in the video</td><td>Always demo on Chrome/Edge — iPhone users will buy and return</td></tr>
   <tr><td>Skip the CTA</td><td>Say "link below" in the last 5 seconds every single time</td></tr>
 </table>
 
 <!-- ═══════════ QUICK CARD ═══════════ -->
 <div class="slug">SLUG — POCKET CHEAT CARD</div>
-<div class="copybox">PRE    Matrix wired · V2 flashed · Chrome open · USB green · 9:16 phone
-SHOOT  Hook in 3 s · Emoji → SEND → glow · Paint rocket · Save · CTA
+<div class="copybox">PRE    V2 powered (X icon) · Chrome open · BLE green · 9:16 phone
+SHOOT  Hook in 3s · Live demo · CTA
 POST   Trim to 55 s · captions burn-in · first frame = thumbnail
 LIST   Title · 160-char desc · 13 tags · 7 images · price tiers</div>
 

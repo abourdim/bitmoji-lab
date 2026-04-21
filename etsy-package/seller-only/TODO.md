@@ -35,7 +35,7 @@ that require human hands. Don't hit Publish until they're done.
       Reviewers flagged that listings with *physical hardware + the
       app together* convert better. Retake the hero with a micro:bit
       V2 held next to (or propped on top of) a laptop showing the
-      emoji library. Good light, plain background, crop square.
+      Emoji panel. Good light, plain background, crop square.
 - [ ] **Test Etsy's square thumbnail crop** on mockup 1. The canvas
       is 2000×1500 (4:3). Etsy will center-crop to square for the
       search thumbnail — make sure the product name and the

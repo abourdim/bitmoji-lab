@@ -1,4 +1,25 @@
 <!DOCTYPE html>
+<!--
+  ═══════════════════════════════════════════════════════════════════════
+  ⚠️  REWRITE PER PRODUCT — DO NOT SHIP AS-IS
+  ───────────────────────────────────────────────────────────────────────
+  apply-template.mjs substituted Bitmoji Lab / v1.0.0 only.
+  The content below was inherited from bitmoji-lab and references
+  product-specific things: BBC micro:bit V2, X icon, BLE, P1, paintbrushes,
+  Tab 3/5/6, Canvas API, Neon/Arctic themes, etc.
+
+  Before printing:
+    1. Delete this banner.
+    2. Rewrite the Pre-flight checklist (left column) for YOUR product.
+    3. Rewrite the 8-row arc (Say + Do columns) — keep the time
+       boundaries (0-3 / 3-10 / 10-20 / 20-30 / 30-40 / 40-50 / 50-55
+       / 55-60); they are proven pacing.
+    4. Rewrite the Cheat card monospace block (bottom right) as 4 lines:
+       PRE / LAUNCH / DURING / AFTER / UPLOAD.
+    5. Keep the specs table (right column, top) — Etsy specs don't
+       change per product.
+  ═══════════════════════════════════════════════════════════════════════
+-->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -81,18 +102,15 @@
   <div>
     <h2>Pre-flight (90s)</h2>
     <ul>
-      <li>micro:bit V2 powered, firmware flashed (makecode.ts)</li>
-      <li>NeoPixel matrix wired: VCC→3V/ext · GND→GND · DIN→P0</li>
-      <li>External power connected if shooting 16×16</li>
-      <li>Chrome or Edge desktop open, <code>index.html</code> loaded</li>
-      <li>Web Serial connected — status <span class="ok">green</span>, picker showed <strong>CMSIS-DAP</strong></li>
-      <li>Mode auto-detected: <strong>MODE:8</strong> or <strong>MODE:16</strong> in log</li>
-      <li>Brightness slider at <strong>5% default</strong> (camera-friendly)</li>
+      <li>BBC micro:bit V2 on, X icon showing</li>
+      <li>Chrome/Edge open, <code>index.html</code> loaded</li>
+      <li>BLE paired — chip is <span class="ok">green</span></li>
+      <li>Theme: <strong>Neon</strong> (or Arctic for daylight)</li>
       <li>Language matches voiceover (EN / FR / AR)</li>
+      <li>micro:bit V2 paired (optional)</li>
+      <li>Tab 6 (3D) on Buggy or Robot Arm</li>
       <li>Phone in 9:16 on tripod, front-lit</li>
-      <li>Matrix angled to catch lens — no hotspot</li>
-      <li>Desk cleared — micro:bit + matrix + cable only</li>
-      <li>Props on standby: USB cable, external 5V pack for 16×16</li>
+      <li>Desk cleared — board + one prop only</li>
       <li>Captions app ready OR overlay plan</li>
       <li>Script read once, under 55s</li>
       <li>Phone silenced, kids/dogs warned</li>
@@ -108,21 +126,18 @@
       <tr><td><strong>Codec</strong></td><td>MP4 / H.264 + AAC</td></tr>
       <tr><td><strong>Size</strong></td><td>&lt; 100 MB</td></tr>
       <tr><td><strong>Audio</strong></td><td>Muted by default → <span class="warn">captions mandatory</span></td></tr>
-      <tr><td><strong>Cover</strong></td><td>First frame = thumbnail (lit matrix)</td></tr>
+      <tr><td><strong>Cover</strong></td><td>First frame = thumbnail</td></tr>
       <tr><td><strong>Hook</strong></td><td>First 3s decides the scroll</td></tr>
     </table>
 
-    <h2>Framing & lighting</h2>
+    <h2>During recording</h2>
     <ul>
-      <li>Two-shot: laptop screen left, matrix right</li>
-      <li>Matrix tilted ~15° toward lens — no glare</li>
-      <li>Key light soft, off-axis — don't wash the pixels</li>
-      <li>Brightness <strong>5%</strong> on camera looks like 50% to the eye</li>
-      <li>If 16×16, ramp brightness only after cover frame</li>
       <li>One scene per phase — don't cut every 2s</li>
       <li>Switch on words, not mid-sentence</li>
-      <li>1s pause on Send button</li>
+      <li>1s pause on Record button</li>
+      <li>Eye contact with lens on CTA</li>
       <li>Smile for final 3s — loop frame</li>
+      <li>If &gt; 55s, re-cut</li>
     </ul>
   </div>
 </div>
@@ -133,14 +148,14 @@
     <tr><th>Time</th><th>Say</th><th>Do / Click</th></tr>
   </thead>
   <tbody>
-    <tr><td class="t">0–3s</td>   <td class="say">"Paint pixels in your browser. Watch them glow on a real NeoPixel matrix."</td> <td class="do">Close-up NeoPixel matrix wired to micro:bit V2. USB cable in frame.</td></tr>
-    <tr><td class="t">3–10s</td>  <td class="say">"One cable, one click — Web Serial over USB."</td>                                <td class="do">Click Connect → picker shows CMSIS-DAP → status <span class="ok">green</span>.</td></tr>
-    <tr><td class="t">10–20s</td> <td class="say">"Pick an emoji from 100+ — send it."</td>                                         <td class="do">Emoji Library → tap a face → Send. Cut to matrix lighting up.</td></tr>
-    <tr><td class="t">20–30s</td> <td class="say">"Or paint your own — click, drag, Shift-click to erase."</td>                     <td class="do">Magic Paintbrush, click-drag a heart, Shift-click one pixel. Send.</td></tr>
-    <tr><td class="t">30–40s</td> <td class="say">"Auto-switches 8×8 or 16×16. Save designs by name. Brightness stays kind."</td>   <td class="do">Toggle 16×16 (MODE:16). Save as "My Heart". Slider at 5%.</td></tr>
-    <tr><td class="t">40–50s</td> <td class="say">"Ten built-in animations — one click and it dances."</td>                         <td class="do">Click Rainbow Wave. Matrix rolls color. TX/RX/ACK ticks in log.</td></tr>
-    <tr><td class="t">50–55s</td> <td class="say">"Link below — code BITMOJI5 drops it to five dollars."</td>                       <td class="do">Face-cam. Eye contact with lens.</td></tr>
-    <tr><td class="t">55–60s</td> <td class="say">"Paint • Glow • Share."</td>                                                      <td class="do">Hold on glowing matrix. Logo + handle freeze. Loop frame.</td></tr>
+    <tr><td class="t">0–3s</td>   <td class="say">"Your micro:bit becomes a playground — in the browser, in 60 seconds."</td> <td class="do">Close-up real board with X icon. Hand holds it.</td></tr>
+    <tr><td class="t">3–10s</td>  <td class="say">"One page, one click, paired."</td>                                          <td class="do">Cut to laptop. Click Connect → pick board → chip <span class="ok">green</span>.</td></tr>
+    <tr><td class="t">10–20s</td> <td class="say">"Sensors live — tilt it, the 3D model tilts too."</td>                      <td class="do">Tab 6 · Pixel Canvas. Tilt real board. Virtual mirrors.</td></tr>
+    <tr><td class="t">20–30s</td> <td class="say">"Click through the live demo — features run in the browser."</td>          <td class="do">Click through the live demo; features run in the browser.</td></tr>
+    <tr><td class="t">30–40s</td> <td class="say">"Live graph with record, replay, CSV. A lab in a browser tab."</td>         <td class="do">Tab 5 · Graph → Simulate → hover Record and CSV.</td></tr>
+    <tr><td class="t">40–50s</td> <td class="say">"4 themes, 3 languages, works offline, no install, no account."</td>        <td class="do">Theme dropdown → Neon → Arctic. Quick swap.</td></tr>
+    <tr><td class="t">50–55s</td> <td class="say">"Link below — lifetime updates, teachers and kids welcome."</td>            <td class="do">Face-cam. Eye contact with lens.</td></tr>
+    <tr><td class="t">55–60s</td> <td class="say">"Happy hacking."</td>                                                       <td class="do">Hold still. Logo + handle freeze. Loop frame.</td></tr>
   </tbody>
 </table>
 
@@ -151,22 +166,21 @@
       <li>Watch once, eyes off script</li>
       <li>Trim to 55s (iMovie / CapCut / DaVinci)</li>
       <li>Burn in captions — centered below subject</li>
-      <li>On-screen overlays: "Web Serial · USB · Chrome" at 0:03; "100+ emoji · 8×8 / 16×16" at 0:15; "BITMOJI5 → $5" at 0:50</li>
-      <li>Set first frame = lit matrix close-up</li>
+      <li>Set first frame = strong still visual</li>
       <li>Export MP4/H.264, &lt; 100 MB</li>
       <li>Upload · verify autoplay · phone + sound off</li>
     </ul>
   </div>
   <div>
     <h2>Cheat card</h2>
-<div class="cheat">PRE     micro:bit V2 · DIN→P0 · ext 5V for 16×16
-        Chrome desktop · Web Serial · 5% bright
-LAUNCH  lit matrix in first 3s · hook on pixels
-DURING  emoji→Send · paint→Send · Rainbow Wave
-        TX/RX/ACK visible in Communication Log
-AFTER   Stop → trim 55s → captions → overlays
-        first frame = glowing matrix
-UPLOAD  echo "Paint · Glow · Share" in title</div>
+<div class="cheat">PRE     V2=X · Chrome · BLE green
+        9:16 phone · Neon · desk clean
+LAUNCH  first words land in first 3s
+DURING  tilt→3D · A→LED · slider→paintbrush
+        Simulate→graph
+AFTER   Stop → trim 55s → captions
+        first frame = thumbnail
+UPLOAD  echo first words in title</div>
   </div>
 </div>
 

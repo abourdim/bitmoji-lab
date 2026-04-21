@@ -137,13 +137,13 @@ The HTML sources ship too, so teachers can tweak them.
   elements, each 2000×1500 px. Rendered by `build-package.js` into
   `output/etsy-mockup-1.png` … `etsy-mockup-7.png`.
 - **The seven mockups:**
-  1. **Hero shot** — product name + tagline on a dark background
-  2. **What's in the ZIP** — file manifest
-  3. **16-cell feature grid** — product features
-  4. **Teacher pitch** — "For teachers" with quotes
-  5. **Kid pitch** — big, playful, colorful
-  6. **Demos showcase** — the 10 built-in animations
-  7. **Trilingual seller-playbook callout** — EN / FR / AR
+  1. **Hero shot** — product name + tagline on Stealth background
+  2. **16-cell feature grid** — 7 emoji categories × features
+  3. **Teacher pitch** — "For teachers" with quotes
+  4. **Kid pitch** — big, playful, colorful
+  5. **What's in the ZIP** — file manifest
+  6. **4-theme showcase** — Stealth / Neon / Arctic / Blaze
+  7. **Trilingual callout** — EN / FR / AR
 - **When to use:** upload as the 7 listing images on Etsy in this order.
   Etsy shows the first image as the thumbnail in search.
 
