@@ -219,7 +219,7 @@ browser-based · no-install · privacy-first · offline-capable · web bluetooth
 3. **Live graph** — Canvas API close-up with colored lines + annotations, Record button glowing red.
 4. **3D models** — split screenshot of Robot + Robot Arm.
 5. **Hand-holding** — real paintbrush plugged into P1, sliders on the screen.
-6. **Theme sampler** — 2×2 grid: Stealth · Neon · Arctic · Blaze.
+6. **Theme sampler** — 2×2 grid: Default · Dark · Light · Accent.
 7. **License card** — "Single-user license · Lifetime updates · No cloud · Chrome / Edge" on a dark gradient.
 
 ---
